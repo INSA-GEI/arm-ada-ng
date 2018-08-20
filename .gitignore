@@ -67,6 +67,11 @@ Project Logs for*/
 *.tar.*
 *.7z
 
+# documentations
+*.pdf
+*.chm
+
+
 # temporary
 cgpu
 firmware/Utilities/Media
