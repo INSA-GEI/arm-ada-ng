@@ -71,6 +71,9 @@ Project Logs for*/
 *.pdf
 *.chm
 
+# kicad
+*.bak
+*.kicad_pcb-bak
 
 # temporary
 cgpu

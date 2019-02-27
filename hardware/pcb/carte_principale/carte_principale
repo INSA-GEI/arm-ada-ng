@@ -1,0 +1,13 @@
+Reference, Value, Footprint, Datasheet
+"J1","Arduino_UNO_R2","Insa:Arduino_UNO_Pin_Only","https://www.arduino.cc/en/Main/arduinoBoardUno"
+"U2","LSM6DS3","Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y","www.st.com/resource/en/datasheet/lsm6ds3.pdf"
+"U3","BMP280","Package_LGA:Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering","https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMP280-DS001-19.pdf"
+"U5","74AHC1G125","Package_TO_SOT_SMD:SOT-353_SC-70-5","http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf"
+"U4","74AHCT1G04","Package_TO_SOT_SMD:SOT-353_SC-70-5","http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf"
+"U6","74LS166","Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","http://www.ti.com/lit/gpn/sn74LS166"
+"U1","ESP-WROOM-02","RF_Module:ESP-WROOM-02","https://www.espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf"
+"U7","LIS2MDL","Package_LGA:LGA-12_2x2mm_P0.5mm","https://www.st.com/resource/en/datasheet/lis2mdl.pdf"
+"P1","TE-FFC-10-0.5","Insa:FFC-10-0.5",""
+"P2","TE-FFC-10-0.5","Insa:FFC-10-0.5",""
+"J2","Conn_01x02","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","~"
+"J3","Conn_01x02","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","~"
