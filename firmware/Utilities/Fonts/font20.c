@@ -2177,13 +2177,6 @@ const uint8_t Font20_Table[] =
 	0x00, 0x00, //               
 };
 
-
-sFONT Font20 = {
-  Font20_Table,
-  14, /* Width */
-  20, /* Height */
-};
-
 /**
   * @}
   */ 

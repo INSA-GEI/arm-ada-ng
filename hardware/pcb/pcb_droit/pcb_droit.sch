@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:pcb_droit-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
@@ -176,17 +177,6 @@ F 3 "~" H 1950 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R2
-U 1 1 5C793610
-P 1950 5750
-F 0 "R2" H 1880 5704 50  0000 R CNN
-F 1 "R" H 1880 5795 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 1880 5750 50  0001 C CNN
-F 3 "~" H 1950 5750 50  0001 C CNN
-	1    1950 5750
-	-1   0    0    1   
-$EndComp
-$Comp
 L power:GND #PWR0103
 U 1 1 5C7938F7
 P 1950 6250
@@ -197,8 +187,6 @@ F 3 "" H 1950 6250 50  0001 C CNN
 	1    1950 6250
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1950 5900 1950 5950
 Wire Wire Line
 	1950 5550 1950 5600
 $Comp
@@ -237,17 +225,6 @@ F 3 "~" H 2850 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R4
-U 1 1 5C795C8C
-P 2850 5750
-F 0 "R4" H 2780 5704 50  0000 R CNN
-F 1 "R" H 2780 5795 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 2780 5750 50  0001 C CNN
-F 3 "~" H 2850 5750 50  0001 C CNN
-	1    2850 5750
-	-1   0    0    1   
-$EndComp
-$Comp
 L power:GND #PWR0105
 U 1 1 5C795C93
 P 2850 6250
@@ -258,8 +235,6 @@ F 3 "" H 2850 6250 50  0001 C CNN
 	1    2850 6250
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2850 5900 2850 5950
 Wire Wire Line
 	2850 5550 2850 5600
 $Comp
@@ -298,17 +273,6 @@ F 3 "~" H 3700 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R6
-U 1 1 5C79623C
-P 3700 5750
-F 0 "R6" H 3630 5704 50  0000 R CNN
-F 1 "R" H 3630 5795 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 3630 5750 50  0001 C CNN
-F 3 "~" H 3700 5750 50  0001 C CNN
-	1    3700 5750
-	-1   0    0    1   
-$EndComp
-$Comp
 L power:GND #PWR0107
 U 1 1 5C796243
 P 3700 6250
@@ -319,8 +283,6 @@ F 3 "" H 3700 6250 50  0001 C CNN
 	1    3700 6250
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3700 5900 3700 5950
 Wire Wire Line
 	3700 5550 3700 5600
 $Comp
@@ -359,17 +321,6 @@ F 3 "~" H 4500 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R8
-U 1 1 5C79684A
-P 4500 5750
-F 0 "R8" H 4430 5704 50  0000 R CNN
-F 1 "R" H 4430 5795 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4430 5750 50  0001 C CNN
-F 3 "~" H 4500 5750 50  0001 C CNN
-	1    4500 5750
-	-1   0    0    1   
-$EndComp
-$Comp
 L power:GND #PWR0109
 U 1 1 5C796851
 P 4500 6250
@@ -380,8 +331,6 @@ F 3 "" H 4500 6250 50  0001 C CNN
 	1    4500 6250
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4500 5900 4500 5950
 Wire Wire Line
 	4500 5550 4500 5600
 $Comp
@@ -409,22 +358,18 @@ Wire Wire Line
 	1950 5600 2300 5600
 Wire Wire Line
 	2300 5600 2300 6350
-Connection ~ 1950 5600
 Wire Wire Line
 	2850 5600 3150 5600
 Wire Wire Line
 	3150 5600 3150 6350
-Connection ~ 2850 5600
 Wire Wire Line
 	3700 5600 4000 5600
 Wire Wire Line
 	4000 5600 4000 6350
-Connection ~ 3700 5600
 Wire Wire Line
 	4500 5600 4850 5600
 Wire Wire Line
 	4850 5600 4850 6350
-Connection ~ 4500 5600
 Text Label 2300 6050 3    50   ~ 0
 Key_A
 Text Label 3150 6300 1    50   ~ 0
@@ -491,4 +436,16 @@ Wire Wire Line
 	3250 1350 4150 1350
 Text Label 3950 1350 0    50   ~ 0
 Key_Rst
+Wire Wire Line
+	4500 5600 4500 5950
+Connection ~ 4500 5600
+Wire Wire Line
+	3700 5600 3700 5950
+Connection ~ 3700 5600
+Wire Wire Line
+	2850 5600 2850 5950
+Connection ~ 2850 5600
+Wire Wire Line
+	1950 5600 1950 5950
+Connection ~ 1950 5600
 $EndSCHEMATC

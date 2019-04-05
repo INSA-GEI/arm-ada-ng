@@ -93,14 +93,14 @@ int main(void)
   uint8_t  lcd_status = LCD_OK;
   //volatile uint32_t valRng;
 
-  /* Enable the CPU Cache */
-  //CPU_CACHE_Enable();
-  
   /* Enable the FPU */
   CPU_EnableFPU();
 
   /* Enable User fault, Bus fault, Memory Fault handlers */
   CPU_EnableFaultHandler();
+
+  /* Enable the CPU Cache */
+  CPU_CACHE_Enable();
 
   /* STM32F7xx HAL library initialization:
        - Configure the Flash prefetch, instruction and Data caches
@@ -242,21 +242,21 @@ static void Display_DemoDescription(void)
   BSP_LCD_SetTextColor(LCD_COLOR_DARKBLUE);
 
   /* Display LCD messages */
-  BSP_LCD_DisplayStringAt(0, 10, (uint8_t *)"STM32F746G BSP", CENTER_MODE);
-  BSP_LCD_DisplayStringAt(0, 35, (uint8_t *)"Drivers examples", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 10, (uint8_t *)"ARM-ADA Next Gen", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 35, (uint8_t *)"Firmware tests", CENTER_MODE);
 
   /* Draw Bitmap */
   BSP_LCD_DrawBitmap((BSP_LCD_GetXSize() - 80) / 2, 65, (uint8_t *)stlogo);
 
   BSP_LCD_SetFont(&Font12);
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t *)"Copyright (c) STMicroelectronics 2015", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t *)"INSA - GEI 2019", CENTER_MODE);
 
   BSP_LCD_SetFont(&Font16);
   BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
   BSP_LCD_FillRect(0, BSP_LCD_GetYSize() / 2 + 15, BSP_LCD_GetXSize(), 60);
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
   BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 30, (uint8_t *)"Press User Button to start :", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 30, (uint8_t *)"Press A to start ", CENTER_MODE);
   sprintf((char *)desc, "%s example", BSP_examples[DemoIndex].DemoName);
   BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 45, (uint8_t *)desc, CENTER_MODE);
 }
