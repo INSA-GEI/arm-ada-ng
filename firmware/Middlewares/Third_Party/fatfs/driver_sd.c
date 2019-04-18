@@ -50,7 +50,7 @@
 #define BUFFER_WORDS_SIZE        ((512) >> 2) /* Total data size in bytes */
 
 static uint32_t aTxBuffer[BUFFER_WORDS_SIZE];
-static uint32_t aRxBuffer[BUFFER_WORDS_SIZE];
+//static uint32_t aRxBuffer[BUFFER_WORDS_SIZE];
 
 /* MMC/SD command */
 #define CMD0	(0)			/* GO_IDLE_STATE */

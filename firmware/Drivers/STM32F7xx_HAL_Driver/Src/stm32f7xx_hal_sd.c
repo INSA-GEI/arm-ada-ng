@@ -766,7 +766,7 @@ HAL_StatusTypeDef HAL_SD_WriteBlocks(SD_HandleTypeDef *hsd, uint8_t *pData, uint
         tempbuff += 8U;
         supercount +=8;
 
-        if (tempbuff >= (0x20050000-8))
+        if ((int)tempbuff >= (0x20050000-8))
         {
         	return HAL_OK;
         }

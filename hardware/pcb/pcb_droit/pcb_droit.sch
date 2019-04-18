@@ -26,17 +26,6 @@ F 3 "" H 9900 3200 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Switch:SW_Push SW_A1
-U 1 1 5C77EAF2
-P 3050 1750
-F 0 "SW_A1" H 3050 2035 50  0000 C CNN
-F 1 "SW_Push" H 3050 1944 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 3050 1950 50  0001 C CNN
-F 3 "~" H 3050 1950 50  0001 C CNN
-	1    3050 1750
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0101
 U 1 1 5C790851
 P 9500 3950
@@ -448,4 +437,15 @@ Connection ~ 2850 5600
 Wire Wire Line
 	1950 5600 1950 5950
 Connection ~ 1950 5600
+$Comp
+L Switch:SW_Push SW_A1
+U 1 1 5CB760F5
+P 3050 1750
+F 0 "SW_A1" H 3050 2035 50  0000 C CNN
+F 1 "SW_Push" H 3050 1944 50  0000 C CNN
+F 2 "Insa:RubberKey" H 3050 1950 50  0001 C CNN
+F 3 "~" H 3050 1950 50  0001 C CNN
+	1    3050 1750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

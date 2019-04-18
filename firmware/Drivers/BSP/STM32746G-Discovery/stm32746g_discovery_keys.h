@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    stm32746g_discovery_qspi.h
-  * @author  MCD Application Team
+  * @file    stm32746g_discovery_keys.h
+  * @author  dimercur
   * @brief   This file contains the common defines and functions prototypes for
-  *          the stm32746g_discovery_qspi.c driver.
+  *          the stm32746g_discovery_keys.c driver.
   ******************************************************************************
   * @attention
   *
@@ -43,8 +43,8 @@
   */
     
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32746G_DISCOVERY_QSPI_H
-#define __STM32746G_DISCOVERY_QSPI_H
+#ifndef __STM32746G_DISCOVERY_KEYS_H
+#define __STM32746G_DISCOVERY_KEYS_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -52,99 +52,76 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
-#include "../Components/n25q128a/n25q128a.h"
 
-/** @addtogroup STM32746G_DISCOVERY_QSPI
+/** @addtogroup STM32746G_DISCOVERY_KEYS
   * @{
   */    
 
   
 /* Exported constants --------------------------------------------------------*/ 
-/** @defgroup STM32746G_DISCOVERY_QSPI_Exported_Constants STM32746G_DISCOVERY_QSPI Exported Constants
+/** @defgroup STM32746G_DISCOVERY_KEYS_Exported_Constants STM32746G_DISCOVERY_KEYS Exported Constants
   * @{
   */
-/* QSPI Error codes */
-#define QSPI_OK            ((uint8_t)0x00)
-#define QSPI_ERROR         ((uint8_t)0x01)
-#define QSPI_BUSY          ((uint8_t)0x02)
-#define QSPI_NOT_SUPPORTED ((uint8_t)0x04)
-#define QSPI_SUSPENDED     ((uint8_t)0x08)
+/* KEYS Error codes */
+#define KEYS_OK            ((uint8_t)0x00)
+#define KEYS_ERROR         ((uint8_t)0x01)
+#define KEYS_BUSY          ((uint8_t)0x02)
 
+#define KEYS_PRESSED       ((uint8_t)0x81)
+#define KEYS_RELEASED      ((uint8_t)0x80)
 
-/* Definition for QSPI clock resources */
-#define QSPI_CLK_ENABLE()          __HAL_RCC_QSPI_CLK_ENABLE()
-#define QSPI_CLK_DISABLE()         __HAL_RCC_QSPI_CLK_DISABLE()
-#define QSPI_CS_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
-#define QSPI_CLK_GPIO_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
-#define QSPI_D0_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOD_CLK_ENABLE()
-#define QSPI_D1_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOD_CLK_ENABLE()
-#define QSPI_D2_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOE_CLK_ENABLE()
-#define QSPI_D3_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOD_CLK_ENABLE()
+/* Definition for SPI clock resources */
+#define KEYS_CLK_ENABLE()            __HAL_RCC_SPI2_CLK_ENABLE()
+#define KEYS_CLK_DISABLE()           __HAL_RCC_SPI2_CLK_DISABLE()
+#define KEYS_CS_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOG_CLK_ENABLE()
+#define KEYS_CLK_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
+#define KEYS_MISO_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
 
-#define QSPI_FORCE_RESET()         __HAL_RCC_QSPI_FORCE_RESET()
-#define QSPI_RELEASE_RESET()       __HAL_RCC_QSPI_RELEASE_RESET()
+/* Definition for SPI Pins */
+#define KEYS_CS_PIN                GPIO_PIN_7
+#define KEYS_CS_GPIO_PORT          GPIOG
+#define KEYS_CLK_PIN               GPIO_PIN_1
+#define KEYS_CLK_GPIO_PORT         GPIOI
+#define KEYS_MISO_PIN              GPIO_PIN_14
+#define KEYS_MISO_GPIO_PORT        GPIOB
 
-/* Definition for QSPI Pins */
-#define QSPI_CS_PIN                GPIO_PIN_6
-#define QSPI_CS_GPIO_PORT          GPIOB
-#define QSPI_CLK_PIN               GPIO_PIN_2
-#define QSPI_CLK_GPIO_PORT         GPIOB
-#define QSPI_D0_PIN                GPIO_PIN_11
-#define QSPI_D0_GPIO_PORT          GPIOD
-#define QSPI_D1_PIN                GPIO_PIN_12
-#define QSPI_D1_GPIO_PORT          GPIOD
-#define QSPI_D2_PIN                GPIO_PIN_2
-#define QSPI_D2_GPIO_PORT          GPIOE
-#define QSPI_D3_PIN                GPIO_PIN_13
-#define QSPI_D3_GPIO_PORT          GPIOD
+/* Definition for keys position */
+#define KEYS_A					   ((uint8_t)1>>0)
+#define KEYS_B					   ((uint8_t)1>>1)
+#define KEYS_X					   ((uint8_t)1>>2)
+#define KEYS_Y					   ((uint8_t)1>>3)
+#define KEYS_UP					   ((uint8_t)1>>4)
+#define KEYS_DOWN				   ((uint8_t)1>>5)
+#define KEYS_LEFT				   ((uint8_t)1>>6)
+#define KEYS_RIGHT				   ((uint8_t)1>>7)
 
-/* N25Q128A13EF840E Micron memory */
-/* Size of the flash */
-#define QSPI_FLASH_SIZE            23     /* Address bus width to access whole memory space */
-#define QSPI_PAGE_SIZE             256
-
-/* This alias is added as the name of Memory mapped fucntion changed */   
-#define BSP_QSPI_MemoryMappedMode  BSP_QSPI_EnableMemoryMappedMode   
 /**
   * @}
   */
 
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup STM32746G_DISCOVERY_QSPI_Exported_Types STM32746G_DISCOVERY_QSPI Exported Types
+/** @defgroup STM32746G_DISCOVERY_KEYS_Exported_Types STM32746G_DISCOVERY_KEYS Exported Types
   * @{
   */
-/* QSPI Info */
-typedef struct {
-  uint32_t FlashSize;          /*!< Size of the flash */
-  uint32_t EraseSectorSize;    /*!< Size of sectors for the erase operation */
-  uint32_t EraseSectorsNumber; /*!< Number of sectors for the erase operation */
-  uint32_t ProgPageSize;       /*!< Size of pages for the program operation */
-  uint32_t ProgPagesNumber;    /*!< Number of pages for the program operation */
-} QSPI_Info;
 
-/**
+ /**
   * @}
   */
 
-  
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup STM32746G_DISCOVERY_QSPI_Exported_Functions
+/** @addtogroup STM32746G_DISCOVERY_KEYS_Exported_Functions
   * @{
   */  
-uint8_t BSP_QSPI_Init       (void);
-uint8_t BSP_QSPI_DeInit     (void);
-uint8_t BSP_QSPI_Read       (uint8_t* pData, uint32_t ReadAddr, uint32_t Size);
-uint8_t BSP_QSPI_Write      (uint8_t* pData, uint32_t WriteAddr, uint32_t Size);
-uint8_t BSP_QSPI_Erase_Block(uint32_t BlockAddress);
-uint8_t BSP_QSPI_Erase_Chip (void);
-uint8_t BSP_QSPI_GetStatus  (void);
-uint8_t BSP_QSPI_GetInfo    (QSPI_Info* pInfo);
-uint8_t BSP_QSPI_EnableMemoryMappedMode(void);
+uint8_t BSP_KEYS_Init       (void);
+uint8_t BSP_KEYS_DeInit     (void);
+uint8_t BSP_KEYS_Read       (void);
+uint8_t BSP_KEYS_GetKey     (uint8_t key);
+uint8_t BSP_KEYS_GetKeys    (void);
 
 /* These functions can be modified in case the current settings
    need to be changed for specific application needs */
-void BSP_QSPI_MspInit(QSPI_HandleTypeDef *hqspi, void *Params);
-void BSP_QSPI_MspDeInit(QSPI_HandleTypeDef *hqspi, void *Params);
+void BSP_KEYS_MspInit		(void);
+void BSP_KEYS_MspDeInit		(void);
 
 /**
   * @}
@@ -158,7 +135,7 @@ void BSP_QSPI_MspDeInit(QSPI_HandleTypeDef *hqspi, void *Params);
 }
 #endif
 
-#endif /* __STM32746G_DISCOVERY_QSPI_H */
+#endif /* __STM32746G_DISCOVERY_KEYS_H */
 /**
   * @}
   */ 

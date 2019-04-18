@@ -148,8 +148,8 @@ static LCD_DrawPropTypeDef DrawProp[MAX_LAYER_NUMBER];
 static void DrawChar(uint16_t Xpos, uint16_t Ypos, const uint8_t *c);
 static void FillTriangle(uint16_t x1, uint16_t x2, uint16_t x3, uint16_t y1, uint16_t y2, uint16_t y3);
 static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t OffLine, uint32_t ColorIndex);
-static void LL_ConvertLineToARGB8888(void * pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode);
-static void LL_ConvertLineToARGB8888WithHeight(void *pSrc, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t ColorMode);
+//static void LL_ConvertLineToARGB8888(void * pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode);
+//static void LL_ConvertLineToARGB8888WithHeight(void *pSrc, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t ColorMode);
 static void LL_ConvertLineToRGB565WithHeight(void *pSrc, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t ColorMode);
 
 /**
@@ -1068,7 +1068,7 @@ void BSP_LCD_DrawPixel(uint16_t Xpos, uint16_t Ypos, uint32_t RGB_Code)
   */
 void BSP_LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pbmp)
 {
-  uint32_t index = 0, width = 0, height = 0, bit_pixel = 0;
+  uint32_t width = 0, height = 0, bit_pixel = 0;
   uint32_t address;
   uint32_t input_color_mode = 0;
   
@@ -1656,72 +1656,34 @@ static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint3
   * @param  ColorMode: Input color mode   
   * @retval None
   */
-static void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode)
-{    
-  /* Configure the DMA2D Mode, Color Mode and output offset */
-  hDma2dHandler.Init.Mode         = DMA2D_M2M_PFC;
-  hDma2dHandler.Init.ColorMode    = DMA2D_ARGB8888;
-  hDma2dHandler.Init.OutputOffset = 0;     
-  
-  /* Foreground Configuration */
-  hDma2dHandler.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hDma2dHandler.LayerCfg[1].InputAlpha = 0xFF;
-  hDma2dHandler.LayerCfg[1].InputColorMode = ColorMode;
-  hDma2dHandler.LayerCfg[1].InputOffset = 0;
-  
-  hDma2dHandler.Instance = DMA2D; 
-  
-  /* DMA2D Initialization */
-  if(HAL_DMA2D_Init(&hDma2dHandler) == HAL_OK) 
-  {
-    if(HAL_DMA2D_ConfigLayer(&hDma2dHandler, 1) == HAL_OK) 
-    {
-      if (HAL_DMA2D_Start(&hDma2dHandler, (uint32_t)pSrc, (uint32_t)pDst, xSize, 1) == HAL_OK)
-      {
-        /* Polling For DMA transfer */  
-        HAL_DMA2D_PollForTransfer(&hDma2dHandler, 10);
-      }
-    }
-  } 
-}
-
-/**
-  * @brief  Converts a line to an ARGB8888 pixel format.
-  * @param  pSrc: Pointer to source buffer
-  * @param  pDst: Output color
-  * @param  xSize: Buffer width
-  * @param  ColorMode: Input color mode
-  * @retval None
-  */
-static void LL_ConvertLineToARGB8888WithHeight(void *pSrc, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t ColorMode)
-{
-  /* Configure the DMA2D Mode, Color Mode and output offset */
-  hDma2dHandler.Init.Mode         = DMA2D_M2M_PFC;
-  hDma2dHandler.Init.ColorMode    = DMA2D_ARGB8888;
-  //hDma2dHandler.Init.OutputOffset = 0;
-  hDma2dHandler.Init.OutputOffset = 480-xSize;
-
-  /* Foreground Configuration */
-  hDma2dHandler.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hDma2dHandler.LayerCfg[1].InputAlpha = 0xFF;
-  hDma2dHandler.LayerCfg[1].InputColorMode = ColorMode;
-  hDma2dHandler.LayerCfg[1].InputOffset = 0;
-
-  hDma2dHandler.Instance = DMA2D;
-
-  /* DMA2D Initialization */
-  if(HAL_DMA2D_Init(&hDma2dHandler) == HAL_OK)
-  {
-    if(HAL_DMA2D_ConfigLayer(&hDma2dHandler, 1) == HAL_OK)
-    {
-      if (HAL_DMA2D_Start(&hDma2dHandler, (uint32_t)pSrc, (uint32_t)pDst, xSize, ySize) == HAL_OK)
-      {
-        /* Polling For DMA transfer */
-        HAL_DMA2D_PollForTransfer(&hDma2dHandler, 10);
-      }
-    }
-  }
-}
+//static void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode)
+//{
+//  /* Configure the DMA2D Mode, Color Mode and output offset */
+//  hDma2dHandler.Init.Mode         = DMA2D_M2M_PFC;
+//  hDma2dHandler.Init.ColorMode    = DMA2D_ARGB8888;
+//  hDma2dHandler.Init.OutputOffset = 0;
+//
+//  /* Foreground Configuration */
+//  hDma2dHandler.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+//  hDma2dHandler.LayerCfg[1].InputAlpha = 0xFF;
+//  hDma2dHandler.LayerCfg[1].InputColorMode = ColorMode;
+//  hDma2dHandler.LayerCfg[1].InputOffset = 0;
+//
+//  hDma2dHandler.Instance = DMA2D;
+//
+//  /* DMA2D Initialization */
+//  if(HAL_DMA2D_Init(&hDma2dHandler) == HAL_OK)
+//  {
+//    if(HAL_DMA2D_ConfigLayer(&hDma2dHandler, 1) == HAL_OK)
+//    {
+//      if (HAL_DMA2D_Start(&hDma2dHandler, (uint32_t)pSrc, (uint32_t)pDst, xSize, 1) == HAL_OK)
+//      {
+//        /* Polling For DMA transfer */
+//        HAL_DMA2D_PollForTransfer(&hDma2dHandler, 10);
+//      }
+//    }
+//  }
+//}
 
 /**
  * @brief  Converts a line to an RGB565 pixel format.
