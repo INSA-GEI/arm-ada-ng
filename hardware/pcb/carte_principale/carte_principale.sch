@@ -5,9 +5,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
+Title "Carte Principale"
+Date "2019-04-26"
+Rev "02A"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -860,10 +860,10 @@ Connection ~ 6750 4000
 Wire Wire Line
 	6750 4000 7050 4000
 $Comp
-L power:VDD #PWR?
+L power:VDD #PWR0120
 U 1 1 5C7700B4
 P 5650 3900
-F 0 "#PWR?" H 5650 3750 50  0001 C CNN
+F 0 "#PWR0120" H 5650 3750 50  0001 C CNN
 F 1 "VDD" H 5667 4073 50  0000 C CNN
 F 2 "" H 5650 3900 50  0001 C CNN
 F 3 "" H 5650 3900 50  0001 C CNN
@@ -871,10 +871,10 @@ F 3 "" H 5650 3900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:VCC #PWR?
+L power:VCC #PWR0121
 U 1 1 5C7754BD
 P 5800 3900
-F 0 "#PWR?" H 5800 3750 50  0001 C CNN
+F 0 "#PWR0121" H 5800 3750 50  0001 C CNN
 F 1 "VCC" H 5817 4073 50  0000 C CNN
 F 2 "" H 5800 3900 50  0001 C CNN
 F 3 "" H 5800 3900 50  0001 C CNN
@@ -883,4 +883,15 @@ F 3 "" H 5800 3900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5650 3900 5800 3900
+$Comp
+L insa-sym:LOGO Logo1
+U 1 1 5CC35BF7
+P 7600 6850
+F 0 "Logo1" H 7600 6398 60  0001 C CNN
+F 1 "LOGO" H 7600 7302 60  0001 C CNN
+F 2 "Insa:insa-image" H 7600 6850 50  0001 C CNN
+F 3 "" H 7600 6850 50  0001 C CNN
+	1    7600 6850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

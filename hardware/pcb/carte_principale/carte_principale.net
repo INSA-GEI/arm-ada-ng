@@ -1,14 +1,14 @@
 (export (version D)
   (design
     (source /home/dimercur/Documents/Travail/git/arm-ada-ng/hardware/pcb/carte_principale/carte_principale.sch)
-    (date "mer. 27 févr. 2019 16:52:00 CET")
+    (date "ven. 26 avril 2019 15:20:28 CEST")
     (tool "Eeschema 5.0.2-bee76a0~70~ubuntu18.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
-        (title)
+        (title "Carte Principale")
         (company)
-        (rev)
-        (date)
+        (rev 02A)
+        (date 2019-04-26)
         (source carte_principale.sch)
         (comment (number 1) (value ""))
         (comment (number 2) (value ""))
@@ -152,7 +152,13 @@
       (datasheet ~)
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
       (sheetpath (names /) (tstamps /))
-      (tstamp 5C730929)))
+      (tstamp 5C730929))
+    (comp (ref Logo1)
+      (value LOGO)
+      (footprint Insa:insa-image)
+      (libsource (lib insa-sym) (part LOGO) (description ""))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 5CC35BF7)))
   (libparts
     (libpart (lib 74xGxx) (part 74LVC1G04)
       (aliases
@@ -405,7 +411,11 @@
         (pin (num 5) (name SDO) (type BiDi))
         (pin (num 6) (name VDDIO) (type power_in))
         (pin (num 7) (name GND) (type power_in))
-        (pin (num 8) (name VDD) (type power_in)))))
+        (pin (num 8) (name VDD) (type power_in))))
+    (libpart (lib insa-sym) (part LOGO)
+      (fields
+        (field (name Reference) "#G")
+        (field (name Value) LOGO))))
   (libraries
     (library (logical 74xGxx)
       (uri /home/dimercur/kicad/kicad-symbols/74xGxx.lib))
@@ -424,7 +434,9 @@
     (library (logical Sensor_Motion)
       (uri /home/dimercur/kicad/kicad-symbols/Sensor_Motion.lib))
     (library (logical Sensor_Pressure)
-      (uri /home/dimercur/kicad/kicad-symbols/Sensor_Pressure.lib)))
+      (uri /home/dimercur/kicad/kicad-symbols/Sensor_Pressure.lib))
+    (library (logical insa-sym)
+      (uri /home/dimercur/kicad/local-symbols/insa-sym.lib)))
   (nets
     (net (code 1) (name /Key_Right)
       (node (ref U6) (pin 11))

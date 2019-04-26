@@ -5,10 +5,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "Left side keys PCB"
+Date "2019-04-25"
+Rev "02A"
+Comp "INSA - Toulouse"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -31,7 +31,7 @@ U 1 1 5C77EAF2
 P 3050 1750
 F 0 "SW_UP1" H 3050 2035 50  0000 C CNN
 F 1 "SW_Push" H 3050 1944 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 3050 1950 50  0001 C CNN
+F 2 "Insa:RubberKey-4mm-2" H 3050 1950 50  0001 C CNN
 F 3 "~" H 3050 1950 50  0001 C CNN
 	1    3050 1750
 	1    0    0    -1  
@@ -106,7 +106,7 @@ U 1 1 5C791297
 P 3650 2150
 F 0 "SW_RIGHT1" H 3650 2435 50  0000 C CNN
 F 1 "SW_Push" H 3650 2344 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 3650 2350 50  0001 C CNN
+F 2 "Insa:RubberKey-4mm-2" H 3650 2350 50  0001 C CNN
 F 3 "~" H 3650 2350 50  0001 C CNN
 	1    3650 2150
 	1    0    0    -1  
@@ -117,7 +117,7 @@ U 1 1 5C7913B9
 P 2600 2150
 F 0 "SW_LEFT1" H 2600 2435 50  0000 C CNN
 F 1 "SW_Push" H 2600 2344 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 2600 2350 50  0001 C CNN
+F 2 "Insa:RubberKey-4mm-2" H 2600 2350 50  0001 C CNN
 F 3 "~" H 2600 2350 50  0001 C CNN
 	1    2600 2150
 	1    0    0    -1  
@@ -128,7 +128,7 @@ U 1 1 5C7914D9
 P 3050 2550
 F 0 "SW_DOWN1" H 3050 2835 50  0000 C CNN
 F 1 "SW_Push" H 3050 2744 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 3050 2750 50  0001 C CNN
+F 2 "Insa:RubberKey-4mm-2" H 3050 2750 50  0001 C CNN
 F 3 "~" H 3050 2750 50  0001 C CNN
 	1    3050 2550
 	1    0    0    -1  
@@ -430,4 +430,15 @@ Connection ~ 2850 5600
 Wire Wire Line
 	1950 5600 1950 5950
 Connection ~ 1950 5600
+$Comp
+L insa-sym:LOGO Logo1
+U 1 1 5CC16F2E
+P 7600 6800
+F 0 "Logo1" H 7600 6348 60  0001 C CNN
+F 1 "LOGO" H 7600 7252 60  0001 C CNN
+F 2 "Insa:insa-image" H 7600 6800 50  0001 C CNN
+F 3 "" H 7600 6800 50  0001 C CNN
+	1    7600 6800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
