@@ -59,17 +59,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6900 5450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74xGxx:74AHCT1G04 U4
-U 1 1 5C62B0A2
-P 4850 6450
-F 0 "U4" H 4850 6150 50  0000 C CNN
-F 1 "74AHCT1G04" H 4850 6050 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-353_SC-70-5" H 4850 6450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4850 6450 50  0001 C CNN
-	1    4850 6450
-	1    0    0    -1  
-$EndComp
-$Comp
 L 74xx:74LS166 U6
 U 1 1 5C62B37B
 P 5900 6150
@@ -138,12 +127,12 @@ $EndComp
 $Comp
 L power:VDD #PWR0105
 U 1 1 5C63EAB9
-P 6950 1400
-F 0 "#PWR0105" H 6950 1250 50  0001 C CNN
-F 1 "VDD" H 6967 1573 50  0000 C CNN
-F 2 "" H 6950 1400 50  0001 C CNN
-F 3 "" H 6950 1400 50  0001 C CNN
-	1    6950 1400
+P 8250 2100
+F 0 "#PWR0105" H 8250 1950 50  0001 C CNN
+F 1 "VDD" H 8267 2273 50  0000 C CNN
+F 2 "" H 8250 2100 50  0001 C CNN
+F 3 "" H 8250 2100 50  0001 C CNN
+	1    8250 2100
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -306,14 +295,11 @@ Connection ~ 2150 1450
 Wire Wire Line
 	6400 5450 6600 5450
 Wire Wire Line
-	5100 6450 5400 6450
-Wire Wire Line
 	5400 6650 4550 6650
 Wire Wire Line
 	4550 6650 4550 6450
 Wire Wire Line
 	4550 6450 4200 6450
-Connection ~ 4550 6450
 Wire Wire Line
 	7150 5450 7750 5450
 Wire Wire Line
@@ -449,25 +435,16 @@ Key_A
 Text Label 3400 4800 0    50   ~ 0
 Key_B
 Text Label 3400 4700 0    50   ~ 0
-Key_RST
+KEY_RST
 Text Label 3350 4300 0    50   ~ 0
 Audio_Right_1
 Text Label 3350 4500 0    50   ~ 0
 Audio_Right_2
 Wire Wire Line
-	3950 4400 3950 4600
-Wire Wire Line
 	3950 5200 3400 5200
 Wire Wire Line
 	3300 4400 3950 4400
 Connection ~ 3400 5200
-Wire Wire Line
-	3300 4600 3950 4600
-Connection ~ 3950 4600
-Wire Wire Line
-	3950 4600 3950 5200
-Wire Wire Line
-	3950 6150 3950 6350
 Wire Wire Line
 	3950 6950 3450 6950
 Wire Wire Line
@@ -478,11 +455,6 @@ Wire Wire Line
 Connection ~ 3950 6450
 Wire Wire Line
 	3950 6450 3950 6950
-Wire Wire Line
-	3300 6350 3950 6350
-Connection ~ 3950 6350
-Wire Wire Line
-	3950 6350 3950 6450
 Wire Wire Line
 	5400 5550 4750 5550
 Wire Wire Line
@@ -573,9 +545,7 @@ Wire Wire Line
 	8900 2200 8350 2200
 Text Label 8400 2200 0    50   ~ 0
 KEYS_EN
-Wire Wire Line
-	5100 6550 5400 6550
-Text Label 5100 6550 0    50   ~ 0
+Text Label 4800 6550 0    50   ~ 0
 SPI_SCK
 Wire Wire Line
 	5900 5150 5400 5150
@@ -604,7 +574,7 @@ SPI_MOSI
 Text Label 6000 2000 0    50   ~ 0
 SPI_MISO
 Text Label 5950 2100 0    50   ~ 0
-EN_BMP280
+BMP280_EN
 Wire Wire Line
 	4100 2300 4000 2300
 Wire Wire Line
@@ -623,7 +593,7 @@ I2C_SCL
 Wire Wire Line
 	5300 1700 5700 1700
 Text Label 5350 1700 0    50   ~ 0
-IT_LSM6DS3
+LSM6DS3_IT
 Wire Wire Line
 	1600 1900 1000 1900
 Wire Wire Line
@@ -635,7 +605,7 @@ I2C_SCL
 Text Label 1050 2000 0    50   ~ 0
 I2C_SDA
 Text Label 1050 2250 0    50   ~ 0
-IT_LIS2MDL
+LIS2MDL_IT
 Wire Wire Line
 	1600 2100 1500 2100
 Wire Wire Line
@@ -676,11 +646,11 @@ Wire Wire Line
 Wire Wire Line
 	8900 2800 8350 2800
 Text Label 8400 2800 0    50   ~ 0
-EN_BMP280
+BMP280_EN
 Text Label 8400 2300 0    50   ~ 0
-IT_LSM6DS3
+LSM6DS3_IT
 Text Label 8400 2400 0    50   ~ 0
-IT_LIS2MDL
+LIS2MDL_IT
 Wire Wire Line
 	8900 2900 8350 2900
 Wire Wire Line
@@ -804,23 +774,12 @@ Connection ~ 10100 4800
 $Comp
 L Device:C C5
 U 1 1 5C72BC25
-P 7050 4150
-F 0 "C5" H 7165 4196 50  0000 L CNN
-F 1 "100nF" H 7165 4105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 7088 4000 50  0001 C CNN
-F 3 "~" H 7050 4150 50  0001 C CNN
-	1    7050 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C4
-U 1 1 5C730929
-P 6450 4150
-F 0 "C4" H 6565 4196 50  0000 L CNN
-F 1 "100nF" H 6565 4105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 6488 4000 50  0001 C CNN
-F 3 "~" H 6450 4150 50  0001 C CNN
-	1    6450 4150
+P 6750 4150
+F 0 "C5" H 6865 4196 50  0000 L CNN
+F 1 "100nF" H 6865 4105 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 6788 4000 50  0001 C CNN
+F 3 "~" H 6750 4150 50  0001 C CNN
+	1    6750 4150
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -846,19 +805,9 @@ F 3 "" H 6750 4400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6450 4000 6750 4000
-Wire Wire Line
-	6450 4300 6750 4300
-Wire Wire Line
 	6750 4300 6750 4400
-Connection ~ 6750 4300
-Wire Wire Line
-	6750 4300 7050 4300
 Wire Wire Line
 	6750 3900 6750 4000
-Connection ~ 6750 4000
-Wire Wire Line
-	6750 4000 7050 4000
 $Comp
 L power:VDD #PWR0120
 U 1 1 5C7700B4
@@ -892,6 +841,86 @@ F 1 "LOGO" H 7600 7302 60  0001 C CNN
 F 2 "Insa:insa-image" H 7600 6850 50  0001 C CNN
 F 3 "" H 7600 6850 50  0001 C CNN
 	1    7600 6850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 1800 10450 1800
+Text Label 10050 1800 0    50   ~ 0
+KEY_RST
+Wire Wire Line
+	3950 4400 3950 5200
+Wire Wire Line
+	3950 6150 3950 6450
+Wire Wire Line
+	3300 6350 4050 6350
+Wire Wire Line
+	4050 6350 4050 5900
+Wire Wire Line
+	3300 4600 4050 4600
+Wire Wire Line
+	4050 4600 4050 4200
+$Comp
+L power:VDD #PWR0122
+U 1 1 5CDDD93F
+P 4050 4200
+F 0 "#PWR0122" H 4050 4050 50  0001 C CNN
+F 1 "VDD" H 4067 4373 50  0000 C CNN
+F 2 "" H 4050 4200 50  0001 C CNN
+F 3 "" H 4050 4200 50  0001 C CNN
+	1    4050 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VDD #PWR0123
+U 1 1 5CDE310B
+P 4050 5900
+F 0 "#PWR0123" H 4050 5750 50  0001 C CNN
+F 1 "VDD" H 4067 6073 50  0000 C CNN
+F 2 "" H 4050 5900 50  0001 C CNN
+F 3 "" H 4050 5900 50  0001 C CNN
+	1    4050 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C4
+U 1 1 5C730929
+P 7800 1950
+F 0 "C4" H 7915 1996 50  0000 L CNN
+F 1 "100nF" H 7915 1905 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 7838 1800 50  0001 C CNN
+F 3 "~" H 7800 1950 50  0001 C CNN
+	1    7800 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 1600 7800 1600
+Wire Wire Line
+	7800 1600 7800 1800
+Connection ~ 7550 1600
+Wire Wire Line
+	7800 2100 7800 2300
+Wire Wire Line
+	7800 2300 7550 2300
+Connection ~ 7550 2300
+Wire Wire Line
+	4750 6450 5400 6450
+Text Label 4800 6450 0    50   ~ 0
+KEYS_LOAD
+Wire Wire Line
+	4750 6550 5400 6550
+Wire Wire Line
+	8900 2700 8350 2700
+Text Label 8400 2700 0    50   ~ 0
+KEYS_LOAD
+$Comp
+L power:VDD #PWR?
+U 1 1 5CE25200
+P 6950 1400
+F 0 "#PWR?" H 6950 1250 50  0001 C CNN
+F 1 "VDD" H 6967 1573 50  0000 C CNN
+F 2 "" H 6950 1400 50  0001 C CNN
+F 3 "" H 6950 1400 50  0001 C CNN
+	1    6950 1400
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

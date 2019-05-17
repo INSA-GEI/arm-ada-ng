@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    stm32746g_discovery_keys.h
+  * @file    stm32746g_discovery_bus_mgr.h
   * @author  dimercur
   * @brief   This file contains the common defines and functions prototypes for
-  *          the stm32746g_discovery_keys.c driver.
+  *          the stm32746g_discovery_bus_mgr.c driver.
   ******************************************************************************
   * @attention
   *
@@ -43,8 +43,8 @@
   */
     
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32746G_DISCOVERY_KEYS_H
-#define __STM32746G_DISCOVERY_KEYS_H
+#ifndef __STM32746G_DISCOVERY_BUS_MGR_H
+#define __STM32746G_DISCOVERY_BUS_MGR_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -63,47 +63,39 @@
   * @{
   */
 /* KEYS Error codes */
-#define KEYS_OK            ((uint8_t)0x00)
-#define KEYS_ERROR         ((uint8_t)0x01)
-#define KEYS_BUSY          ((uint8_t)0x02)
+#define BUS_MGR_OK            ((uint8_t)0x00)
+#define BUS_MGR_ERROR         ((uint8_t)0x01)
+#define BUS_MGR_BUSY          ((uint8_t)0x02)
 
-#define KEYS_PRESSED       ((uint8_t)0x81)
-#define KEYS_RELEASED      ((uint8_t)0x80)
+#define BUS_MGR_CS_ACTIVE_HIGH		((uint8_t)0x0)
+#define BUS_MGR_CS_ACTIVE_LOW		((uint8_t)0x1)
 
 /* Definition for SPI clock resources */
-#define KEYS_CLK_ENABLE()            __HAL_RCC_SPI2_CLK_ENABLE()
-#define KEYS_CLK_DISABLE()           __HAL_RCC_SPI2_CLK_DISABLE()
-#define KEYS_CS_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOG_CLK_ENABLE()
-#define KEYS_CLK_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
-#define KEYS_MISO_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
-#define KEYS_LOAD_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOA_CLK_ENABLE()
+#define SPI_BUS_CLK_ENABLE()            __HAL_RCC_SPI2_CLK_ENABLE()
+#define SPI_BUS_CLK_DISABLE()           __HAL_RCC_SPI2_CLK_DISABLE()
+#define SPI_BUS_CLK_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
+#define SPI_BUS_MISO_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
+#define SPI_BUS_MOSI_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOA_CLK_ENABLE()
 
 /* Definition for SPI Pins */
-#define KEYS_CS_PIN                GPIO_PIN_7
-#define KEYS_CS_GPIO_PORT          GPIOG
-#define KEYS_CLK_PIN               GPIO_PIN_1
-#define KEYS_CLK_GPIO_PORT         GPIOI
-#define KEYS_MISO_PIN              GPIO_PIN_14
-#define KEYS_MISO_GPIO_PORT        GPIOB
-#define KEYS_LOAD_PIN              GPIO_PIN_15
-#define KEYS_LOAD_GPIO_PORT        GPIOA
+#define SPI_BUS_CLK_PIN               GPIO_PIN_1
+#define SPI_BUS_CLK_GPIO_PORT         GPIOI
+#define SPI_BUS_MISO_PIN              GPIO_PIN_14
+#define SPI_BUS_MISO_GPIO_PORT        GPIOB
+#define SPI_BUS_MOSI_PIN              GPIO_PIN_15
+#define SPI_BUS_MOSI_GPIO_PORT        GPIOA
 
-/* Definition for states pins */
-#define KEYS_CS_ENABLE				HAL_GPIO_WritePin(KEYS_CS_GPIO_PORT, KEYS_CS_PIN, GPIO_PIN_RESET )
-#define KEYS_CS_DISABLE				HAL_GPIO_WritePin(KEYS_CS_GPIO_PORT, KEYS_CS_PIN, GPIO_PIN_SET )
-#define KEYS_SET_PARALLEL_MODE		HAL_GPIO_WritePin(KEYS_LOAD_GPIO_PORT, KEYS_LOAD_PIN, GPIO_PIN_RESET )
-#define KEYS_SET_SERIAL_MODE		HAL_GPIO_WritePin(KEYS_LOAD_GPIO_PORT, KEYS_LOAD_PIN, GPIO_PIN_SET )
+typedef struct SpiBusStruct
+{
+	uint32_t CS_Pin;
+	uint32_t *CS_Port;
+	uint8_t CS_Polarity;
+};
 
-/* Definition for keys position */
-#define KEYS_A					   ((uint8_t)1>>0)
-#define KEYS_B					   ((uint8_t)1>>1)
-#define KEYS_X					   ((uint8_t)1>>2)
-#define KEYS_Y					   ((uint8_t)1>>3)
-#define KEYS_UP					   ((uint8_t)1>>4)
-#define KEYS_DOWN				   ((uint8_t)1>>5)
-#define KEYS_LEFT				   ((uint8_t)1>>6)
-#define KEYS_RIGHT				   ((uint8_t)1>>7)
-
+typedef struct I2CBusStruct
+{
+	uint8_t address;
+};
 /**
   * @}
   */
@@ -121,11 +113,14 @@
 /** @addtogroup STM32746G_DISCOVERY_KEYS_Exported_Functions
   * @{
   */  
-uint8_t BSP_KEYS_Init       (void);
-uint8_t BSP_KEYS_DeInit     (void);
-uint8_t BSP_KEYS_Read       (void);
-uint8_t BSP_KEYS_GetKey     (uint8_t key);
-uint8_t BSP_KEYS_GetKeys    (void);
+uint8_t BSP_BUS_Init       (void);
+uint8_t BSP_BUS_DeInit     (void);
+uint8_t BSP_BUS_SPI_Read (SpiBusStruct *hspi, uint8_t *val);
+uint8_t BSP_BUS_SPI_Write (SpiBusStruct *hspi, uint8_t val);
+uint8_t BSP_BUS_SPI_ReadWrite (SpiBusStruct *hspi, uint8_t *readVal, uint8_t writeVal);
+uint8_t BSP_BUS_I2C_Read (I2CBusStruct *hi2c, uint8_t* val);
+uint8_t BSP_BUS_I2C_Write (I2CBusStruct *hi2c, uint8_t val);
+uint8_t BSP_BUS_I2C_ReadWrite (I2CBusStruct *hi2c, uint8_t* readVal, uint8_t writeVal);
 
 /* These functions can be modified in case the current settings
    need to be changed for specific application needs */

@@ -68,6 +68,7 @@ static void MAIN_SystemInit(void);
 
 BSP_DemoTypedef  BSP_examples[] =
   {
+    {Keys_demo, "KEYS", 0},
     {FATFSSD_demo, "FATFS", 0},
     //{SD_demo, "mSD", 0},/*{LCD_demo, "LCD", 0},*/
     {Touchscreen_demo, "TOUCHSCREEN", 0},
@@ -347,8 +348,11 @@ static void MAIN_SystemInit(void)
 	/* Configure the User Button in GPIO Mode */
 	BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
 
-	/* Deinit RNG */
+	/* Init RNG */
 	RNG_InitGenerator();
+
+	/* Init Keys */
+	//BSP_KEYS_Init();
 }
 
 #ifdef USE_FULL_ASSERT
