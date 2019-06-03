@@ -1,0 +1,220 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L RF_Module:ESP-WROOM-02 U1
+U 1 1 5CE65986
+P 5050 2850
+F 0 "U1" H 5050 3628 50  0000 C CNN
+F 1 "ESP-WROOM-02" H 5050 3537 50  0000 C CNN
+F 2 "RF_Module:ESP-WROOM-02" H 5650 2300 50  0001 C CNN
+F 3 "https://www.espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf" H 5100 4350 50  0001 C CNN
+	1    5050 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x09 J1
+U 1 1 5CE65A0B
+P 3500 2850
+F 0 "J1" H 3420 3467 50  0000 C CNN
+F 1 "Conn_01x09" H 3420 3376 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical" H 3500 2850 50  0001 C CNN
+F 3 "~" H 3500 2850 50  0001 C CNN
+	1    3500 2850
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x09 J2
+U 1 1 5CE65B1A
+P 6650 2850
+F 0 "J2" H 6730 2892 50  0000 L CNN
+F 1 "Conn_01x09" H 6730 2801 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical" H 6650 2850 50  0001 C CNN
+F 3 "~" H 6650 2850 50  0001 C CNN
+	1    6650 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5050 2250 4250 2250
+Wire Wire Line
+	3700 2250 3700 2450
+Wire Wire Line
+	3700 2550 4050 2550
+Wire Wire Line
+	4050 2550 4050 2450
+Wire Wire Line
+	4050 2450 4550 2450
+Wire Wire Line
+	5050 3450 3700 3450
+Wire Wire Line
+	3700 3450 3700 3250
+Wire Wire Line
+	5550 3050 5800 3050
+Wire Wire Line
+	5800 3050 5800 3550
+Wire Wire Line
+	5800 3550 4050 3550
+Wire Wire Line
+	4050 3550 4050 2650
+Wire Wire Line
+	4050 2650 3700 2650
+Wire Wire Line
+	3700 2750 4000 2750
+Wire Wire Line
+	4000 2750 4000 3600
+Wire Wire Line
+	4000 3600 5850 3600
+Wire Wire Line
+	5850 3600 5850 2850
+Wire Wire Line
+	5850 2850 5550 2850
+Wire Wire Line
+	5550 2950 5900 2950
+Wire Wire Line
+	5900 2950 5900 3650
+Wire Wire Line
+	5900 3650 3950 3650
+Wire Wire Line
+	3950 3650 3950 2850
+Wire Wire Line
+	3950 2850 3700 2850
+Wire Wire Line
+	3700 2950 3900 2950
+Wire Wire Line
+	3900 2950 3900 3700
+Wire Wire Line
+	3900 3700 5750 3700
+Wire Wire Line
+	5750 3700 5750 3150
+Wire Wire Line
+	5750 3150 5550 3150
+Wire Wire Line
+	5550 2550 5950 2550
+Wire Wire Line
+	5950 2550 5950 3750
+Wire Wire Line
+	5950 3750 3850 3750
+Wire Wire Line
+	3850 3750 3850 3050
+Wire Wire Line
+	3850 3050 3700 3050
+Wire Wire Line
+	3700 3150 3800 3150
+Wire Wire Line
+	3800 3150 3800 3800
+Wire Wire Line
+	3800 3800 6000 3800
+Wire Wire Line
+	6000 3800 6000 2450
+Wire Wire Line
+	6000 2450 5550 2450
+Wire Wire Line
+	5550 2650 6200 2650
+Wire Wire Line
+	6200 2650 6200 2450
+Wire Wire Line
+	6200 2450 6450 2450
+Wire Wire Line
+	4550 2950 4300 2950
+Wire Wire Line
+	4300 2950 4300 3850
+Wire Wire Line
+	4300 3850 6100 3850
+Wire Wire Line
+	6100 3850 6100 2550
+Wire Wire Line
+	6100 2550 6450 2550
+Wire Wire Line
+	6450 2650 6250 2650
+Wire Wire Line
+	6250 2650 6250 3900
+Wire Wire Line
+	6250 3900 4400 3900
+Wire Wire Line
+	4400 3900 4400 3050
+Wire Wire Line
+	4400 3050 4550 3050
+Wire Wire Line
+	5550 2750 6300 2750
+Wire Wire Line
+	6300 2750 6300 2850
+Wire Wire Line
+	6300 2850 6450 2850
+Wire Wire Line
+	4550 2550 4200 2550
+Wire Wire Line
+	4200 2550 4200 4000
+Wire Wire Line
+	4200 4000 6300 4000
+Wire Wire Line
+	6300 4000 6300 2950
+Wire Wire Line
+	6300 2950 6450 2950
+Wire Wire Line
+	4550 2750 4250 2750
+Wire Wire Line
+	4250 2750 4250 3950
+Wire Wire Line
+	4250 3950 6350 3950
+Wire Wire Line
+	6350 3950 6350 3050
+Wire Wire Line
+	6350 3050 6450 3050
+Wire Wire Line
+	5550 3250 6150 3250
+Wire Wire Line
+	6150 3250 6150 3150
+Wire Wire Line
+	6150 3150 6450 3150
+$Comp
+L power:GND #PWR0101
+U 1 1 5CE6C089
+P 3700 3450
+F 0 "#PWR0101" H 3700 3200 50  0001 C CNN
+F 1 "GND" H 3705 3277 50  0000 C CNN
+F 2 "" H 3700 3450 50  0001 C CNN
+F 3 "" H 3700 3450 50  0001 C CNN
+	1    3700 3450
+	1    0    0    -1  
+$EndComp
+Connection ~ 3700 3450
+$Comp
+L power:+3.3V #PWR0102
+U 1 1 5CE6C0D0
+P 4250 2250
+F 0 "#PWR0102" H 4250 2100 50  0001 C CNN
+F 1 "+3.3V" H 4265 2423 50  0000 C CNN
+F 2 "" H 4250 2250 50  0001 C CNN
+F 3 "" H 4250 2250 50  0001 C CNN
+	1    4250 2250
+	1    0    0    -1  
+$EndComp
+Connection ~ 4250 2250
+Wire Wire Line
+	4250 2250 3700 2250
+$Comp
+L power:GND #PWR?
+U 1 1 5CE6C1D5
+P 6450 3350
+F 0 "#PWR?" H 6450 3100 50  0001 C CNN
+F 1 "GND" H 6455 3177 50  0000 C CNN
+F 2 "" H 6450 3350 50  0001 C CNN
+F 3 "" H 6450 3350 50  0001 C CNN
+	1    6450 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6450 3250 6450 3350
+$EndSCHEMATC

@@ -90,6 +90,8 @@ EndDependencies */
  * @{
  */
 SPI_HandleTypeDef SPIHandle;
+
+
 uint8_t KEYSBuffer;
 
 /**
@@ -119,7 +121,8 @@ uint8_t KEYSBuffer;
  */
 uint8_t BSP_KEYS_Init(void)
 { 
-	SPIHandle.Instance = SPI2;
+	/* SPi Configuration */
+	SPIHandle.Instance = KEYS_SPIx;
 
 	/* Call the DeInit function to reset the driver */
 	if (HAL_SPI_DeInit(&SPIHandle) != HAL_OK)
@@ -132,21 +135,24 @@ uint8_t BSP_KEYS_Init(void)
 
 	/* SPI2 initialization */
 	SPIHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
-	SPIHandle.Init.CLKPhase = SPI_PHASE_1EDGE;
-	SPIHandle.Init.CLKPolarity = SPI_POLARITY_LOW;
-	SPIHandle.Init.DataSize = SPI_DATASIZE_8BIT;
-	SPIHandle.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
-	SPIHandle.Init.FirstBit = SPI_FIRSTBIT_MSB;
-	SPIHandle.Init.Mode =  SPI_MODE_MASTER;
-	SPIHandle.Init.NSS = SPI_NSS_SOFT;
+	SPIHandle.Init.CLKPhase 		= SPI_PHASE_1EDGE;
+	SPIHandle.Init.CLKPolarity 		= SPI_POLARITY_LOW;
+	SPIHandle.Init.DataSize 		= SPI_DATASIZE_8BIT;
+	SPIHandle.Init.Direction 		= SPI_DIRECTION_2LINES;
+	SPIHandle.Init.FirstBit 		= SPI_FIRSTBIT_MSB;
+	SPIHandle.Init.Mode 			=  SPI_MODE_MASTER;
+	SPIHandle.Init.NSS 				= SPI_NSS_SOFT;
+	SPIHandle.Init.TIMode           = SPI_TIMODE_DISABLE;
+	SPIHandle.Init.CRCCalculation   = SPI_CRCCALCULATION_DISABLE;
+	SPIHandle.Init.CRCPolynomial    = 7;
 
 	if (HAL_SPI_Init(&SPIHandle) != HAL_OK)
 	{
 		return KEYS_ERROR;
 	}
 
-	HAL_GPIO_WritePin(KEYS_CS_GPIO_PORT, KEYS_CS_PIN, GPIO_PIN_SET );
-	HAL_GPIO_WritePin(KEYS_LOAD_GPIO_PORT, KEYS_LOAD_PIN, GPIO_PIN_SET );
+	KEYS_CS_DISABLE();
+	KEYS_SET_SERIAL_MODE();
 
 	return KEYS_OK;
 }
@@ -157,19 +163,10 @@ uint8_t BSP_KEYS_Init(void)
  */
 uint8_t BSP_KEYS_DeInit(void)
 { 
-	SPIHandle.Instance = SPI2;
+	KEYS_CS_DISABLE();
+	KEYS_SET_SERIAL_MODE();
 
-	/* Call the DeInit function to reset the driver */
-	if (HAL_SPI_DeInit(&SPIHandle) != HAL_OK)
-	{
-		return KEYS_ERROR;
-	}
-
-	/* System level De-initialization */
 	BSP_KEYS_MspDeInit();
-
-	HAL_GPIO_WritePin(KEYS_CS_GPIO_PORT, KEYS_CS_PIN, GPIO_PIN_SET );
-	HAL_GPIO_WritePin(KEYS_LOAD_GPIO_PORT, KEYS_LOAD_PIN, GPIO_PIN_SET );
 
 	return KEYS_OK;
 }
@@ -187,22 +184,22 @@ uint8_t BSP_KEYS_Read(void)
 	HAL_SuspendTick();
 
 	/* Enable Keys serializer */
-	KEYS_CS_ENABLE;
+	KEYS_CS_ENABLE();
 
 	/* Enable Parallel load (KEY_LOAD=0, PE) */
-	KEYS_SET_PARALLEL_MODE;
+	KEYS_SET_PARALLEL_MODE();
 
 	/* Do a dummy read (just to have 1 clock event for loading parallel data) */
 	status = HAL_SPI_Receive(&SPIHandle, &dummy,1,100);
 
 	/* Switch to serial mode */
-	KEYS_SET_SERIAL_MODE;
+	KEYS_SET_SERIAL_MODE();
 
 	/* Read data */
 	status = HAL_SPI_Receive(&SPIHandle, &KEYSBuffer,1,100);
 
 	/* Disable Keys serializer (free spi bus) */
-	KEYS_CS_DISABLE;
+	KEYS_CS_DISABLE();
 
 	if (status != HAL_OK)
 	{

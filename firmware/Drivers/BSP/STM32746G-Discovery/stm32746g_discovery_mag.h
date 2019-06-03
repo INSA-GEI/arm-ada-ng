@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    stm32746g_discovery_bus_mgr.h
+  * @file    stm32746g_discovery_mag.h
   * @author  dimercur
   * @brief   This file contains the common defines and functions prototypes for
-  *          the stm32746g_discovery_bus_mgr.c driver.
+  *          the stm32746g_discovery_mag.c driver.
   ******************************************************************************
   * @attention
   *
@@ -43,65 +43,60 @@
   */
     
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32746G_DISCOVERY_BUS_MGR_H
-#define __STM32746G_DISCOVERY_BUS_MGR_H
+#ifndef __STM32746G_DISCOVERY_MAG_H
+#define __STM32746G_DISCOVERY_MAG_H
 
 #ifdef __cplusplus
  extern "C" {
 #endif 
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f7xx_hal.h"
-
-/** @addtogroup STM32746G_DISCOVERY_KEYS
+#include "stm32746g_discovery.h"
+#include "../Components/lis2mdl/lis2mdl_reg.h"
+#include <string.h>
+/** @addtogroup STM32746G_DISCOVERY_MAG
   * @{
   */    
 
   
 /* Exported constants --------------------------------------------------------*/ 
-/** @defgroup STM32746G_DISCOVERY_KEYS_Exported_Constants STM32746G_DISCOVERY_KEYS Exported Constants
+/** @defgroup STM32746G_DISCOVERY_MAG_Exported_Constants STM32746G_DISCOVERY_MAG Exported Constants
   * @{
   */
 /* KEYS Error codes */
-#define BUS_MGR_OK            ((uint8_t)0x00)
-#define BUS_MGR_ERROR         ((uint8_t)0x01)
-#define BUS_MGR_BUSY          ((uint8_t)0x02)
+#define MAG_OK            ((uint8_t)0x00)
+#define MAG_ERROR         ((uint8_t)0x01)
+#define MAG_BUSY          ((uint8_t)0x02)
+#define MAG_NO_DATA       ((uint8_t)0x03)
 
-#define BUS_MGR_CS_ACTIVE_HIGH		((uint8_t)0x0)
-#define BUS_MGR_CS_ACTIVE_LOW		((uint8_t)0x1)
+#define MAG_I2Cx 						DISCOVERY_EXT_I2Cx
 
 /* Definition for SPI clock resources */
-#define SPI_BUS_CLK_ENABLE()            __HAL_RCC_SPI2_CLK_ENABLE()
-#define SPI_BUS_CLK_DISABLE()           __HAL_RCC_SPI2_CLK_DISABLE()
-#define SPI_BUS_CLK_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
-#define SPI_BUS_MISO_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
-#define SPI_BUS_MOSI_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOA_CLK_ENABLE()
+#define MAG_I2Cx_CLK_ENABLE()            __HAL_RCC_I2C1_CLK_ENABLE()
+#define MAG_I2Cx_CLK_DISABLE()           __HAL_RCC_I2C1_CLK_DISABLE()
+#define MAG_I2Cx_SDA_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOG_CLK_ENABLE()
+#define MAG_I2Cx_SCL_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
 
-/* Definition for SPI Pins */
-#define SPI_BUS_CLK_PIN               GPIO_PIN_1
-#define SPI_BUS_CLK_GPIO_PORT         GPIOI
-#define SPI_BUS_MISO_PIN              GPIO_PIN_14
-#define SPI_BUS_MISO_GPIO_PORT        GPIOB
-#define SPI_BUS_MOSI_PIN              GPIO_PIN_15
-#define SPI_BUS_MOSI_GPIO_PORT        GPIOA
+/* Definition for I2C Pins */
+#define MAG_I2Cx_SCL_PIN               	GPIO_PIN_1
+#define MAG_I2Cx_SCL_GPIO_PORT         	GPIOI
+#define MAG_I2Cx_SDA_PIN              	GPIO_PIN_14
+#define MAG_I2Cx_SDA_GPIO_PORT        	GPIOB
 
-typedef struct SpiBusStruct
-{
-	uint32_t CS_Pin;
-	uint32_t *CS_Port;
-	uint8_t CS_Polarity;
-};
+#define MAG_I2Cx_FORCE_RESET()        	__HAL_RCC_I2C1_FORCE_RESET()
+#define MAG_I2Cx_RELEASE_RESET()      	__HAL_RCC_I2C1_RELEASE_RESET()
+#define MAG_I2Cx_SCL_SDA_AF           	GPIO_AF4_I2C1
 
-typedef struct I2CBusStruct
-{
-	uint8_t address;
-};
+#define MAG_RCC_PERIPHCLK_I2Cx         	RCC_PERIPHCLK_I2C1
+#define MAG_RCC_I2CxCLKSOURCE_SYSCLK   	RCC_I2C1CLKSOURCE_PCLK1
+
+#define MAG_I2C_TIMING 					DISCOVERY_I2Cx_TIMING
 /**
   * @}
   */
 
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup STM32746G_DISCOVERY_KEYS_Exported_Types STM32746G_DISCOVERY_KEYS Exported Types
+/** @defgroup STM32746G_DISCOVERY_MAG_Exported_Types STM32746G_DISCOVERY_MAG Exported Types
   * @{
   */
 
@@ -110,22 +105,19 @@ typedef struct I2CBusStruct
   */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup STM32746G_DISCOVERY_KEYS_Exported_Functions
+/** @addtogroup STM32746G_DISCOVERY_MAG_Exported_Functions
   * @{
   */  
-uint8_t BSP_BUS_Init       (void);
-uint8_t BSP_BUS_DeInit     (void);
-uint8_t BSP_BUS_SPI_Read (SpiBusStruct *hspi, uint8_t *val);
-uint8_t BSP_BUS_SPI_Write (SpiBusStruct *hspi, uint8_t val);
-uint8_t BSP_BUS_SPI_ReadWrite (SpiBusStruct *hspi, uint8_t *readVal, uint8_t writeVal);
-uint8_t BSP_BUS_I2C_Read (I2CBusStruct *hi2c, uint8_t* val);
-uint8_t BSP_BUS_I2C_Write (I2CBusStruct *hi2c, uint8_t val);
-uint8_t BSP_BUS_I2C_ReadWrite (I2CBusStruct *hi2c, uint8_t* readVal, uint8_t writeVal);
+uint8_t BSP_MAG_Init       (void);
+uint8_t BSP_MAG_DeInit     (void);
+uint8_t BSP_MAG_ReadRawValues(axis3bit16_t *data_raw_magnetic);
+uint8_t BSP_MAG_ReadValues(float *magnetic_mG[]);
+uint8_t BSP_MAG_ReadTemperature(float *temperature_degC);
 
 /* These functions can be modified in case the current settings
    need to be changed for specific application needs */
-void BSP_KEYS_MspInit		(void);
-void BSP_KEYS_MspDeInit		(void);
+void BSP_MAG_MspInit		(void);
+void BSP_MAG_MspDeInit		(void);
 
 /**
   * @}
@@ -139,7 +131,7 @@ void BSP_KEYS_MspDeInit		(void);
 }
 #endif
 
-#endif /* __STM32746G_DISCOVERY_KEYS_H */
+#endif /* __STM32746G_DISCOVERY_MAG_H */
 /**
   * @}
   */ 

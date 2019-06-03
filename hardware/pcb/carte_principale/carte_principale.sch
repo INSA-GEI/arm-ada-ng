@@ -7,7 +7,7 @@ encoding utf-8
 Sheet 1 1
 Title "Carte Principale"
 Date "2019-04-26"
-Rev "02A"
+Rev "02B"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -494,10 +494,6 @@ D0/D1 = USART6
 Text Notes 8050 1100 0    50   ~ 0
 D14/D15 = I2C1
 Wire Wire Line
-	9900 3100 10400 3100
-Wire Wire Line
-	9900 3200 10400 3200
-Wire Wire Line
 	8900 1800 8350 1800
 Wire Wire Line
 	8900 1900 8350 1900
@@ -580,7 +576,7 @@ Wire Wire Line
 Wire Wire Line
 	4000 1400 4700 1400
 Wire Wire Line
-	4000 1400 4000 2300
+	4000 1400 4000 1700
 Connection ~ 4700 1400
 Wire Wire Line
 	4100 2100 3500 2100
@@ -762,12 +758,12 @@ $EndComp
 Wire Wire Line
 	10100 6050 10950 6050
 Wire Wire Line
-	10950 6050 10950 5600
+	10950 6050 10950 5700
 Connection ~ 10100 6050
 Wire Wire Line
 	10100 6050 10100 6000
 Wire Wire Line
-	10950 5300 10950 4800
+	10950 5300 10950 5000
 Wire Wire Line
 	10950 4800 10100 4800
 Connection ~ 10100 4800
@@ -913,14 +909,77 @@ Wire Wire Line
 Text Label 8400 2700 0    50   ~ 0
 KEYS_LOAD
 $Comp
-L power:VDD #PWR?
+L power:VDD #PWR0124
 U 1 1 5CE25200
 P 6950 1400
-F 0 "#PWR?" H 6950 1250 50  0001 C CNN
+F 0 "#PWR0124" H 6950 1250 50  0001 C CNN
 F 1 "VDD" H 6967 1573 50  0000 C CNN
 F 2 "" H 6950 1400 50  0001 C CNN
 F 3 "" H 6950 1400 50  0001 C CNN
 	1    6950 1400
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4100 1700 4000 1700
+Connection ~ 4000 1700
+Wire Wire Line
+	4000 1700 4000 2300
+$Comp
+L Device:R R1
+U 1 1 5CE68C07
+P 10500 2950
+F 0 "R1" H 10570 2996 50  0000 L CNN
+F 1 "10K" H 10570 2905 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 10430 2950 50  0001 C CNN
+F 3 "~" H 10500 2950 50  0001 C CNN
+	1    10500 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5CE68CA1
+P 10800 2950
+F 0 "R2" H 10870 2996 50  0000 L CNN
+F 1 "10K" H 10870 2905 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 10730 2950 50  0001 C CNN
+F 3 "~" H 10800 2950 50  0001 C CNN
+	1    10800 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10500 2800 10650 2800
+Wire Wire Line
+	10650 2800 10650 2700
+Connection ~ 10650 2800
+Wire Wire Line
+	10650 2800 10800 2800
+Wire Wire Line
+	9900 3100 10500 3100
+Wire Wire Line
+	10800 3200 10800 3100
+Wire Wire Line
+	9900 3200 10800 3200
+$Comp
+L power:VDD #PWR0125
+U 1 1 5CE85BB2
+P 10650 2700
+F 0 "#PWR0125" H 10650 2550 50  0001 C CNN
+F 1 "VDD" H 10667 2873 50  0000 C CNN
+F 2 "" H 10650 2700 50  0001 C CNN
+F 3 "" H 10650 2700 50  0001 C CNN
+	1    10650 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10600 5000 10950 5000
+Connection ~ 10950 5000
+Wire Wire Line
+	10950 5000 10950 4800
+Wire Wire Line
+	10600 5700 10950 5700
+Connection ~ 10950 5700
+Wire Wire Line
+	10950 5700 10950 5600
+Text Notes 8600 6150 0    50   ~ 0
+WIFI_RST is open drain, actif low
 $EndSCHEMATC

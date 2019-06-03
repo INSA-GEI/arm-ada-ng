@@ -198,6 +198,25 @@ void EXTI2_IRQHandler(void)
 }
 
 /**
+  * @brief  This function handles External line 9_5 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI9_5_IRQHandler(void)
+{
+  /* Interrupt handler shared between ACC GYRo DRDY and MAG DRDY interrupt */
+  if (__HAL_GPIO_EXTI_GET_IT(ACC_GYRO_DRDY_PIN ) != RESET)
+  {
+    HAL_GPIO_EXTI_IRQHandler(ACC_GYRO_DRDY_PIN );   /* SD detect event or touch screen interrupt */
+  }
+  else
+  {     /* User button event or Touch screen interrupt */
+    HAL_GPIO_EXTI_IRQHandler(MAG_DRDY_PIN);
+  }
+}
+
+
+/**
   * @brief  This function handles External line 15_10 interrupt request.
   * @param  None
   * @retval None
@@ -205,7 +224,7 @@ void EXTI2_IRQHandler(void)
 void EXTI15_10_IRQHandler(void)
 {
   /* Interrupt handler shared between SD_DETECT pin, USER_KEY button and touch screen interrupt */
-  if (__HAL_GPIO_EXTI_GET_IT(SD_DETECT_PIN) != RESET)
+  if (__HAL_GPIO_EXTI_GET_IT(KEY_BUTTON_PIN) == RESET)
   {
     HAL_GPIO_EXTI_IRQHandler(SD_DETECT_PIN | TS_INT_PIN | AUDIO_IN_INT_GPIO_PIN);   /* SD detect event or touch screen interrupt */
   }

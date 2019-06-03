@@ -56,9 +56,9 @@ static void KEYS_SetHint(void);
 void Keys_demo (void)
 {
 	uint8_t keys=0;
-	uint8_t status;
+	uint8_t status = KEYS_OK;
 	char strbuff[30];
-	status= BSP_KEYS_Init();
+	//status= BSP_KEYS_Init();
 
 	KEYS_SetHint();
 

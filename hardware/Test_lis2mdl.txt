@@ -1,0 +1,33 @@
+// LIS2MDL
+
+const adr = 0x1E;
+
+function initialize(){
+    if(Clear()!=true) return "I2C bus error. Check the pull-ups.";
+    if(Write(adr)!=true) return "Device NAK";
+    if(Read(adr, 0x4F, 1) != 0x40) return "Device ID mismatch";
+
+    if(Write(adr, 0x60, 0x00)!=0) return "Communication error CFG_REG_A";  // CFG_REG_A: continuous mode @ 10 Hz
+    if(Write(adr, 0x61, 0x00)!=0) return "Communication error CFG_REG_B";  // CFG_REG_B: 
+    if(Write(adr, 0x62, 0x01)!=0) return "Communication error CFG_REG_C";  // CFG_REG_C: DRDY enabled
+    
+    if(!FileWriteLine("~/default.csv", ["X", "Y", "Z"])) return "File write failed";
+    return true;
+}
+
+function loop(){
+    var rg = Read(adr, 0x68, 6); // DATA 
+
+    // convert data bits to signed value 250 dps full scale 
+    var x = rg[1]<<8+rg[0];
+    var y = rg[3]<<8+rg[2];
+    var z = rg[5]<<8+rg[4];
+    
+    // total acceleration
+
+    if(!FileAppendLine("~/default.csv", [ x, y, z])) return "File write failed";
+    return true;
+}
+function finish(){
+    return "done";
+}

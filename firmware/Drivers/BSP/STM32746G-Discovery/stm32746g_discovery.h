@@ -181,6 +181,24 @@ typedef enum
 #define TS_INT_EXTI_IRQn                     EXTI15_10_IRQn
 
 /**
+  * @brief LSM6DS3 interrupt DRDY
+  */
+#define ACC_GYRO_DRDY_PIN                    GPIO_PIN_8
+#define ACC_GYRO_DRDY_GPIO_PORT              GPIOA
+#define ACC_GYRO_DRDY_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
+#define ACC_GYRO_DRDY_GPIO_CLK_DISABLE()     __HAL_RCC_GPIOA_CLK_DISABLE()
+#define ACC_GYRO_DRDY_EXTI_IRQn              EXTI9_5_IRQn
+
+/**
+  * @brief LSM6DS3 interrupt DRDY
+  */
+#define MAG_DRDY_PIN                        GPIO_PIN_6
+#define MAG_DRDY_GPIO_PORT                  GPIOH
+#define MAG_DRDY_GPIO_CLK_ENABLE()          __HAL_RCC_GPIOH_CLK_ENABLE()
+#define MAG_DRDY_GPIO_CLK_DISABLE()         __HAL_RCC_GPIOH_CLK_DISABLE()
+#define MAG_DRDY_EXTI_IRQn                  EXTI9_5_IRQn
+
+/**
   * @}
   */ 
 
@@ -283,6 +301,23 @@ typedef enum
 #ifndef DISCOVERY_I2Cx_TIMING  
 #define DISCOVERY_I2Cx_TIMING                      ((uint32_t)0x40912732)  
 #endif /* DISCOVERY_I2Cx_TIMING */
+
+#define DISCOVERY_SPIx 							SPI2
+
+/* Definition for SPI clock resources */
+#define DISCOVERY_SPIx_CLK_ENABLE()            __HAL_RCC_SPI2_CLK_ENABLE()
+#define DISCOVERY_SPIx_CLK_DISABLE()           __HAL_RCC_SPI2_CLK_DISABLE()
+#define DISCOVERY_SPIx_CLK_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
+#define DISCOVERY_SPIx_MISO_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
+#define DISCOVERY_SPIx_MOSI_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
+
+/* Definition for SPI Pins */
+#define DISCOVERY_SPIx_CLK_PIN               GPIO_PIN_1
+#define DISCOVERY_SPIx_CLK_GPIO_PORT         GPIOI
+#define DISCOVERY_SPIx_MISO_PIN              GPIO_PIN_14
+#define DISCOVERY_SPIx_MISO_GPIO_PORT        GPIOB
+#define DISCOVERY_SPIx_MOSI_PIN              GPIO_PIN_15
+#define DISCOVERY_SPIx_MOSI_GPIO_PORT        GPIOB
 
 /**
   * @}
