@@ -46,44 +46,101 @@
 /** @addtogroup BSP
  * @{
  */
-static void KEYS_SetHint(void);
+static void SENSORS_SetHint(void);
 
 /**
  * @brief  Keys Demo
  * @param  None
  * @retval None
  */
-void Keys_demo (void)
+void SENSORS_Demo (void)
 {
-	uint8_t keys=0;
-	uint8_t status = KEYS_OK;
-	char strbuff[30];
-	//status= BSP_KEYS_Init();
+	uint8_t status = MAG_OK;
+	uint8_t statusPressure = PRESSURE_OK;
 
-	KEYS_SetHint();
+	char strbuff[80];
+	acceleration_t acc;
+	angularRate_t angularRate;
+	magnetic_t mag;
+	float temperature;
+	float pressure;
 
-	if (status != KEYS_OK)
+	SENSORS_SetHint();
+
+	while (CheckForUserInput() == 0)
 	{
-		BSP_LCD_DisplayStringAt(20, 100, (uint8_t *)"Keys init failed.", LEFT_MODE);
-	}
-	else
-	{
-		BSP_LCD_DisplayStringAt(20, 100, (uint8_t *)"Keys init : OK.", LEFT_MODE);
-	}
-
-	if (status == KEYS_OK)
-	{
-		while (BSP_KEYS_GetKeys() != (KEYS_A | KEYS_DOWN))
-		{
-			HAL_Delay(100);
-
-			keys=BSP_KEYS_GetKeys();
-			sprintf((char*)&strbuff, "Read result: (OK) %02X", keys);
-
-			BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)strbuff, LEFT_MODE);
+		HAL_Delay(100);
+		status = BSP_MAG_ReadValues(&mag);
+		if (status == MAG_OK) {
+			sprintf((char*)&strbuff, "Mag (OK): X= %i, Y=%i, Z=%i     ", (int)mag.x, (int)mag.y, (int)mag.z);
+		}
+		else {
+			sprintf((char*)&strbuff, "Mag (Failed):                                       ");
 		}
 
+		BSP_LCD_DisplayStringAt(20, 100, (uint8_t *)strbuff, LEFT_MODE);
+
+		status = BSP_ACC_ReadValues(&acc);
+		if (status == ACC_OK) {
+			sprintf((char*)&strbuff, "Acc (OK): X= %i, Y=%i, Z=%i     ", (int)acc.x, (int)acc.y, (int)acc.z);
+		}
+		else {
+			sprintf((char*)&strbuff, "Acc (Failed):                                       ");
+		}
+
+		BSP_LCD_DisplayStringAt(20, 120, (uint8_t *)strbuff, LEFT_MODE);
+
+		status = BSP_GYRO_ReadValues(&angularRate);
+		if (status == ACC_OK) {
+			sprintf((char*)&strbuff, "Gyro (OK): X= %i, Y=%i, Z=%i     ", (int)angularRate.x, (int)angularRate.y, (int)angularRate.z);
+		}
+		else {
+			sprintf((char*)&strbuff, "Gyro (Failed):                                      ");
+		}
+
+		BSP_LCD_DisplayStringAt(20, 140, (uint8_t *)strbuff, LEFT_MODE);
+
+		statusPressure = BSP_PRESSURE_ReadCompensatedValues(&pressure, &temperature);
+		if (statusPressure == PRESSURE_OK) {
+			sprintf((char*)&strbuff, "Pressure (OK): %i     ", (int)pressure);
+		}
+		else {
+			sprintf((char*)&strbuff, "Pressure (Failed):                                      ");
+		}
+
+		BSP_LCD_DisplayStringAt(20, 160, (uint8_t *)strbuff, LEFT_MODE);
+
+		if (statusPressure == PRESSURE_OK) {
+			sprintf((char*)&strbuff, "Temperature (PRESSURE) ( OK): %i C     ", (int)temperature);
+		}
+		else {
+			sprintf((char*)&strbuff, "Temperature (PRESSURE) (NOK):");
+		}
+
+		BSP_LCD_DisplayStringAt(20, 240, (uint8_t *)strbuff, LEFT_MODE);
+
+		status = BSP_MAG_ReadTemperature(&temperature);
+		if (status == ACC_OK) {
+			sprintf((char*)&strbuff, "Temperature (MAG) ( OK): %i C     ", (int)temperature);
+		}
+		else {
+			sprintf((char*)&strbuff, "Temperature (MAG) (NOK):");
+		}
+
+		BSP_LCD_DisplayStringAt(20, 200, (uint8_t *)strbuff, LEFT_MODE);
+
+		status = BSP_ACC_ReadTemperature(&temperature);
+		if (status == ACC_OK) {
+			sprintf((char*)&strbuff, "Temperature (ACC) ( OK): %i C     ", (int)temperature);
+		}
+		else {
+			sprintf((char*)&strbuff, "Temperature (ACC) (NOK):");
+		}
+
+		BSP_LCD_DisplayStringAt(20, 220, (uint8_t *)strbuff, LEFT_MODE);
 	}
+
+	//__disable_irq();
 }
 
 /**
@@ -91,7 +148,7 @@ void Keys_demo (void)
  * @param  None
  * @retval None
  */
-static void KEYS_SetHint(void)
+static void SENSORS_SetHint(void)
 {
 	/* Clear the LCD */
 	BSP_LCD_Clear(LCD_COLOR_WHITE);
@@ -102,11 +159,10 @@ static void KEYS_SetHint(void)
 	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 	BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
 	BSP_LCD_SetFont(&Font24);
-	BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)"FATFS", CENTER_MODE);
+	BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)"SENSORS", CENTER_MODE);
 	BSP_LCD_SetFont(&Font12);
-	BSP_LCD_DisplayStringAt(0, 30, (uint8_t *)"This example shows how to write", CENTER_MODE);
-	BSP_LCD_DisplayStringAt(0, 45, (uint8_t *)"and read data on the SD card ", CENTER_MODE);
-	BSP_LCD_DisplayStringAt(0, 60, (uint8_t *)"using FATFS", CENTER_MODE);
+	BSP_LCD_DisplayStringAt(0, 30, (uint8_t *)"This example shows sensors", CENTER_MODE);
+	BSP_LCD_DisplayStringAt(0, 45, (uint8_t *)"values  ", CENTER_MODE);
 
 	/* Set the LCD Text Color */
 	/*BSP_LCD_SetTextColor(LCD_COLOR_BLUE);

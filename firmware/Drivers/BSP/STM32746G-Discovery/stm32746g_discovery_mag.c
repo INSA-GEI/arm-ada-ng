@@ -100,6 +100,8 @@ static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
 		uint16_t len);
 
 lis2mdl_ctx_t magCtx;
+
+static char magSensorEnabled=0;
 /**
  * @}
  */
@@ -156,7 +158,7 @@ uint8_t BSP_MAG_Init(void)
 	}
 
 	/* Enable the Analog I2C Filter */
-	HAL_I2CEx_ConfigAnalogFilter(&I2CHandle,I2C_ANALOGFILTER_ENABLE);
+	//HAL_I2CEx_ConfigAnalogFilter(&I2CHandle,I2C_ANALOGFILTER_ENABLE);
 
 	magCtx.write_reg = platform_write;
 	magCtx.read_reg = platform_read;
@@ -168,10 +170,7 @@ uint8_t BSP_MAG_Init(void)
 	lis2mdl_device_id_get(&magCtx, &whoamI);
 	if (whoamI != LIS2MDL_ID)
 	{
-		while(1)
-		{
-			/* manage here device not found */
-		}
+		return MAG_ERROR;
 	}
 
 	/*
@@ -217,6 +216,7 @@ uint8_t BSP_MAG_Init(void)
 	 */
 	lis2mdl_drdy_on_pin_set(&magCtx, PROPERTY_ENABLE);
 
+	magSensorEnabled=1;
 	return MAG_OK;
 }
 
@@ -228,6 +228,7 @@ uint8_t BSP_MAG_DeInit(void)
 { 
 	BSP_MAG_MspDeInit();
 
+	magSensorEnabled=0;
 	return MAG_OK;
 }
 
@@ -240,28 +241,32 @@ uint8_t BSP_MAG_ReadRawValues(axis3bit16_t *data_raw_magnetic)
 	uint8_t status= MAG_OK;
 	uint8_t reg;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	/*
-	 * Read output only if new value is available
-	 */
-	lis2mdl_mag_data_ready_get(&magCtx, &reg);
-	if (reg)
+	if (magSensorEnabled)
 	{
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
+
 		/*
-		 * Read magnetic field data
+		 * Read output only if new value is available
 		 */
-		memset(data_raw_magnetic->u8bit, 0x00, 3 * sizeof(int16_t));
-		lis2mdl_magnetic_raw_get(&magCtx, data_raw_magnetic->u8bit);
-	}
-	else
-	{
-		status =  MAG_NO_DATA;
-	}
+		lis2mdl_mag_data_ready_get(&magCtx, &reg);
+		if (reg)
+		{
+			/*
+			 * Read magnetic field data
+			 */
+			memset(data_raw_magnetic->u8bit, 0x00, 3 * sizeof(int16_t));
+			lis2mdl_magnetic_raw_get(&magCtx, data_raw_magnetic->u8bit);
+		}
+		else
+		{
+			status =  MAG_NO_DATA;
+		}
 
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	}
+	else status = MAG_ERROR;
 
 	return status;
 }
@@ -270,38 +275,43 @@ uint8_t BSP_MAG_ReadRawValues(axis3bit16_t *data_raw_magnetic)
  * @brief  Reads magnetic values in mgauss
  * @retval Read status
  */
-uint8_t BSP_MAG_ReadValues(float *magnetic_mG[])
+uint8_t BSP_MAG_ReadValues(magnetic_t *magnetic)
 {
 	uint8_t status= MAG_OK;
 	uint8_t reg;
 	axis3bit16_t data_raw_magnetic;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	/*
-	 * Read output only if new value is available
-	 */
-	lis2mdl_mag_data_ready_get(&magCtx, &reg);
-	if (reg)
+	if (magSensorEnabled)
 	{
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
+
 		/*
-		 * Read magnetic field data
+		 * Read output only if new value is available
 		 */
-		memset(data_raw_magnetic.u8bit, 0x00, 3 * sizeof(int16_t));
-		lis2mdl_magnetic_raw_get(&magCtx, data_raw_magnetic.u8bit);
+		lis2mdl_mag_data_ready_get(&magCtx, &reg);
+		if (reg)
+		{
+			/*
+			 * Read magnetic field data
+			 */
+			memset(data_raw_magnetic.u8bit, 0x00, 3 * sizeof(int16_t));
+			lis2mdl_magnetic_raw_get(&magCtx, data_raw_magnetic.u8bit);
 
-		*magnetic_mG[0] = lis2mdl_from_lsb_to_mgauss( data_raw_magnetic.i16bit[0]);
-		*magnetic_mG[1] = lis2mdl_from_lsb_to_mgauss( data_raw_magnetic.i16bit[1]);
-		*magnetic_mG[2] = lis2mdl_from_lsb_to_mgauss( data_raw_magnetic.i16bit[2]);
-	}
-	else
-	{
-		status =  MAG_NO_DATA;
-	}
+			magnetic->x = lis2mdl_from_lsb_to_mgauss( data_raw_magnetic.i16bit[0]);
+			magnetic->y = lis2mdl_from_lsb_to_mgauss( data_raw_magnetic.i16bit[1]);
+			magnetic->z = lis2mdl_from_lsb_to_mgauss( data_raw_magnetic.i16bit[2]);
+		}
+		else
+		{
+			status =  MAG_NO_DATA;
+		}
 
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+
+	}
+	else status = MAG_ERROR;
 
 	return status;
 }
@@ -316,30 +326,35 @@ uint8_t BSP_MAG_ReadTemperature(float *temperature_degC)
 	uint8_t reg;
 	axis1bit16_t data_raw_temperature;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	/*
-	 * Read output only if new value is available
-	 */
-	lis2mdl_mag_data_ready_get(&magCtx, &reg);
-	if (reg)
+	if (magSensorEnabled)
 	{
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
+
 		/*
-		 * Read temperature data
+		 * Read output only if new value is available
 		 */
-		memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
-		lis2mdl_temperature_raw_get(&magCtx, data_raw_temperature.u8bit);
-		*temperature_degC = lis2mdl_from_lsb_to_celsius(data_raw_temperature.i16bit);
+		lis2mdl_mag_data_ready_get(&magCtx, &reg);
+		if (reg)
+		{
+			/*
+			 * Read temperature data
+			 */
+			memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
+			lis2mdl_temperature_raw_get(&magCtx, data_raw_temperature.u8bit);
+			*temperature_degC = lis2mdl_from_lsb_to_celsius(data_raw_temperature.i16bit);
+
+		}
+		else
+		{
+			status =  MAG_NO_DATA;
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
 
 	}
-	else
-	{
-		status =  MAG_NO_DATA;
-	}
-
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+	else status = MAG_ERROR;
 
 	return status;
 }
@@ -406,34 +421,21 @@ static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
 __weak void BSP_MAG_MspInit(void)
 {
 	GPIO_InitTypeDef gpio_init_structure;
-	RCC_PeriphCLKInitTypeDef  RCC_PeriphCLKInitStruct;
 
-	/*##-1- Configure the I2C clock source. The clock is derived from the SYSCLK #*/
-	RCC_PeriphCLKInitStruct.PeriphClockSelection = MAG_RCC_PERIPHCLK_I2Cx;
-	RCC_PeriphCLKInitStruct.I2c1ClockSelection = MAG_RCC_I2CxCLKSOURCE_SYSCLK;
-	HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphCLKInitStruct);
-
-	/*##-1- Enable peripherals and GPIO Clocks #################################*/
-	/* Enable I2C interface clock */
-	MAG_I2Cx_CLK_ENABLE();
-
-	/* Enable GPIO clocks */
-	MAG_I2Cx_SDA_GPIO_CLK_ENABLE();
-	MAG_I2Cx_SCL_GPIO_CLK_ENABLE();
+	DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_CLK_ENABLE();
 
 	/*##-2- Configure peripheral GPIO ##########################################*/
 	/* KEYS CS GPIO pin configuration  */
-	gpio_init_structure.Pin       = MAG_I2Cx_SDA_PIN;
-	gpio_init_structure.Mode      = GPIO_MODE_AF_OD;
-	gpio_init_structure.Pull      = GPIO_PULLUP;
-	gpio_init_structure.Speed     = GPIO_SPEED_HIGH;
-	gpio_init_structure.Alternate = MAG_I2Cx_SCL_SDA_AF;
-	HAL_GPIO_Init(MAG_I2Cx_SDA_GPIO_PORT, &gpio_init_structure);
+	gpio_init_structure.Pin = DISCOVERY_EXT_I2Cx_SCL_PIN;
+	gpio_init_structure.Mode = GPIO_MODE_AF_OD;
+	gpio_init_structure.Pull = GPIO_PULLUP;
+	gpio_init_structure.Speed = GPIO_SPEED_FAST;
+	gpio_init_structure.Alternate = DISCOVERY_EXT_I2Cx_SCL_SDA_AF;
+	HAL_GPIO_Init(DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
 
-	/* KEYS CS GPIO pin configuration  */
-	gpio_init_structure.Pin       = MAG_I2Cx_SCL_PIN;
-	gpio_init_structure.Alternate = MAG_I2Cx_SCL_SDA_AF;
-	HAL_GPIO_Init(MAG_I2Cx_SCL_GPIO_PORT, &gpio_init_structure);
+	/* Configure I2C Rx as alternate function */
+	gpio_init_structure.Pin = DISCOVERY_EXT_I2Cx_SDA_PIN;
+	HAL_GPIO_Init(DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
 
 	/* IT DRDY GPIO pin configuration  */
 	gpio_init_structure.Pin       = MAG_DRDY_PIN;
@@ -446,6 +448,25 @@ __weak void BSP_MAG_MspInit(void)
 	/* NVIC configuration for SPI2 interrupt */
 	//	HAL_NVIC_SetPriority(I2C1_IRQn, 0x0F, 0);
 	//	HAL_NVIC_EnableIRQ(I2C1_  SPI2_IRQn);
+
+
+	/*** Configure the I2C peripheral ***/
+	/* Enable I2C clock */
+	DISCOVERY_EXT_I2Cx_CLK_ENABLE();
+
+	/* Force the I2C peripheral clock reset */
+	DISCOVERY_EXT_I2Cx_FORCE_RESET();
+
+	/* Release the I2C peripheral clock reset */
+	DISCOVERY_EXT_I2Cx_RELEASE_RESET();
+
+	/* Enable and set I2Cx Interrupt to a lower priority */
+	HAL_NVIC_SetPriority(DISCOVERY_EXT_I2Cx_EV_IRQn, 0x0F, 0);
+	HAL_NVIC_EnableIRQ(DISCOVERY_EXT_I2Cx_EV_IRQn);
+
+	/* Enable and set I2Cx Interrupt to a lower priority */
+	HAL_NVIC_SetPriority(DISCOVERY_EXT_I2Cx_ER_IRQn, 0x0F, 0);
+	HAL_NVIC_EnableIRQ(DISCOVERY_EXT_I2Cx_ER_IRQn);
 
 	/* Enable and set EXTI9-5 Interrupt to the lowest priority */
 	HAL_NVIC_SetPriority(MAG_DRDY_EXTI_IRQn, 0xFF, 0);

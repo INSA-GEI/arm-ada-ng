@@ -76,7 +76,7 @@ extern "C" {
 #define ACC_GYRO_I2Cx_CLK_ENABLE()            __HAL_RCC_I2C1_CLK_ENABLE()
 #define ACC_GYRO_I2Cx_CLK_DISABLE()           __HAL_RCC_I2C1_CLK_DISABLE()
 #define ACC_GYRO_I2Cx_SDA_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOG_CLK_ENABLE()
-#define ACC_GYRO_I2Cx_SCL_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
+#define ACC_GYRO_I2Cx_SCL_GPIO_CLK_DISABLE()  __HAL_RCC_GPIOI_CLK_DISABLE()
 
 /* Definition for I2C Pins */
 #define ACC_GYRO_I2Cx_SCL_PIN               GPIO_PIN_1
@@ -100,7 +100,19 @@ extern "C" {
 /** @defgroup STM32746G_DISCOVERY_ACC_GYRO_Exported_Types STM32746G_DISCOVERY_ACC_GYRO Exported Types
  * @{
  */
+typedef struct
+{
+	float x;
+	float y;
+	float z;
+} acceleration_t ;
 
+typedef struct
+{
+	float x;
+	float y;
+	float z;
+} angularRate_t;
 /**
  * @}
  */
@@ -113,8 +125,8 @@ uint8_t BSP_ACC_GYRO_Init       (void);
 uint8_t BSP_ACC_GYRO_DeInit     (void);
 uint8_t BSP_ACC_ReadRawValues(axis3bit16_t *data_raw_acceleration);
 uint8_t BSP_GYRO_ReadRawValues(axis3bit16_t *data_raw_angular_rate);
-uint8_t BSP_ACC_ReadValues(float *acceleration_mg[]);
-uint8_t BSP_GYRO_ReadValues(float *angular_rate_mdps[]);
+uint8_t BSP_ACC_ReadValues(acceleration_t *acceleration);
+uint8_t BSP_GYRO_ReadValues(angularRate_t *angular_rate);
 uint8_t BSP_ACC_ReadTemperature(float *temperature_degC);
 
 /* These functions can be modified in case the current settings

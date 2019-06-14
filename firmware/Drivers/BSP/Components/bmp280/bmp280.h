@@ -13,6 +13,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define BMP280_SPI
+
+#ifndef BMP280_SPI
 /**
  * BMP280 or BME280 address is 0x77 if SDO pin is high, and is 0x76 if
  * SDO pin is low.
@@ -20,6 +23,7 @@
 
 #define BMP280_I2C_ADDRESS_0  0x76
 #define BMP280_I2C_ADDRESS_1  0x77
+#endif /* BMP280_SPI */
 
 #define BMP280_CHIP_ID  0x58 /* BMP280 has chip-id 0x58 */
 #define BME280_CHIP_ID  0x60 /* BME280 has chip-id 0x60 */
@@ -105,15 +109,26 @@ typedef struct {
     int16_t  dig_H5;
     int8_t   dig_H6;
 
+#ifndef BMP280_SPI
     uint16_t addr;
 
     I2C_HandleTypeDef* i2c;
+
+#else
+    SPI_HandleTypeDef* hspi;
+
+    GPIO_TypeDef* cs_gpio;
+    uint16_t cs_pin;
+#endif /* BMP280_SPI */
 
     bmp280_params_t params;
 
     uint8_t  id;        /* Chip ID */
 
 } BMP280_HandleTypedef;
+
+#define BMP280_CS_ENABLE(dev) 	HAL_GPIO_WritePin(dev->cs_gpio, dev->cs_pin, GPIO_PIN_RESET )
+#define BMP280_CS_DISABLE(dev)	HAL_GPIO_WritePin(dev->cs_gpio, dev->cs_pin, GPIO_PIN_SET )
 
 /**
  * Initialize default parameters.
@@ -150,6 +165,19 @@ bool bmp280_force_measurement(BMP280_HandleTypedef *dev);
  * Return true if BMP280 is busy.
  */
 bool bmp280_is_measuring(BMP280_HandleTypedef *dev);
+
+/**
+ * Read raw temperature and pressure data:
+ *
+ *  Temperature in degrees Celsius times 100.
+ *
+ *  Pressure in Pascals in fixed point 24 bit integer 8 bit fraction format.
+ *
+ *  Humidity is optional and only read for the BME280, in percent relative
+ *  humidity as a fixed point 22 bit interger and 10 bit fraction format.
+ */
+bool bmp280_read_raw(BMP280_HandleTypedef *dev, int32_t *temperature,
+                       uint32_t *pressure, uint32_t *humidity);
 
 /**
  * Read compensated temperature and pressure data:

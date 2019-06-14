@@ -1,8 +1,8 @@
 /**
  ******************************************************************************
- * @file    stm32746g_discovery_keys.c
+ * @file    stm32746g_discovery_pressure.c
  * @author  dimercur
- * @brief   This file includes a standard driver for key
+ * @brief   This file includes a standard driver for barometric pressure
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -69,7 +69,8 @@
 EndDependencies */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32746g_discovery_keys.h"
+#include "stm32746g_discovery_pressure.h"
+//#include "stm32746g_discovery_mag_conf.h"
 
 /** @addtogroup BSP
  * @{
@@ -79,21 +80,20 @@ EndDependencies */
  * @{
  */
 
-/** @defgroup STM32746G_DISCOVERY_KEYS STM32746G-Discovery Keys
+/** @defgroup STM32746G_DISCOVERY_PRESSURE STM32746G-Discovery PRESSURE
  * @{
  */
 
 
 /* Private variables ---------------------------------------------------------*/
 
-/** @defgroup STM32746G_DISCOVERY_KEYS_Private_Variables STM32746G_DISCOVERY KEYS Private Variables
+/** @defgroup STM32746G_DISCOVERY_PRESSURE_Private_Variables STM32746G_DISCOVERY PRESSURE Private Variables
  * @{
  */
-SPI_HandleTypeDef SPIHandle;
-
-
-uint8_t KEYSBuffer;
-
+static SPI_HandleTypeDef SPIHandle;
+BMP280_HandleTypedef PressureHandle;
+BMP280_HandleTypedef* PressureHandlePtr;
+static char pressureSensorEnabled=0;
 /**
  * @}
  */
@@ -102,7 +102,7 @@ uint8_t KEYSBuffer;
 
 /* Private functions ---------------------------------------------------------*/
 
-/** @defgroup STM32746G_DISCOVERY_KEYS_Private_Functions STM32746G_DISCOVERY Keys Private Functions
+/** @defgroup STM32746G_DISCOVERY_PRESSURE_Private_Functions STM32746G_DISCOVERY PRESSURE Private Functions
  * @{
  */
 
@@ -111,27 +111,33 @@ uint8_t KEYSBuffer;
  * @}
  */
 
-/** @defgroup STM32746G_DISCOVERY_KEYS_Exported_Functions STM32746G_DISCOVERY KEYS Exported Functions
+/** @defgroup STM32746G_DISCOVERY_PRESSURE_Exported_Functions STM32746G_DISCOVERY PRESSURE Exported Functions
  * @{
  */
 
 /**
- * @brief  Initializes the KEYS interface.
- * @retval KEYS memory status
+ * @brief  Initializes interface for pressure sensor.
+ * @retval Initialization status
  */
-uint8_t BSP_KEYS_Init(void)
+uint8_t BSP_PRESSURE_Init(void)
 { 
 	/* SPi Configuration */
-	SPIHandle.Instance = KEYS_SPIx;
+	SPIHandle.Instance = PRESSURE_SPIx;
+	PressureHandle.hspi = &SPIHandle;
+	PressureHandle.cs_gpio = PRESSURE_CS_GPIO_PORT;
+	PressureHandle.cs_pin = PRESSURE_CS_PIN;
+	PressureHandlePtr = &PressureHandle;
 
 	/* Call the DeInit function to reset the driver */
 	if (HAL_SPI_DeInit(&SPIHandle) != HAL_OK)
 	{
-		return KEYS_ERROR;
+		return PRESSURE_ERROR;
 	}
 
+	__disable_irq(); // Set PRIMASK
+
 	/* System level initialization */
-	BSP_KEYS_MspInit();
+	BSP_PRESSURE_MspInit();
 
 	/* SPI2 initialization */
 	SPIHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
@@ -140,7 +146,7 @@ uint8_t BSP_KEYS_Init(void)
 	SPIHandle.Init.DataSize 		= SPI_DATASIZE_8BIT;
 	SPIHandle.Init.Direction 		= SPI_DIRECTION_2LINES;
 	SPIHandle.Init.FirstBit 		= SPI_FIRSTBIT_MSB;
-	SPIHandle.Init.Mode 			=  SPI_MODE_MASTER;
+	SPIHandle.Init.Mode 			= SPI_MODE_MASTER;
 	SPIHandle.Init.NSS 				= SPI_NSS_SOFT;
 	SPIHandle.Init.TIMode           = SPI_TIMODE_DISABLE;
 	SPIHandle.Init.CRCCalculation   = SPI_CRCCALCULATION_DISABLE;
@@ -148,158 +154,205 @@ uint8_t BSP_KEYS_Init(void)
 
 	if (HAL_SPI_Init(&SPIHandle) != HAL_OK)
 	{
-		return KEYS_ERROR;
+		return PRESSURE_ERROR;
 	}
 
-	KEYS_CS_DISABLE();
-	KEYS_SET_SERIAL_MODE();
+	PRESSURE_CS_DISABLE(PressureHandlePtr);
 
-	return KEYS_OK;
+	bmp280_init_default_params(&PressureHandle.params);
+
+	if (!bmp280_init(&PressureHandle, &PressureHandle.params)) {
+		return PRESSURE_ERROR;
+	}
+
+	if (PressureHandle.id != BMP280_CHIP_ID) {
+		return PRESSURE_ERROR;
+	}
+
+	pressureSensorEnabled=1;
+
+	__enable_irq(); // Clear PRIMASK
+	return PRESSURE_OK;
 }
 
 /**
- * @brief  De-Initializes the SPI interface.
- * @retval KEYS memory status
+ * @brief  De-Initializes pressure sensor interface.
+ * @retval De-init status
  */
-uint8_t BSP_KEYS_DeInit(void)
+uint8_t BSP_PRESSURE_DeInit(void)
 { 
-	KEYS_CS_DISABLE();
-	KEYS_SET_SERIAL_MODE();
+	PRESSURE_CS_DISABLE(PressureHandlePtr);
 
-	BSP_KEYS_MspDeInit();
+	BSP_PRESSURE_MspDeInit();
 
-	return KEYS_OK;
+	return PRESSURE_OK;
 }
 
 /**
- * @brief  Reads keys
- * @retval KEYS memory status
+ * @brief  Pressure value in pascal
+ * @retval Read status
  */
-uint8_t BSP_KEYS_Read(void)
+uint8_t BSP_PRESSURE_ReadValues(uint32_t *pressure)
 {
-	uint8_t status;
-	uint8_t dummy;
+	uint8_t status= PRESSURE_OK;
+	int32_t temperature;
+	uint32_t humidity;
 
-	/* TODO: Supprimer apres test */
-	__disable_irq();
-
-	/* Enable Keys serializer */
-	KEYS_CS_ENABLE();
-
-	/* Enable Parallel load (KEY_LOAD=0, PE) */
-	KEYS_SET_PARALLEL_MODE();
-
-	/* Do a dummy read (just to have 1 clock event for loading parallel data) */
-	status = HAL_SPI_Receive(&SPIHandle, &dummy,1,100);
-
-	/* Switch to serial mode */
-	KEYS_SET_SERIAL_MODE();
-
-	/* Read data */
-	status = HAL_SPI_Receive(&SPIHandle, &KEYSBuffer,1,100);
-	KEYSBuffer = ~KEYSBuffer; // on inverse la polarité des touches: a 0 si relachée, à 1 si appuyée
-
-	/* Disable Keys serializer (free spi bus) */
-	KEYS_CS_DISABLE();
-
-	if (status != HAL_OK)
+	if (pressureSensorEnabled)
 	{
-		return KEYS_ERROR;
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
+
+		/*
+		 * Read output only if new value is available
+		 */
+		while (bmp280_is_measuring(&PressureHandle));
+
+		if (!bmp280_read_raw(&PressureHandle, &temperature, pressure, &humidity))
+		{
+			status =  PRESSURE_NO_DATA;
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	}
+	else
+	{
+		*pressure=0;
+		status =  PRESSURE_NO_DATA;
 	}
 
-	/* TODO: Supprimer apres test */
-	__enable_irq();
-
-	return KEYS_OK;
+	return status;
 }
 
 /**
- * @brief  Check if given key is pressed
- * @retval KEYS_PRESSED or KEYS_RELEASE
+ * @brief  Reads T° values in °C
+ * @retval Read status
  */
-uint8_t BSP_KEYS_GetKey(uint8_t key)
+uint8_t BSP_PRESSURE_ReadTemperature(int32_t *temperature_degC)
 {
-	BSP_KEYS_Read();
+	uint8_t status= PRESSURE_OK;
+	uint32_t pressure;
+	uint32_t humidity;
 
-	if (KEYSBuffer & key)
+	if (pressureSensorEnabled)
 	{
-		return KEYS_PRESSED;
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
+
+		/*
+		 * Read output only if new value is available
+		 */
+		while (bmp280_is_measuring(&PressureHandle));
+
+		if (!bmp280_read_raw(&PressureHandle, temperature_degC, &pressure, &humidity))
+		{
+			status =  PRESSURE_NO_DATA;
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	}
+	else
+	{ *temperature_degC=0;
+	status =  PRESSURE_NO_DATA;
 	}
 
-	return KEYS_RELEASED;
+	return status;
 }
 
 /**
- * @brief  Return whole keys status
- * @retval Keys status
+ * @brief  Pressure and temperature compensated
+ * @retval Read status
  */
-uint8_t BSP_KEYS_GetKeys (void)
+uint8_t BSP_PRESSURE_ReadCompensatedValues(float *pressure, float *temperature)
 {
-	BSP_KEYS_Read();
+	uint8_t status= PRESSURE_OK;
+	float humidity;
 
-	return KEYSBuffer;
+	if (pressureSensorEnabled)
+	{
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
+
+		/*
+		 * Read output only if new value is available
+		 */
+		while (bmp280_is_measuring(&PressureHandle));
+
+		if (bmp280_read_float(&PressureHandle, temperature, pressure, &humidity)==false)
+		{
+			status =  PRESSURE_NO_DATA;
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	}
+	else
+	{
+		*pressure=0.0;
+		*temperature=0.0;
+		status =  PRESSURE_NO_DATA;
+	}
+
+	return status;
 }
 /**
  * @}
  */
 
-/** @addtogroup STM32746G_DISCOVERY_KEYS_Private_Functions
+/** @addtogroup STM32746G_DISCOVERY_PRESSURE_Private_Functions
  * @{
  */
 
 /**
- * @brief KEYS MSP Initialization
+ * @brief PRESSURE MSP Initialization
  *        This function configures the hardware resources used in this example:
  *           - Peripheral's clock enable
  *           - Peripheral's GPIO Configuration
  *           - NVIC configuration for QSPI interrupt
  * @retval None
  */
-__weak void BSP_KEYS_MspInit(void)
+__weak void BSP_PRESSURE_MspInit(void)
 {
 	GPIO_InitTypeDef gpio_init_structure;
 
 	/*##-1- Enable peripherals and GPIO Clocks #################################*/
 	/* Enable the Keys (SPI) interface clock */
-	KEYS_CLK_ENABLE();
+	PRESSURE_CLK_ENABLE();
 
 	/* Enable GPIO clocks */
-	KEYS_CS_GPIO_CLK_ENABLE();
-	KEYS_CLK_GPIO_CLK_ENABLE();
-	KEYS_MISO_GPIO_CLK_ENABLE();
-	KEYS_LOAD_GPIO_CLK_ENABLE();
+	PRESSURE_CS_GPIO_CLK_ENABLE();
+	PRESSURE_CLK_GPIO_CLK_ENABLE();
+	PRESSURE_MISO_GPIO_CLK_ENABLE();
+	PRESSURE_MOSI_GPIO_CLK_ENABLE();
 
 	/*##-2- Configure peripheral GPIO ##########################################*/
-	/* KEYS CS GPIO pin configuration  */
-	gpio_init_structure.Pin       = KEYS_CS_PIN;
+	/* PRESSURE CS GPIO pin configuration  */
+	gpio_init_structure.Pin       = PRESSURE_CS_PIN;
 	gpio_init_structure.Mode      = GPIO_MODE_OUTPUT_PP;
 	gpio_init_structure.Pull      = GPIO_NOPULL;
 	gpio_init_structure.Speed     = GPIO_SPEED_HIGH;
-	HAL_GPIO_Init(KEYS_CS_GPIO_PORT, &gpio_init_structure);
+	HAL_GPIO_Init(PRESSURE_CS_GPIO_PORT, &gpio_init_structure);
 
-	/* KEYS CS GPIO pin configuration  */
-	gpio_init_structure.Pin       = KEYS_LOAD_PIN;
-	HAL_GPIO_Init(KEYS_LOAD_GPIO_PORT, &gpio_init_structure);
+	HAL_GPIO_WritePin(PRESSURE_CS_GPIO_PORT, PRESSURE_CS_PIN, GPIO_PIN_SET );
 
-	//TODO: A supprimer quand le driver BMP280 sera pret
-	/* BMP280 CS GPIO pin configuration , to put it high */
-	gpio_init_structure.Pin       = GPIO_PIN_8;
-	HAL_GPIO_Init(GPIOA, &gpio_init_structure);
-
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_SET);
-	//TODO: Fin de suppression
-
-	/* KEYS CLK GPIO pin configuration  */
-	gpio_init_structure.Pin       = KEYS_CLK_PIN;
+	/* PRESSURE CLK GPIO pin configuration  */
+	gpio_init_structure.Pin       = PRESSURE_CLK_PIN;
 	gpio_init_structure.Mode      = GPIO_MODE_AF_PP;
 	gpio_init_structure.Pull      = GPIO_NOPULL;
 	gpio_init_structure.Alternate = GPIO_AF5_SPI2;
-	HAL_GPIO_Init(KEYS_CLK_GPIO_PORT, &gpio_init_structure);
+	HAL_GPIO_Init(PRESSURE_CLK_GPIO_PORT, &gpio_init_structure);
 
-	/* KEYS MISO GPIO pin configuration  */
-	gpio_init_structure.Pin       = KEYS_MISO_PIN;
+	/* PRESSURE MISO GPIO pin configuration  */
+	gpio_init_structure.Pin       = PRESSURE_MISO_PIN;
 	gpio_init_structure.Alternate = GPIO_AF5_SPI2;
-	HAL_GPIO_Init(KEYS_MISO_GPIO_PORT, &gpio_init_structure);
+	HAL_GPIO_Init(PRESSURE_MISO_GPIO_PORT, &gpio_init_structure);
+
+	/* PRESSURE MISO GPIO pin configuration  */
+	gpio_init_structure.Pin       = PRESSURE_MOSI_PIN;
+	gpio_init_structure.Alternate = GPIO_AF5_SPI2;
+	HAL_GPIO_Init(PRESSURE_MOSI_GPIO_PORT, &gpio_init_structure);
 
 	/*##-3- Configure the NVIC for SPI2 #########################################*/
 	/* NVIC configuration for SPI2 interrupt */
@@ -308,26 +361,26 @@ __weak void BSP_KEYS_MspInit(void)
 }
 
 /**
- * @brief KEYS MSP De-Initialization
+ * @brief PRESSURE MSP De-Initialization
  *        This function frees the hardware resources used in this example:
  *          - Disable the Peripheral's clock
  *          - Revert GPIO and NVIC configuration to their default state
  * @retval None
  */
-__weak void BSP_KEYS_MspDeInit(void)
+__weak void BSP_PRESSURE_MspDeInit(void)
 {
 	/*##-1- Disable the NVIC for QSPI ###########################################*/
 	HAL_NVIC_DisableIRQ(SPI2_IRQn);
 
 	/*##-2- Disable peripherals and GPIO Clocks ################################*/
 	/* De-Configure QSPI pins */
-	HAL_GPIO_DeInit(KEYS_CS_GPIO_PORT, KEYS_CS_PIN);
-	HAL_GPIO_DeInit(KEYS_CLK_GPIO_PORT, KEYS_CLK_PIN);
-	HAL_GPIO_DeInit(KEYS_MISO_GPIO_PORT, KEYS_MISO_PIN);
-	HAL_GPIO_DeInit(KEYS_LOAD_GPIO_PORT, KEYS_MISO_PIN);
+	HAL_GPIO_DeInit(PRESSURE_CS_GPIO_PORT, PRESSURE_CS_PIN);
+	HAL_GPIO_DeInit(PRESSURE_CLK_GPIO_PORT, PRESSURE_CLK_PIN);
+	HAL_GPIO_DeInit(PRESSURE_MISO_GPIO_PORT, PRESSURE_MISO_PIN);
+	HAL_GPIO_DeInit(PRESSURE_MOSI_GPIO_PORT, PRESSURE_MOSI_PIN);
 	/* Disable the QuadSPI memory interface clock */
 
-	KEYS_CLK_DISABLE();
+	PRESSURE_CLK_DISABLE();
 }
 
 /**

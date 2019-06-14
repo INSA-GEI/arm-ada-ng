@@ -153,7 +153,8 @@ void AudioRec_demo (void)
 
   /* -----------Start Playback -------------- */
   /* Initialize audio IN at REC_FREQ*/ 
-  BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_HEADPHONE, 70, DEFAULT_AUDIO_IN_FREQ);
+  //BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_HEADPHONE, 70, DEFAULT_AUDIO_IN_FREQ);
+  BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_BOTH, 70, DEFAULT_AUDIO_IN_FREQ);
   BSP_AUDIO_OUT_SetAudioFrameSlot(CODEC_AUDIOFRAME_SLOT_02);
 
   /* Play the recorded buffer*/

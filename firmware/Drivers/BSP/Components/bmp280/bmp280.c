@@ -1,7 +1,7 @@
 /**
  * Ciastkolog.pl (https://github.com/ciastkolog)
  * 
-*/
+ */
 /**
  * The MIT License (MIT)
  *
@@ -50,8 +50,6 @@
 
 #define BMP280_RESET_VALUE     0xB6
 
-
-
 void bmp280_init_default_params(bmp280_params_t *params) {
 	params->mode = BMP280_MODE_NORMAL;
 	params->filter = BMP280_FILTER_OFF;
@@ -62,8 +60,11 @@ void bmp280_init_default_params(bmp280_params_t *params) {
 }
 
 static bool read_register16(BMP280_HandleTypedef *dev, uint8_t addr, uint16_t *value) {
+
+#ifndef BMP280_SPI
 	uint16_t tx_buff;
 	uint8_t rx_buff[2];
+
 	tx_buff = (dev->addr << 1);
 
 	if (HAL_I2C_Mem_Read(dev->i2c, tx_buff, addr, 1, rx_buff, 2, 5000)
@@ -72,18 +73,96 @@ static bool read_register16(BMP280_HandleTypedef *dev, uint8_t addr, uint16_t *v
 		return true;
 	} else
 		return false;
+#else
+	uint8_t tx_buff[3]={addr | 0x80,0,0};
+	uint8_t rx_buff[3];
+	uint8_t status;
+
+	//HAL_GPIO_WritePin(dev->cs_gpio, dev->cs_pin, GPIO_PIN_RESET );
+	BMP280_CS_ENABLE(dev);
+
+	status = HAL_SPI_TransmitReceive(dev->hspi, tx_buff, rx_buff, 3, 1000);
+
+	BMP280_CS_DISABLE(dev);
+
+	if (status != HAL_OK) return false;
+	else
+	{
+		*value = (((uint16_t)rx_buff[2])<<8) + (uint16_t)rx_buff[1];
+
+		return true;
+	}
+#endif /* BMP280_SPI */
 
 }
 
-static inline int read_data(BMP280_HandleTypedef *dev, uint8_t addr, uint8_t *value,
-		uint8_t len) {
+static int read_data(BMP280_HandleTypedef *dev, uint8_t addr, uint8_t *value, uint8_t len) {
+
+#ifndef BMP280_SPI
 	uint16_t tx_buff;
+
 	tx_buff = (dev->addr << 1);
 	if (HAL_I2C_Mem_Read(dev->i2c, tx_buff, addr, 1, value, len, 5000) == HAL_OK)
 		return 0;
 	else
 		return 1;
+#else
+	uint8_t tx_buff[len+1];
+	uint8_t rx_buff[len+1];
+	uint8_t status;
+	uint8_t i;
 
+	tx_buff[0]=addr | 0x80;
+	for (i=1; i<len+1; i++)
+	{
+		tx_buff[i]=0;
+	}
+
+	BMP280_CS_ENABLE(dev);
+
+	status = HAL_SPI_TransmitReceive(dev->hspi, tx_buff, rx_buff, len+1, 1000);
+
+	BMP280_CS_DISABLE(dev);
+
+	if (status != HAL_OK) return false;
+	else
+	{
+		for (i=1; i<len+1; i++)
+		{
+			value[i-1]=rx_buff[i];
+		}
+
+		return true;
+	}
+#endif /* BMP280_SPI */
+
+}
+
+static int write_register8(BMP280_HandleTypedef *dev, uint8_t addr, uint8_t value) {
+
+#ifndef BMP280_SPI
+	uint16_t tx_buff;
+
+
+	tx_buff = (dev->addr << 1);
+
+	if (HAL_I2C_Mem_Write(dev->i2c, tx_buff, addr, 1, &value, 1, 10000) == HAL_OK)
+		return false;
+	else
+		return true;
+#else
+	uint8_t tx_buff[2]={addr & 0x7F,value};
+	uint8_t status;
+
+	BMP280_CS_ENABLE(dev);
+
+	status = HAL_SPI_Transmit(dev->hspi, tx_buff, 2, 1000);
+
+	BMP280_CS_DISABLE(dev);
+
+	if (status != HAL_OK) return false;
+	else return true;
+#endif /* BMP280_SPI */
 }
 
 static bool read_calibration_data(BMP280_HandleTypedef *dev) {
@@ -109,7 +188,7 @@ static bool read_calibration_data(BMP280_HandleTypedef *dev) {
 }
 
 static bool read_hum_calibration_data(BMP280_HandleTypedef *dev) {
-	uint16_t h4, h5;
+	uint16_t h4=0, h5=0;
 
 	if (!read_data(dev, 0xa1, &dev->dig_H1, 1)
 			&& read_register16(dev, 0xe1, (uint16_t *) &dev->dig_H2)
@@ -126,26 +205,17 @@ static bool read_hum_calibration_data(BMP280_HandleTypedef *dev) {
 	return false;
 }
 
-static int write_register8(BMP280_HandleTypedef *dev, uint8_t addr, uint8_t value) {
-	uint16_t tx_buff;
-
-	tx_buff = (dev->addr << 1);
-
-	if (HAL_I2C_Mem_Write(dev->i2c, tx_buff, addr, 1, &value, 1, 10000) == HAL_OK)
-		return false;
-	else
-		return true;
-}
-
 bool bmp280_init(BMP280_HandleTypedef *dev, bmp280_params_t *params) {
 
+#ifndef BMP280_SPI
 	if (dev->addr != BMP280_I2C_ADDRESS_0
 			&& dev->addr != BMP280_I2C_ADDRESS_1) {
 
 		return false;
 	}
+#endif /*BMP280_SPI */
 
-	if (read_data(dev, BMP280_REG_ID, &dev->id, 1)) {
+	if (read_data(dev, BMP280_REG_ID, &dev->id, 1)==false) {
 		return false;
 	}
 
@@ -155,14 +225,14 @@ bool bmp280_init(BMP280_HandleTypedef *dev, bmp280_params_t *params) {
 	}
 
 	// Soft reset.
-	if (write_register8(dev, BMP280_REG_RESET, BMP280_RESET_VALUE)) {
+	if (write_register8(dev, BMP280_REG_RESET, BMP280_RESET_VALUE)==false) {
 		return false;
 	}
 
 	// Wait until finished copying over the NVP data.
 	while (1) {
-		uint8_t status;
-		if (!read_data(dev, BMP280_REG_STATUS, &status, 1)
+		uint8_t status=0;
+		if ((read_data(dev, BMP280_REG_STATUS, &status, 1)!=false)
 				&& (status & 1) == 0)
 			break;
 	}
@@ -176,7 +246,7 @@ bool bmp280_init(BMP280_HandleTypedef *dev, bmp280_params_t *params) {
 	}
 
 	uint8_t config = (params->standby << 5) | (params->filter << 2);
-	if (write_register8(dev, BMP280_REG_CONFIG, config)) {
+	if (write_register8(dev, BMP280_REG_CONFIG, config)==false) {
 		return false;
 	}
 
@@ -185,17 +255,17 @@ bool bmp280_init(BMP280_HandleTypedef *dev, bmp280_params_t *params) {
 	}
 
 	uint8_t ctrl = (params->oversampling_temperature << 5)
-			| (params->oversampling_pressure << 2) | (params->mode);
+													| (params->oversampling_pressure << 2) | (params->mode);
 
 	if (dev->id == BME280_CHIP_ID) {
 		// Write crtl hum reg first, only active after write to BMP280_REG_CTRL.
 		uint8_t ctrl_hum = params->oversampling_humidity;
-		if (write_register8(dev, BMP280_REG_CTRL_HUM, ctrl_hum)) {
+		if (write_register8(dev, BMP280_REG_CTRL_HUM, ctrl_hum)==false) {
 			return false;
 		}
 	}
 
-	if (write_register8(dev, BMP280_REG_CTRL, ctrl)) {
+	if (write_register8(dev, BMP280_REG_CTRL, ctrl)==false) {
 		return false;
 	}
 
@@ -203,20 +273,20 @@ bool bmp280_init(BMP280_HandleTypedef *dev, bmp280_params_t *params) {
 }
 
 bool bmp280_force_measurement(BMP280_HandleTypedef *dev) {
-	uint8_t ctrl;
+	uint8_t ctrl=0;
 	if (read_data(dev, BMP280_REG_CTRL, &ctrl, 1))
 		return false;
 	ctrl &= ~0b11;  // clear two lower bits
 	ctrl |= BMP280_MODE_FORCED;
-	if (write_register8(dev, BMP280_REG_CTRL, ctrl)) {
+	if (write_register8(dev, BMP280_REG_CTRL, ctrl)==false) {
 		return false;
 	}
 	return true;
 }
 
 bool bmp280_is_measuring(BMP280_HandleTypedef *dev) {
-	uint8_t status;
-	if (read_data(dev, BMP280_REG_STATUS, &status, 1))
+	uint8_t status=0;
+	if (read_data(dev, BMP280_REG_STATUS, &status, 1)==false)
 		return false;
 	if (status & (1 << 3)) {
 		return true;
@@ -257,7 +327,7 @@ static inline uint32_t compensate_pressure(BMP280_HandleTypedef *dev, int32_t ad
 	var2 = var2 + ((var1 * (int64_t) dev->dig_P5) << 17);
 	var2 = var2 + (((int64_t) dev->dig_P4) << 35);
 	var1 = ((var1 * var1 * (int64_t) dev->dig_P3) >> 8)
-			+ ((var1 * (int64_t) dev->dig_P2) << 12);
+													+ ((var1 * (int64_t) dev->dig_P2) << 12);
 	var1 = (((int64_t) 1 << 47) + var1) * ((int64_t) dev->dig_P1) >> 33;
 
 	if (var1 == 0) {
@@ -285,10 +355,10 @@ static inline uint32_t compensate_humidity(BMP280_HandleTypedef *dev, int32_t ad
 	v_x1_u32r = fine_temp - (int32_t) 76800;
 	v_x1_u32r = ((((adc_hum << 14) - ((int32_t) dev->dig_H4 << 20)
 			- ((int32_t) dev->dig_H5 * v_x1_u32r)) + (int32_t) 16384) >> 15)
-			* (((((((v_x1_u32r * (int32_t) dev->dig_H6) >> 10)
-					* (((v_x1_u32r * (int32_t) dev->dig_H3) >> 11)
-							+ (int32_t) 32768)) >> 10) + (int32_t) 2097152)
-					* (int32_t) dev->dig_H2 + 8192) >> 14);
+													* (((((((v_x1_u32r * (int32_t) dev->dig_H6) >> 10)
+															* (((v_x1_u32r * (int32_t) dev->dig_H3) >> 11)
+																	+ (int32_t) 32768)) >> 10) + (int32_t) 2097152)
+															* (int32_t) dev->dig_H2 + 8192) >> 14);
 	v_x1_u32r = v_x1_u32r
 			- (((((v_x1_u32r >> 15) * (v_x1_u32r >> 15)) >> 7)
 					* (int32_t) dev->dig_H1) >> 4);
@@ -297,9 +367,8 @@ static inline uint32_t compensate_humidity(BMP280_HandleTypedef *dev, int32_t ad
 	return v_x1_u32r >> 12;
 }
 
-bool bmp280_read_fixed(BMP280_HandleTypedef *dev, int32_t *temperature, uint32_t *pressure,
-		uint32_t *humidity) {
-	int32_t adc_pressure;
+bool bmp280_read_raw(BMP280_HandleTypedef *dev, int32_t *temperature, uint32_t *pressure,	uint32_t *humidity) {
+	uint32_t adc_pressure;
 	int32_t adc_temp;
 	uint8_t data[8];
 
@@ -307,24 +376,50 @@ bool bmp280_read_fixed(BMP280_HandleTypedef *dev, int32_t *temperature, uint32_t
 	if (dev->id != BME280_CHIP_ID) {
 		if (humidity)
 			*humidity = 0;
-		humidity = NULL;
+		//humidity = NULL;
 	}
 
 	// Need to read in one sequence to ensure they match.
 	size_t size = humidity ? 8 : 6;
-	if (read_data(dev, 0xf7, data, size)) {
+	if (dev->id != BME280_CHIP_ID) size =6;
+	else size=8;
+
+	if (read_data(dev, 0xf7, data, size)==false) {
 		return false;
 	}
 
-	adc_pressure = data[0] << 12 | data[1] << 4 | data[2] >> 4;
-	adc_temp = data[3] << 12 | data[4] << 4 | data[5] >> 4;
+	adc_pressure = (((uint32_t)data[0]) << 12) | (((uint32_t)data[1]) << 4) | (((uint32_t)data[2]) >> 4);
+	adc_temp = (((int32_t)data[3]) << 12) | (((int32_t)data[4]) << 4) | (((int32_t)data[5]) >> 4);
 
+	*temperature = (int32_t)adc_temp;
+	*pressure = (uint32_t)adc_pressure;
+
+	if (dev->id == BME280_CHIP_ID) {
+		uint32_t adc_humidity = (((uint32_t)data[6]) << 8) | ((uint32_t)data[7]);
+		*humidity = (uint32_t)adc_humidity;
+	}
+
+	return true;
+}
+
+bool bmp280_read_fixed(BMP280_HandleTypedef *dev, int32_t *temperature, uint32_t *pressure,	uint32_t *humidity) {
+	int32_t adc_pressure;
+	int32_t adc_temp;
+	int32_t adc_humidity;
 	int32_t fine_temp;
+
+	if (bmp280_read_raw(dev,(int32_t*)&adc_temp, (uint32_t*)&adc_pressure, (uint32_t*)&adc_humidity)==false)
+		return false;
+
 	*temperature = compensate_temperature(dev, adc_temp, &fine_temp);
 	*pressure = compensate_pressure(dev, adc_pressure, fine_temp);
 
-	if (humidity) {
-		int32_t adc_humidity = data[6] << 8 | data[7];
+	// Only the BME280 supports reading the humidity.
+	if (dev->id != BME280_CHIP_ID) {
+		*humidity = 0;
+	}
+	else
+	{
 		*humidity = compensate_humidity(dev, adc_humidity, fine_temp);
 	}
 

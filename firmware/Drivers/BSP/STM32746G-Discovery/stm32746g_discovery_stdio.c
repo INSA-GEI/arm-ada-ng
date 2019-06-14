@@ -1,8 +1,8 @@
 /**
  ******************************************************************************
- * @file    stm32746g_discovery_esp_wifi.c
+ * @file    stm32746g_discovery_stdio.c
  * @author  dimercur
- * @brief   This file includes a standard driver for esp wroom 2 wifi module
+ * @brief   This file includes a standard driver for standard input/output over COM1 (USART1)
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -69,7 +69,7 @@
 EndDependencies */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stm32746g_discovery_wifi.h>
+#include <stm32746g_discovery_stdio.h>
 
 /** @addtogroup BSP
  * @{
@@ -79,20 +79,20 @@ EndDependencies */
  * @{
  */
 
-/** @defgroup STM32746G_DISCOVERY_ESP_WIFI STM32746G-Discovery esp Wifi
+/** @defgroup STM32746G_DISCOVERY_STDIO STM32746G-Discovery stdio
  * @{
  */
 
 
 /* Private variables ---------------------------------------------------------*/
 
-/** @defgroup STM32746G_DISCOVERY_ESP_WIFI_Private_Variables STM32746G_DISCOVERY ESP WIFI Private Variables
+/** @defgroup STM32746G_DISCOVERY_STDIO_Private_Variables STM32746G_DISCOVERY STDIO Private Variables
  * @{
  */
 static UART_HandleTypeDef UARTHandle;
-char wifiBufferIn[100];
-char wifiBufferOut[100];
 
+char stdinBuffer[100];
+char stdoutBuffer[100];
 /**
  * @}
  */
@@ -101,34 +101,35 @@ char wifiBufferOut[100];
 
 /* Private functions ---------------------------------------------------------*/
 
-/** @defgroup STM32746G_DISCOVERY_ESP_WIFI_Private_Functions STM32746G_DISCOVERY Esp Wifi Private Functions
+/** @defgroup STM32746G_DISCOVERY_STDIO_Private_Functions STM32746G_DISCOVERY STDIO Private Functions
  * @{
  */
-
+__weak void BSP_STDIO_MspInit(void);
+__weak void BSP_STDIO_MspDeInit(void);
 
 /**
  * @}
  */
 
-/** @defgroup STM32746G_DISCOVERY_ESP_WIFI_Exported_Functions STM32746G_DISCOVERY ESP WIFI Exported Functions
+/** @defgroup STM32746G_DISCOVERY_STDIO_Exported_Functions STM32746G_DISCOVERY STDIO Exported Functions
  * @{
  */
 
 /**
- * @brief  Initializes WIFI interface.
- * @retval WIFI status
+ * @brief  Initializes STDIO interface.
+ * @retval STDIO status
  */
-uint8_t BSP_WIFI_Init(void)
+uint8_t BSP_STDIO_Init(void)
 { 
-	UARTHandle.Instance = USART6;
+	UARTHandle.Instance = USART1;
 
 	/* Call the DeInit function to reset the driver */
 	if (HAL_UART_DeInit(&UARTHandle) != HAL_OK)
 	{
-		return WIFI_ERROR;
+		return STDIO_ERROR;
 	}
 
-	/* com2 initialization */
+	/* COM1 initialization */
 	UARTHandle.Init.BaudRate = 115200;
 	UARTHandle.Init.Mode = USART_MODE_TX_RX;
 	UARTHandle.Init.OverSampling = USART_OVERSAMPLING_16;
@@ -136,85 +137,82 @@ uint8_t BSP_WIFI_Init(void)
 	UARTHandle.Init.StopBits = USART_STOPBITS_1;
 	UARTHandle.Init.WordLength = USART_WORDLENGTH_8B;
 
-	if (BSP_COM_Init(COM2, &UARTHandle) != HAL_OK)
+	if (BSP_COM_Init(COM1, &UARTHandle) != HAL_OK)
 	{
-		return WIFI_ERROR;
+		return STDIO_ERROR;
 	}
 
-	/* System level initialization */
-	BSP_WIFI_MspInit();
+	BSP_STDIO_MspInit();
 
-	HAL_UART_Receive_IT(&UARTHandle,(uint8_t*)wifiBufferIn, 1);
+	HAL_UART_Receive_IT(&UARTHandle,(uint8_t*)stdinBuffer, 1);
 
-	HAL_GPIO_WritePin(WIFI_ENABLE_GPIO_PORT, WIFI_ENABLE_PIN, GPIO_PIN_RESET); /* LE module Wifi consomme trop, on le desactive */
-	HAL_GPIO_WritePin(WIFI_RESET_GPIO_PORT, WIFI_RESET_PIN, GPIO_PIN_RESET);
-
-	HAL_Delay(100);
-	HAL_GPIO_WritePin(WIFI_RESET_GPIO_PORT, WIFI_RESET_PIN, GPIO_PIN_SET);
-
-	return WIFI_ERROR; /* LE module Wifi consomme trop, on le desactive */
+	return STDIO_OK;
 }
 
 /**
- * @brief  De-Initializes WIFI interface.
- * @retval WIFIstatus
+ * @brief  De-Initializes STDIO interface.
+ * @retval STDIO status
  */
-uint8_t BSP_WIFI_DeInit(void)
+uint8_t BSP_STDIO_DeInit(void)
 { 
 	/* Call the DeInit function to reset the driver */
-	if (BSP_COM_DeInit(COM2, &UARTHandle) != HAL_OK)
+	if (BSP_COM_DeInit(COM1, &UARTHandle) != HAL_OK)
 	{
-		return WIFI_ERROR;
+		return STDIO_ERROR;
 	}
 
-	/* System level De-initialization */
-	BSP_WIFI_MspDeInit();
+	BSP_STDIO_MspDeInit();
 
-	return WIFI_OK;
+	return STDIO_OK;
 }
 
 /**
- * @brief  Send command and get answer
- * @retval WIFI status
+ * @brief  Send data
+ * @retval STDIO status
  */
-uint8_t BSP_WIFI_SendCommand(char* cmd, char* ans)
+uint8_t BSP_STDIO_SendData   (uint8_t* data, uint16_t len)
 {
 	uint8_t status;
 
-	status = HAL_UART_Transmit(&UARTHandle, (uint8_t*)cmd, strlen(cmd), 100);
+	for (int i=0; i<len; i++)
+	{
+		stdoutBuffer[i] = (char)data[i];
+	}
+
+	status = HAL_UART_Transmit(&UARTHandle, (uint8_t*)stdoutBuffer, len, 100);
 
 	if (status != HAL_OK)
 	{
-		return WIFI_ERROR;
+		return STDIO_ERROR;
 	}
 
-	return WIFI_OK;
+	return STDIO_OK;
 }
 
-void BSP_WIFI_IRQHandler	(void)
+void BSP_STDIO_IRQHandler	(void)
 {
 	HAL_UART_IRQHandler(&UARTHandle);
 }
 
-__weak void BSP_WIFI_DataReceived	(char* data, uint16_t length)
+__weak void BSP_STDIO_DataReceived	(char* data, uint16_t length)
 {
 	//volatile uint8_t status;
-	static char *ptr=wifiBufferOut;
 
 	for (int i=0; i<length;i++)
 	{
-		*ptr++ = data[i];
+		stdoutBuffer[i] = data[i];
 	}
 
-	HAL_UART_Transmit(&UARTHandle, (uint8_t*)wifiBufferOut, length, 100);
+	HAL_UART_Transmit(&UARTHandle, (uint8_t*)stdoutBuffer, length, 100);
 
-	HAL_UART_Receive_IT(&UARTHandle,(uint8_t*)wifiBufferIn, 1);
+	HAL_UART_Receive_IT(&UARTHandle,(uint8_t*)stdinBuffer, 1);
 }
+
 /**
  * @}
  */
 
-/** @addtogroup STM32746G_DISCOVERY_ESP_WIFI_Private_Functions
+/** @addtogroup STM32746G_DISCOVERY_STDIO_Private_Functions
  * @{
  */
 
@@ -226,30 +224,12 @@ __weak void BSP_WIFI_DataReceived	(char* data, uint16_t length)
  *           - NVIC configuration for QSPI interrupt
  * @retval None
  */
-__weak void BSP_WIFI_MspInit(void)
+__weak void BSP_STDIO_MspInit(void)
 {
-	GPIO_InitTypeDef gpio_init_structure;
-
-	WIFI_ENABLE_CLK_ENABLE();
-	WIFI_RESET_CLK_ENABLE();
-
-	/* KEYS CS GPIO pin configuration  */
-	gpio_init_structure.Pin = WIFI_RESET_PIN;
-	gpio_init_structure.Mode = GPIO_MODE_OUTPUT_OD;
-	gpio_init_structure.Pull = GPIO_NOPULL;
-	gpio_init_structure.Speed = GPIO_SPEED_FAST;
-	HAL_GPIO_Init(WIFI_RESET_GPIO_PORT, &gpio_init_structure);
-
-	gpio_init_structure.Pin = WIFI_ENABLE_PIN;
-	gpio_init_structure.Mode = GPIO_MODE_OUTPUT_PP;
-	gpio_init_structure.Pull = GPIO_NOPULL;
-	gpio_init_structure.Speed = GPIO_SPEED_FAST;
-	HAL_GPIO_Init(WIFI_ENABLE_GPIO_PORT, &gpio_init_structure);
-
-	/*##-3- Configure the NVIC for COM2  #########################################*/
-	/* NVIC configuration for COM2 interrupt */
-	HAL_NVIC_SetPriority(DISCOVERY_COM2_IRQn, 0x0F, 0);
-	HAL_NVIC_EnableIRQ(DISCOVERY_COM2_IRQn);
+	/*##-3- Configure the NVIC for USART1 #########################################*/
+	/* NVIC configuration for USART1 interrupt */
+	HAL_NVIC_SetPriority(DISCOVERY_COM1_IRQn, 0x0F, 0);
+	HAL_NVIC_EnableIRQ(DISCOVERY_COM1_IRQn);
 }
 
 /**
@@ -259,13 +239,10 @@ __weak void BSP_WIFI_MspInit(void)
  *          - Revert GPIO and NVIC configuration to their default state
  * @retval None
  */
-__weak void BSP_WIFI_MspDeInit(void)
+__weak void BSP_STDIO_MspDeInit(void)
 {
 	/*##-1- Disable the NVIC for WIFI ###########################################*/
-	HAL_NVIC_DisableIRQ(DISCOVERY_COM2_IRQn);
-
-	HAL_GPIO_WritePin(WIFI_ENABLE_GPIO_PORT, WIFI_ENABLE_PIN, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(WIFI_RESET_GPIO_PORT, WIFI_RESET_PIN, GPIO_PIN_RESET);
+	HAL_NVIC_DisableIRQ(DISCOVERY_COM1_IRQn);
 }
 
 /**

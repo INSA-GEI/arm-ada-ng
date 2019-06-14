@@ -215,7 +215,6 @@ void EXTI9_5_IRQHandler(void)
   }
 }
 
-
 /**
   * @brief  This function handles External line 15_10 interrupt request.
   * @param  None
@@ -302,6 +301,26 @@ void DMA2D_IRQHandler(void)
 //{
 //	HAL_SD_IRQHandler(&uSdHandle);
 //}
+
+/**
+  * @brief  This function handles stdio (COM1 / USART1) Handler.
+  * @param  None
+  * @retval None
+  */
+void USART1_IRQHandler(void)
+{
+  BSP_STDIO_IRQHandler();
+}
+
+/**
+  * @brief  This function handles Wifi (COM2 / USART6) Handler.
+  * @param  None
+  * @retval None
+  */
+void USART6_IRQHandler(void)
+{
+  BSP_WIFI_IRQHandler();
+}
 
 /**
   * @}

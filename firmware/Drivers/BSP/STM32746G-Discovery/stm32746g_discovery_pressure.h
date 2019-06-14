@@ -1,9 +1,9 @@
 /**
  ******************************************************************************
- * @file    stm32746g_discovery_keys.h
+ * @file    stm32746g_discovery_pressure.h
  * @author  dimercur
  * @brief   This file contains the common defines and functions prototypes for
- *          the stm32746g_discovery_keys.c driver.
+ *          the stm32746g_discovery_pressure.c driver.
  ******************************************************************************
  * @attention
  *
@@ -43,8 +43,8 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32746G_DISCOVERY_KEYS_H
-#define __STM32746G_DISCOVERY_KEYS_H
+#ifndef __STM32746G_DISCOVERY_PRESSURE_H
+#define __STM32746G_DISCOVERY_PRESSURE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,57 +52,51 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32746g_discovery.h"
-//#include "stm32746g_discovery_keys_conf.h"
-
-/** @addtogroup STM32746G_DISCOVERY_KEYS
+#include "../Components/bmp280/bmp280.h"
+#include <string.h>
+/** @addtogroup STM32746G_DISCOVERY_PRESSURE
  * @{
  */
 
 
 /* Exported constants --------------------------------------------------------*/ 
-/** @defgroup STM32746G_DISCOVERY_KEYS_Exported_Constants STM32746G_DISCOVERY_KEYS Exported Constants
+/** @defgroup STM32746G_DISCOVERY_PRESSURE_Exported_Constants STM32746G_DISCOVERY_PRESSURE Exported Constants
  * @{
  */
-/* KEYS Error codes */
-#define KEYS_OK            ((uint8_t)0x00)
-#define KEYS_ERROR         ((uint8_t)0x01)
-#define KEYS_BUSY          ((uint8_t)0x02)
+/* PRESSURE Error codes */
+#define PRESSURE_OK            ((uint8_t)0x00)
+#define PRESSURE_ERROR         ((uint8_t)0x01)
+#define PRESSURE_BUSY          ((uint8_t)0x02)
+#define PRESSURE_NO_DATA       ((uint8_t)0x03)
 
-#define KEYS_PRESSED       ((uint8_t)0x1)
-#define KEYS_RELEASED      ((uint8_t)0x0)
-
-#define KEYS_SPIx 			DISCOVERY_SPIx
+#define PRESSURE_SPIx 			DISCOVERY_SPIx
 
 /* Definition for SPI clock resources */
-#define KEYS_CLK_ENABLE()            DISCOVERY_SPIx_CLK_ENABLE()
-#define KEYS_CLK_DISABLE()           DISCOVERY_SPIx_CLK_DISABLE()
-#define KEYS_CS_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOG_CLK_ENABLE()
-#define KEYS_CLK_GPIO_CLK_ENABLE()   DISCOVERY_SPIx_CLK_GPIO_CLK_ENABLE()
-#define KEYS_MISO_GPIO_CLK_ENABLE()  DISCOVERY_SPIx_MISO_GPIO_CLK_ENABLE()
-#define KEYS_LOAD_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOA_CLK_ENABLE()
+#define PRESSURE_CLK_ENABLE()            DISCOVERY_SPIx_CLK_ENABLE()
+#define PRESSURE_CLK_DISABLE()           DISCOVERY_SPIx_CLK_DISABLE()
+#define PRESSURE_CS_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOA_CLK_ENABLE()
+#define PRESSURE_CLK_GPIO_CLK_ENABLE()   DISCOVERY_SPIx_CLK_GPIO_CLK_ENABLE()
+#define PRESSURE_MISO_GPIO_CLK_ENABLE()  DISCOVERY_SPIx_MISO_GPIO_CLK_ENABLE()
+#define PRESSURE_MOSI_GPIO_CLK_ENABLE()  DISCOVERY_SPIx_MOSI_GPIO_CLK_ENABLE()
 
 /* Definition for SPI Pins */
-#define KEYS_CS_PIN                GPIO_PIN_7
-#define KEYS_CS_GPIO_PORT          GPIOG
-#define KEYS_CLK_PIN               DISCOVERY_SPIx_CLK_PIN
-#define KEYS_CLK_GPIO_PORT         DISCOVERY_SPIx_CLK_GPIO_PORT
-#define KEYS_MISO_PIN              DISCOVERY_SPIx_MISO_PIN
-#define KEYS_MISO_GPIO_PORT        DISCOVERY_SPIx_MISO_GPIO_PORT
-#define KEYS_LOAD_PIN              GPIO_PIN_15
-#define KEYS_LOAD_GPIO_PORT        GPIOA
+#define PRESSURE_CS_PIN                GPIO_PIN_8
+#define PRESSURE_CS_GPIO_PORT          GPIOA
+#define PRESSURE_CLK_PIN               DISCOVERY_SPIx_CLK_PIN
+#define PRESSURE_CLK_GPIO_PORT         DISCOVERY_SPIx_CLK_GPIO_PORT
+#define PRESSURE_MISO_PIN              DISCOVERY_SPIx_MISO_PIN
+#define PRESSURE_MISO_GPIO_PORT        DISCOVERY_SPIx_MISO_GPIO_PORT
+#define PRESSURE_MOSI_PIN              DISCOVERY_SPIx_MOSI_PIN
+#define PRESSURE_MOSI_GPIO_PORT        DISCOVERY_SPIx_MOSI_GPIO_PORT
 
-/* Definition for states pins */
-#define KEYS_CS_ENABLE()			HAL_GPIO_WritePin(KEYS_CS_GPIO_PORT, KEYS_CS_PIN, GPIO_PIN_RESET )
-#define KEYS_CS_DISABLE()			HAL_GPIO_WritePin(KEYS_CS_GPIO_PORT, KEYS_CS_PIN, GPIO_PIN_SET )
-#define KEYS_SET_PARALLEL_MODE()	HAL_GPIO_WritePin(KEYS_LOAD_GPIO_PORT, KEYS_LOAD_PIN, GPIO_PIN_RESET )
-#define KEYS_SET_SERIAL_MODE()		HAL_GPIO_WritePin(KEYS_LOAD_GPIO_PORT, KEYS_LOAD_PIN, GPIO_PIN_SET )
-
+#define PRESSURE_CS_ENABLE(dev) 	   BMP280_CS_ENABLE(dev)
+#define PRESSURE_CS_DISABLE(dev)	   BMP280_CS_DISABLE(dev)
 /**
  * @}
  */
 
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup STM32746G_DISCOVERY_KEYS_Exported_Types STM32746G_DISCOVERY_KEYS Exported Types
+/** @defgroup STM32746G_DISCOVERY_PRESSURE_Exported_Types STM32746G_DISCOVERY_PRESSURE Exported Types
  * @{
  */
 
@@ -111,19 +105,19 @@ extern "C" {
  */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup STM32746G_DISCOVERY_KEYS_Exported_Functions
+/** @addtogroup STM32746G_DISCOVERY_PRESSURE_Exported_Functions
  * @{
  */
-uint8_t BSP_KEYS_Init       (void);
-uint8_t BSP_KEYS_DeInit     (void);
-uint8_t BSP_KEYS_Read       (void);
-uint8_t BSP_KEYS_GetKey     (uint8_t key);
-uint8_t BSP_KEYS_GetKeys    (void);
+uint8_t BSP_PRESSURE_Init       (void);
+uint8_t BSP_PRESSURE_DeInit     (void);
+uint8_t BSP_PRESSURE_ReadValues(uint32_t *pressure);
+uint8_t BSP_PRESSURE_ReadTemperature(int32_t *temperature_degC);
+uint8_t BSP_PRESSURE_ReadCompensatedValues(float *pressure, float *temperature);
 
 /* These functions can be modified in case the current settings
    need to be changed for specific application needs */
-void BSP_KEYS_MspInit		(void);
-void BSP_KEYS_MspDeInit		(void);
+void BSP_PRESSURE_MspInit		(void);
+void BSP_PRESSURE_MspDeInit		(void);
 
 /**
  * @}
@@ -137,7 +131,7 @@ void BSP_KEYS_MspDeInit		(void);
 }
 #endif
 
-#endif /* __STM32746G_DISCOVERY_KEYS_H */
+#endif /* __STM32746G_DISCOVERY_MAG_H */
 /**
  * @}
  */

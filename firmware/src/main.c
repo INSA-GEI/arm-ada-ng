@@ -69,17 +69,18 @@ static void MAIN_SystemInit(void);
 BSP_DemoTypedef  BSP_examples[] =
 {
 		{Keys_demo, "KEYS", 0},
-		{FATFSSD_demo, "FATFS", 0},
+		{SENSORS_Demo, "SENSORS", 0},
 		//{SD_demo, "mSD", 0},/*{LCD_demo, "LCD", 0},*/
 		{Touchscreen_demo, "TOUCHSCREEN", 0},
 		{AudioRec_demo, "AUDIO RECORD", 0},
 		{AudioLoopback_demo, "AUDIO LOOPBACK", 0},
 		{AudioPlay_demo, "AUDIO PLAY", 0},
 
-		{Log_demo, "LCD LOG", 0},
+		//{Log_demo, "LCD LOG", 0},
 		{SDRAM_demo, "SDRAM", 0},
 		{SDRAM_DMA_demo, "SDRAM DMA", 0},
 		{QSPI_demo, "QSPI", 0},
+		{FATFSSD_demo, "FATFS", 0}
 };
 
 /* Private functions ---------------------------------------------------------*/
@@ -131,10 +132,10 @@ int main(void)
 	/* Wait For User inputs */
 	while (1)
 	{
-		if (BSP_PB_GetState(BUTTON_KEY) != RESET)
+		if (BSP_PB_GetState(BUTTON_A) != RESET)
 		{
-			HAL_Delay(10);
-			while (BSP_PB_GetState(BUTTON_KEY) != RESET);
+			HAL_Delay(100);
+			while (BSP_PB_GetState(BUTTON_A) != RESET);
 
 			BSP_examples[DemoIndex++].DemoFunc();
 
@@ -321,7 +322,7 @@ static void Display_DemoDescription(void)
 	BSP_LCD_FillRect(0, BSP_LCD_GetYSize() / 2 + 15, BSP_LCD_GetXSize(), 60);
 	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 	BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
-	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 30, (uint8_t *)"Press A to start ", CENTER_MODE);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 30, (uint8_t *)"Press A (Red) to start ", CENTER_MODE);
 	sprintf((char *)desc, "%s example", BSP_examples[DemoIndex].DemoName);
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 45, (uint8_t *)desc, CENTER_MODE);
 }
@@ -333,10 +334,10 @@ static void Display_DemoDescription(void)
  */
 uint8_t CheckForUserInput(void)
 {
-	if (BSP_PB_GetState(BUTTON_KEY) != RESET)
+	if (BSP_PB_GetState(BUTTON_A) != RESET)
 	{
 		HAL_Delay(10);
-		while (BSP_PB_GetState(BUTTON_KEY) != RESET);
+		while (BSP_PB_GetState(BUTTON_A) != RESET);
 		return 1 ;
 	}
 	return 0;
@@ -350,6 +351,8 @@ uint8_t CheckForUserInput(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	static uint32_t debounce_time = 0;
+	static volatile uint32_t counter_mag=0;
+	static volatile uint32_t counter_acc_gyro=0;
 
 	switch (GPIO_Pin)
 	{
@@ -366,9 +369,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		break;
 	case MAG_DRDY_PIN:
 		/* MAG DRDY interrupt */
+		counter_mag++;
 		break;
 	case ACC_GYRO_DRDY_PIN:
 		/* ACC and Gyro DRDY interrupt */
+		counter_acc_gyro++;
 		break;
 	case SD_DETECT_PIN:
 		/* SD Detect and TS interrupt (shared) */
@@ -430,6 +435,9 @@ static void CPU_EnableFaultHandler(void)
  */
 static void MAIN_SystemInit(void)
 {
+	/* Init standard IO serial link */
+	BSP_STDIO_Init();
+
 	/* Init led1 */
 	BSP_LED_Init(LED1);
 
@@ -440,10 +448,19 @@ static void MAIN_SystemInit(void)
 	RNG_InitGenerator();
 
 	/* Init Keys */
-	if (BSP_KEYS_Init() != KEYS_OK)
-	{
-		for (;;);
-	}
+	BSP_KEYS_Init();
+
+	/* Init magnetic sensor */
+	BSP_MAG_Init();
+
+	/* Init accelerometer and gyroscope sensor */
+	BSP_ACC_GYRO_Init();
+
+	/* Init accelerometer and gyroscope sensor */
+	BSP_PRESSURE_Init();
+
+	/* Init WIFI */
+	//BSP_WIFI_Init();
 }
 
 #ifdef USE_FULL_ASSERT

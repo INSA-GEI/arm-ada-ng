@@ -100,6 +100,7 @@ static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
 		uint16_t len);
 
 lsm6ds3_ctx_t sensorCtx;
+static char accSensorEnabled=0;
 
 /**
  * @}
@@ -129,7 +130,7 @@ lsm6ds3_ctx_t sensorCtx;
 uint8_t BSP_ACC_GYRO_Init(void)
 { 
 	uint8_t whoamI,rst;
-	lsm6ds3_int1_route_t int_1_reg;
+	//lsm6ds3_int1_route_t int_1_reg;
 
 	/* I2C Configuration */
 	I2CHandle.Instance = ACC_GYRO_I2Cx;
@@ -169,10 +170,7 @@ uint8_t BSP_ACC_GYRO_Init(void)
 	lsm6ds3_device_id_get(&sensorCtx, &whoamI);
 	if (whoamI != LSM6DS3_ID)
 	{
-		while(1)
-		{
-			/* manage here device not found */
-		}
+		return ACC_ERROR;
 	}
 
 	/*
@@ -191,23 +189,24 @@ uint8_t BSP_ACC_GYRO_Init(void)
 	/*
 	 * Set full scale
 	 */
-	lsm6ds3_xl_full_scale_set(&sensorCtx, LSM6DS3_2g);
-	lsm6ds3_gy_full_scale_set(&sensorCtx, LSM6DS3_2000dps);
+	lsm6ds3_xl_full_scale_set(&sensorCtx, LSM6DS3_4g);
+	lsm6ds3_gy_full_scale_set(&sensorCtx, LSM6DS3_1000dps);
 
 	/*
 	 * Set Output Data Rate
 	 */
-	lsm6ds3_xl_data_rate_set(&sensorCtx, LSM6DS3_XL_ODR_12Hz5);
-	lsm6ds3_gy_data_rate_set(&sensorCtx, LSM6DS3_GY_ODR_12Hz5);
+	lsm6ds3_xl_data_rate_set(&sensorCtx, LSM6DS3_XL_ODR_833Hz);
+	lsm6ds3_gy_data_rate_set(&sensorCtx, LSM6DS3_GY_ODR_833Hz);
 
 	/*
 	 * Enable interrupt generation on DRDY INT1 pin
 	 */
-	lsm6ds3_pin_int1_route_get(&sensorCtx, &int_1_reg);
-	int_1_reg.int1_drdy_g = PROPERTY_ENABLE;
-	int_1_reg.int1_drdy_xl = PROPERTY_ENABLE;
-	lsm6ds3_pin_int1_route_set(&sensorCtx, &int_1_reg);
+	//	lsm6ds3_pin_int1_route_get(&sensorCtx, &int_1_reg);
+	//	int_1_reg.int1_drdy_g = PROPERTY_ENABLE;
+	//	int_1_reg.int1_drdy_xl = PROPERTY_ENABLE;
+	//	lsm6ds3_pin_int1_route_set(&sensorCtx, &int_1_reg);
 
+	accSensorEnabled = 1;
 	return ACC_OK;
 }
 
@@ -218,6 +217,7 @@ uint8_t BSP_ACC_GYRO_Init(void)
 uint8_t BSP_ACC_GYRO_DeInit(void)
 { 
 	BSP_ACC_GYRO_MspDeInit();
+	accSensorEnabled =0;
 
 	return ACC_OK;
 }
@@ -231,25 +231,28 @@ uint8_t BSP_ACC_ReadRawValues(axis3bit16_t *data_raw_acceleration)
 	uint8_t status= ACC_OK;
 	uint8_t reg;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	/*
-	 * Read status register
-	 */
-	lsm6ds3_xl_flag_data_ready_get(&sensorCtx, &reg);
-
-	if (reg)
+	if (accSensorEnabled)
 	{
-		/*
-		 * Read accelerometer field data
-		 */
-		memset(data_raw_acceleration->u8bit, 0, 3 * sizeof(int16_t));
-		lsm6ds3_acceleration_raw_get(&sensorCtx, data_raw_acceleration->u8bit);
-	}
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
 
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+		/*
+		 * Read status register
+		 */
+		lsm6ds3_xl_flag_data_ready_get(&sensorCtx, &reg);
+
+		if (reg)
+		{
+			/*
+			 * Read accelerometer field data
+			 */
+			memset(data_raw_acceleration->u8bit, 0, 3 * sizeof(int16_t));
+			lsm6ds3_acceleration_raw_get(&sensorCtx, data_raw_acceleration->u8bit);
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	} else status = ACC_ERROR;
 
 	return status;
 }
@@ -263,22 +266,25 @@ uint8_t BSP_GYRO_ReadRawValues(axis3bit16_t *data_raw_angular_rate)
 	uint8_t status= ACC_OK;
 	uint8_t reg;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	lsm6ds3_gy_flag_data_ready_get(&sensorCtx, &reg);
-
-	if (reg)
+	if (accSensorEnabled)
 	{
-		/*
-		 * Read gyroscope field data
-		 */
-		memset(data_raw_angular_rate->u8bit, 0, 3 * sizeof(int16_t));
-		lsm6ds3_angular_rate_raw_get(&sensorCtx, data_raw_angular_rate->u8bit);
-	}
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
 
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+		lsm6ds3_gy_flag_data_ready_get(&sensorCtx, &reg);
+
+		if (reg)
+		{
+			/*
+			 * Read gyroscope field data
+			 */
+			memset(data_raw_angular_rate->u8bit, 0, 3 * sizeof(int16_t));
+			lsm6ds3_angular_rate_raw_get(&sensorCtx, data_raw_angular_rate->u8bit);
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	} else status = ACC_ERROR;
 
 	return status;
 }
@@ -287,29 +293,32 @@ uint8_t BSP_GYRO_ReadRawValues(axis3bit16_t *data_raw_angular_rate)
  * @brief  Reads acceleration values
  * @retval Read status
  */
-uint8_t BSP_ACC_ReadValues(float *acceleration_mg[])
+uint8_t BSP_ACC_ReadValues(acceleration_t *acceleration)
 {
 	axis3bit16_t data_raw_acceleration;
 	uint8_t status= ACC_OK;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	status = BSP_ACC_ReadRawValues(&data_raw_acceleration);
-
-	if (status == ACC_OK)
+	if (accSensorEnabled)
 	{
-		*acceleration_mg[0] =
-				lsm6ds3_from_fs2g_to_mg(data_raw_acceleration.i16bit[0]);
-		*acceleration_mg[1] =
-				lsm6ds3_from_fs2g_to_mg(data_raw_acceleration.i16bit[1]);
-		*acceleration_mg[2] =
-				lsm6ds3_from_fs2g_to_mg(data_raw_acceleration.i16bit[2]);
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
 
-	}
+		status = BSP_ACC_ReadRawValues(&data_raw_acceleration);
 
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+		if (status == ACC_OK)
+		{
+			acceleration->x =
+					lsm6ds3_from_fs2g_to_mg(data_raw_acceleration.i16bit[0]);
+			acceleration->y =
+					lsm6ds3_from_fs2g_to_mg(data_raw_acceleration.i16bit[1]);
+			acceleration->z =
+					lsm6ds3_from_fs2g_to_mg(data_raw_acceleration.i16bit[2]);
+
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	} else status = ACC_ERROR;
 
 	return status;
 }
@@ -318,33 +327,36 @@ uint8_t BSP_ACC_ReadValues(float *acceleration_mg[])
  * @brief  Reads acceleration values
  * @retval Read status
  */
-uint8_t BSP_GYRO_ReadValues(float *angular_rate_mdps[])
+uint8_t BSP_GYRO_ReadValues(angularRate_t *angular_rate)
 {
 	axis3bit16_t data_raw_angular_rate;
 	uint8_t status= ACC_OK;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	status = BSP_GYRO_ReadRawValues(&data_raw_angular_rate);
-
-	if (status == ACC_OK)
+	if (accSensorEnabled)
 	{
-		/*
-		 * Read gyroscope field data
-		 */
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
 
-		*angular_rate_mdps[0] =
-				lsm6ds3_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[0]);
-		*angular_rate_mdps[1] =
-				lsm6ds3_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[1]);
-		*angular_rate_mdps[2] =
-				lsm6ds3_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[2]);
+		status = BSP_GYRO_ReadRawValues(&data_raw_angular_rate);
 
-	}
+		if (status == ACC_OK)
+		{
+			/*
+			 * Read gyroscope field data
+			 */
 
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+			angular_rate->x =
+					lsm6ds3_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[0]);
+			angular_rate->y =
+					lsm6ds3_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[1]);
+			angular_rate->z =
+					lsm6ds3_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[2]);
+
+		}
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	} else status = ACC_ERROR;
 
 	return status;
 }
@@ -359,31 +371,36 @@ uint8_t BSP_ACC_ReadTemperature(float *temperature_degC)
 	uint8_t reg;
 	axis1bit16_t data_raw_temperature;
 
-	/* TODO: Supprimer apres test */
-	HAL_SuspendTick();
-
-	/*
-	 * Read output only if new value is available
-	 */
-	lsm6ds3_temp_flag_data_ready_get(&sensorCtx, &reg);
-
-	if (reg)
+	if (accSensorEnabled)
 	{
+		/* TODO: Supprimer apres test */
+		__disable_irq(); // Set PRIMASK
+
 		/*
-		 * Read temperature data
+		 * Read output only if new value is available
 		 */
-		memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
-		lsm6ds3_temperature_raw_get(&sensorCtx, data_raw_temperature.u8bit);
-		*temperature_degC = lsm6ds3_from_lsb_to_celsius(data_raw_temperature.i16bit);
+		lsm6ds3_temp_flag_data_ready_get(&sensorCtx, &reg);
 
-	}
-	else
-	{
-		status =  ACC_NO_DATA;
-	}
+		if (reg)
+		{
+			/*
+			 * Read temperature data
+			 */
+			memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
+			lsm6ds3_temperature_raw_get(&sensorCtx, data_raw_temperature.u8bit);
+			*temperature_degC = lsm6ds3_from_lsb_to_celsius(data_raw_temperature.i16bit);
 
-	/* TODO: Supprimer apres test */
-	HAL_ResumeTick();
+		}
+		else
+		{
+			status =  ACC_NO_DATA;
+		}
+
+
+
+		/* TODO: Supprimer apres test */
+		__enable_irq(); // Clear PRIMASK
+	} else status = ACC_ERROR;
 
 	return status;
 }
@@ -411,7 +428,7 @@ static int32_t platform_write(void *handle, uint8_t reg, uint8_t *bufp,
 		uint16_t len)
 {
 
-	HAL_I2C_Mem_Write(handle, LSM6DS3_I2C_ADD_L, reg,
+	HAL_I2C_Mem_Write(handle, LSM6DS3_I2C_ADD_H, reg,
 			I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
 
 
@@ -432,7 +449,7 @@ static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
 		uint16_t len)
 {
 
-	HAL_I2C_Mem_Read(handle, LSM6DS3_I2C_ADD_L, reg,
+	HAL_I2C_Mem_Read(handle, LSM6DS3_I2C_ADD_H, reg,
 			I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
 
 
@@ -450,50 +467,55 @@ static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
 __weak void BSP_ACC_GYRO_MspInit(void)
 {
 	GPIO_InitTypeDef gpio_init_structure;
-	RCC_PeriphCLKInitTypeDef  RCC_PeriphCLKInitStruct;
-
-	/*##-1- Configure the I2C clock source. The clock is derived from the SYSCLK #*/
-	RCC_PeriphCLKInitStruct.PeriphClockSelection = ACC_GYRO_RCC_PERIPHCLK_I2Cx;
-	RCC_PeriphCLKInitStruct.I2c1ClockSelection = ACC_GYRO_RCC_I2CxCLKSOURCE_SYSCLK;
-	HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphCLKInitStruct);
-
-	/*##-1- Enable peripherals and GPIO Clocks #################################*/
-	/* Enable I2C interface clock */
-	ACC_GYRO_I2Cx_CLK_ENABLE();
-
-	/* Enable GPIO clocks */
-	ACC_GYRO_I2Cx_SDA_GPIO_CLK_ENABLE();
-	ACC_GYRO_I2Cx_SCL_GPIO_CLK_ENABLE();
+	DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_CLK_ENABLE();
 
 	/*##-2- Configure peripheral GPIO ##########################################*/
 	/* KEYS CS GPIO pin configuration  */
-	gpio_init_structure.Pin       = ACC_GYRO_I2Cx_SDA_PIN;
-	gpio_init_structure.Mode      = GPIO_MODE_AF_OD;
-	gpio_init_structure.Pull      = GPIO_PULLUP;
-	gpio_init_structure.Speed     = GPIO_SPEED_HIGH;
-	gpio_init_structure.Alternate = ACC_GYRO_I2Cx_SCL_SDA_AF;
-	HAL_GPIO_Init(ACC_GYRO_I2Cx_SDA_GPIO_PORT, &gpio_init_structure);
+	gpio_init_structure.Pin = DISCOVERY_EXT_I2Cx_SCL_PIN;
+	gpio_init_structure.Mode = GPIO_MODE_AF_OD;
+	gpio_init_structure.Pull = GPIO_PULLUP;
+	gpio_init_structure.Speed = GPIO_SPEED_FAST;
+	gpio_init_structure.Alternate = DISCOVERY_EXT_I2Cx_SCL_SDA_AF;
+	HAL_GPIO_Init(DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
 
-	/* SCL GPIO pin configuration  */
-	gpio_init_structure.Pin       = ACC_GYRO_I2Cx_SCL_PIN;
-	gpio_init_structure.Alternate = ACC_GYRO_I2Cx_SCL_SDA_AF;
-	HAL_GPIO_Init(ACC_GYRO_I2Cx_SCL_GPIO_PORT, &gpio_init_structure);
+	/* Configure I2C Rx as alternate function */
+	gpio_init_structure.Pin = DISCOVERY_EXT_I2Cx_SDA_PIN;
+	HAL_GPIO_Init(DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
 
-	/* IT DRDY GPIO pin configuration  */
-	gpio_init_structure.Pin       = ACC_GYRO_DRDY_PIN;
-	gpio_init_structure.Pull 	  = GPIO_NOPULL;
-	gpio_init_structure.Speed 	  = GPIO_SPEED_FAST;
-	gpio_init_structure.Mode 	  = GPIO_MODE_IT_RISING;
-	HAL_GPIO_Init(ACC_GYRO_DRDY_GPIO_PORT, &gpio_init_structure);
+	//	/* IT DRDY GPIO pin configuration  */
+	//	gpio_init_structure.Pin       = ACC_GYRO_DRDY_PIN;
+	//	gpio_init_structure.Pull 	  = GPIO_NOPULL;
+	//	gpio_init_structure.Speed 	  = GPIO_SPEED_FAST;
+	//	gpio_init_structure.Mode 	  = GPIO_MODE_IT_RISING;
+	//	HAL_GPIO_Init(ACC_GYRO_DRDY_GPIO_PORT, &gpio_init_structure);
 
 	/*##-3- Configure NVIC for IT_LIS2MDL #########################################*/
 	/* NVIC configuration for SPI2 interrupt */
 	//	HAL_NVIC_SetPriority(I2C1_IRQn, 0x0F, 0);
 	//	HAL_NVIC_EnableIRQ(I2C1_  SPI2_IRQn);
 
-	/* Enable and set EXTI9-5 Interrupt to the lowest priority */
-	HAL_NVIC_SetPriority(ACC_GYRO_DRDY_EXTI_IRQn, 0xFF, 0);
-	HAL_NVIC_EnableIRQ(ACC_GYRO_DRDY_EXTI_IRQn);
+
+	/*** Configure the I2C peripheral ***/
+	/* Enable I2C clock */
+	DISCOVERY_EXT_I2Cx_CLK_ENABLE();
+
+	/* Force the I2C peripheral clock reset */
+	DISCOVERY_EXT_I2Cx_FORCE_RESET();
+
+	/* Release the I2C peripheral clock reset */
+	DISCOVERY_EXT_I2Cx_RELEASE_RESET();
+
+	/* Enable and set I2Cx Interrupt to a lower priority */
+	HAL_NVIC_SetPriority(DISCOVERY_EXT_I2Cx_EV_IRQn, 0x0F, 0);
+	HAL_NVIC_EnableIRQ(DISCOVERY_EXT_I2Cx_EV_IRQn);
+
+	/* Enable and set I2Cx Interrupt to a lower priority */
+	HAL_NVIC_SetPriority(DISCOVERY_EXT_I2Cx_ER_IRQn, 0x0F, 0);
+	HAL_NVIC_EnableIRQ(DISCOVERY_EXT_I2Cx_ER_IRQn);
+
+	//	/* Enable and set EXTI9-5 Interrupt to the lowest priority */
+	//	HAL_NVIC_SetPriority(ACC_GYRO_DRDY_EXTI_IRQn, 0xFF, 0);
+	//	HAL_NVIC_EnableIRQ(ACC_GYRO_DRDY_EXTI_IRQn);
 }
 
 /**

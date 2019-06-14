@@ -7,7 +7,7 @@ encoding utf-8
 Sheet 1 1
 Title "Carte Principale"
 Date "2019-04-26"
-Rev "02B"
+Rev "02C"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -31,7 +31,7 @@ U 1 1 5C628CF8
 P 4700 2000
 F 0 "U2" H 5341 2046 50  0000 L CNN
 F 1 "LSM6DS3" H 5341 1955 50  0000 L CNN
-F 2 "Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y" H 4300 1300 50  0001 L CNN
+F 2 "Insa:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y-slim" H 4300 1300 50  0001 L CNN
 F 3 "www.st.com/resource/en/datasheet/lsm6ds3.pdf" H 4800 1350 50  0001 C CNN
 	1    4700 2000
 	1    0    0    -1  
@@ -122,17 +122,6 @@ F 1 "VDD" H 4817 1373 50  0000 C CNN
 F 2 "" H 4800 1200 50  0001 C CNN
 F 3 "" H 4800 1200 50  0001 C CNN
 	1    4800 1200
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VDD #PWR0105
-U 1 1 5C63EAB9
-P 8250 2100
-F 0 "#PWR0105" H 8250 1950 50  0001 C CNN
-F 1 "VDD" H 8267 2273 50  0000 C CNN
-F 2 "" H 8250 2100 50  0001 C CNN
-F 3 "" H 8250 2100 50  0001 C CNN
-	1    8250 2100
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -233,7 +222,7 @@ U 1 1 5C63F305
 P 2100 2200
 F 0 "U7" H 2600 3050 50  0000 C CNN
 F 1 "LIS2MDL" H 2700 2950 50  0000 C CNN
-F 2 "Package_LGA:LGA-12_2x2mm_P0.5mm" H 2200 1250 50  0001 C CNN
+F 2 "Insa:LGA-12_2x2mm_P0.5mm-slim" H 2200 1250 50  0001 C CNN
 F 3 "https://www.st.com/resource/en/datasheet/lis2mdl.pdf" H 2200 1350 50  0001 C CNN
 	1    2100 2200
 	1    0    0    -1  
@@ -586,21 +575,17 @@ Text Label 3550 2100 0    50   ~ 0
 I2C_SDA
 Text Label 3550 2200 0    50   ~ 0
 I2C_SCL
-Wire Wire Line
-	5300 1700 5700 1700
-Text Label 5350 1700 0    50   ~ 0
+Text Label 5750 1600 1    50   ~ 0
 LSM6DS3_IT
 Wire Wire Line
 	1600 1900 1000 1900
 Wire Wire Line
 	1600 2000 1000 2000
-Wire Wire Line
-	1600 2250 1000 2250
 Text Label 1050 1900 0    50   ~ 0
 I2C_SCL
 Text Label 1050 2000 0    50   ~ 0
 I2C_SDA
-Text Label 1050 2250 0    50   ~ 0
+Text Label 900  2250 0    50   ~ 0
 LIS2MDL_IT
 Wire Wire Line
 	1600 2100 1500 2100
@@ -982,4 +967,48 @@ Wire Wire Line
 	10950 5700 10950 5600
 Text Notes 8600 6150 0    50   ~ 0
 WIFI_RST is open drain, actif low
+$Comp
+L Jumper:SolderJumper_2_Open JP1
+U 1 1 5CFFF49B
+P 5450 1700
+F 0 "JP1" H 5600 1750 50  0000 C CNN
+F 1 "SJ" H 5450 1814 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5450 1700 50  0001 C CNN
+F 3 "~" H 5450 1700 50  0001 C CNN
+	1    5450 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP3
+U 1 1 5CFFF5D9
+P 1450 2250
+F 0 "JP3" H 1550 2150 50  0000 C CNN
+F 1 "SJ" H 1450 2364 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 1450 2250 50  0001 C CNN
+F 3 "~" H 1450 2250 50  0001 C CNN
+	1    1450 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP2
+U 1 1 5D01128E
+P 5450 1800
+F 0 "JP2" H 5600 1700 50  0000 C CNN
+F 1 "SJ" H 5450 1914 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5450 1800 50  0001 C CNN
+F 3 "~" H 5450 1800 50  0001 C CNN
+	1    5450 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5600 1800 5750 1800
+Wire Wire Line
+	5750 1800 5750 1700
+Wire Wire Line
+	5600 1700 5750 1700
+Connection ~ 5750 1700
+Wire Wire Line
+	5750 1700 5750 1200
+Wire Wire Line
+	1300 2250 900  2250
 $EndSCHEMATC

@@ -51,7 +51,8 @@
 #endif 
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f7xx_hal.h"
+#include "stm32746g_discovery.h"
+#include <string.h>
 
 /** @addtogroup STM32746G_DISCOVERY_ESP_WIFI
   * @{
@@ -67,17 +68,17 @@
 #define WIFI_ERROR         ((uint8_t)0x01)
 #define WIFI_BUSY          ((uint8_t)0x02)
 
-/* Definition for Usart clock resources */
-#define WIFI_CLK_ENABLE()            __HAL_RCC_USART6_CLK_ENABLE()
-#define WIFI_CLK_DISABLE()           __HAL_RCC_USART6_CLK_DISABLE()
-#define WIFI_TX_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOC_CLK_ENABLE()
-#define WIFI_RX_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOC_CLK_ENABLE()
+ /* Definition for SPI clock resources */
+ #define WIFI_RESET_CLK_ENABLE()    __HAL_RCC_GPIOB_CLK_ENABLE()
+ #define WIFI_RESET_CLK_DISABLE()   __HAL_RCC_GPIOB_CLK_DISABLE()
+ #define WIFI_ENABLE_CLK_ENABLE()   __HAL_RCC_GPIOG_CLK_ENABLE()
+ #define WIFI_ENABLE_CLK_DISABLE()   __HAL_RCC_GPIOG_CLK_DISABLE()
 
-/* Definition for SPI Pins */
-#define WIFI_TX_PIN                GPIO_PIN_6
-#define WIFI_TX_GPIO_PORT          GPIOC
-#define WIFI_RX_PIN                GPIO_PIN_7
-#define WIFI_RX_GPIO_PORT          GPIOC
+ /* Definition for I2C Pins */
+ #define WIFI_RESET_PIN               GPIO_PIN_4
+ #define WIFI_RESET_GPIO_PORT         GPIOB
+ #define WIFI_ENABLE_PIN              GPIO_PIN_6
+ #define WIFI_ENABLE_GPIO_PORT        GPIOG
 
 /**
   * @}
@@ -98,7 +99,10 @@
   */  
 uint8_t BSP_WIFI_Init       (void);
 uint8_t BSP_WIFI_DeInit     (void);
-uint8_t BSP_KEYS_SendCommand (char* cmd);
+uint8_t BSP_WIFI_SendCommand(char* cmd, char* ans);
+
+void BSP_WIFI_IRQHandler	(void);
+__weak void BSP_WIFI_DataReceived	(char* data, uint16_t length);
 
 /* These functions can be modified in case the current settings
    need to be changed for specific application needs */
