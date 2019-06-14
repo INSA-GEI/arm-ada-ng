@@ -180,7 +180,7 @@ typedef enum
 #define LCD_ORIENTATION_90				2
 #define LCD_ORIENTATION_270				3
 
-#define LCD_ORIENTATION					LCD_ORIENTATION_180
+
 /**
   * @}
   */ 

@@ -69,8 +69,8 @@ LED_GREEN = LED1,
 /* Definition for keys position */
 #define KEYS_A					   ((uint8_t)1<<3)
 #define KEYS_B					   ((uint8_t)1<<2)
-#define KEYS_X					   ((uint8_t)1<<0)
-#define KEYS_Y					   ((uint8_t)1<<1)
+#define KEYS_X					   ((uint8_t)1<<1)
+#define KEYS_Y					   ((uint8_t)1<<0)
 #define KEYS_UP					   ((uint8_t)1<<7)
 #define KEYS_DOWN				   ((uint8_t)1<<6)
 #define KEYS_LEFT				   ((uint8_t)1<<5)
@@ -116,6 +116,11 @@ typedef enum
 #if !defined (USE_STM32746G_DISCO)
  #define USE_STM32746G_DISCO
 #endif
+
+/** @addtogroup STM32746G_DISCOVERY_LOW_LEVEL_LCD_ORIENTATION
+  * @{
+  */
+#define LCD_ORIENTATION					LCD_ORIENTATION_180
 
 /** @addtogroup STM32746G_DISCOVERY_LOW_LEVEL_LED
   * @{

@@ -69,14 +69,13 @@ static void MAIN_SystemInit(void);
 BSP_DemoTypedef  BSP_examples[] =
 {
 		{Keys_demo, "KEYS", 0},
+		{LCD_demo, "LCD", 0},
 		{SENSORS_Demo, "SENSORS", 0},
-		//{SD_demo, "mSD", 0},/*{LCD_demo, "LCD", 0},*/
+		//{SD_demo, "mSD", 0},
 		{Touchscreen_demo, "TOUCHSCREEN", 0},
 		{AudioRec_demo, "AUDIO RECORD", 0},
 		{AudioLoopback_demo, "AUDIO LOOPBACK", 0},
 		{AudioPlay_demo, "AUDIO PLAY", 0},
-
-		//{Log_demo, "LCD LOG", 0},
 		{SDRAM_demo, "SDRAM", 0},
 		{SDRAM_DMA_demo, "SDRAM DMA", 0},
 		{QSPI_demo, "QSPI", 0},

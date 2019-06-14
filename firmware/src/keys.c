@@ -58,7 +58,6 @@ void Keys_demo (void)
 	uint8_t keys=0;
 	uint8_t status = KEYS_OK;
 	char strbuff[30];
-	//status= BSP_KEYS_Init();
 
 	KEYS_SetHint();
 
@@ -73,17 +72,132 @@ void Keys_demo (void)
 
 	if (status == KEYS_OK)
 	{
+		BSP_LCD_SetFont(&Font20);
+
 		while (BSP_KEYS_GetKeys() != (KEYS_A | KEYS_DOWN))
 		{
 			HAL_Delay(100);
 
 			keys=BSP_KEYS_GetKeys();
-			sprintf((char*)&strbuff, "Read result: (OK) %02X", keys);
 
-			BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)strbuff, LEFT_MODE);
+			sprintf((char*)&strbuff, "A");
+			if (keys & KEYS_A)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(320, 180, (uint8_t *)strbuff, LEFT_MODE);
+
+			sprintf((char*)&strbuff, "B");
+			if (keys & KEYS_B)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(390, 190, (uint8_t *)strbuff, LEFT_MODE);
+
+			sprintf((char*)&strbuff, "X");
+			if (keys & KEYS_X)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(320, 140, (uint8_t *)strbuff, LEFT_MODE);
+
+			sprintf((char*)&strbuff, "Y");
+			if (keys & KEYS_Y)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(390, 150, (uint8_t *)strbuff, LEFT_MODE);
+
+			sprintf((char*)&strbuff, "Up");
+			if (keys & KEYS_UP)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(100, 130, (uint8_t *)strbuff, LEFT_MODE);
+
+			sprintf((char*)&strbuff, "Down");
+			if (keys & KEYS_DOWN)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(80, 190, (uint8_t *)strbuff, LEFT_MODE);
+
+			sprintf((char*)&strbuff, "Left");
+			if (keys & KEYS_LEFT)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(40, 160, (uint8_t *)strbuff, LEFT_MODE);
+
+			sprintf((char*)&strbuff, "Right");
+			if (keys & KEYS_RIGHT)
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+				BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+			}
+			else
+			{
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+				BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+			}
+
+			BSP_LCD_DisplayStringAt(120, 160, (uint8_t *)strbuff, LEFT_MODE);
 		}
 
 	}
+
+	BSP_LCD_SetFont(&Font12);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
 }
 
 /**
@@ -102,16 +216,14 @@ static void KEYS_SetHint(void)
 	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 	BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
 	BSP_LCD_SetFont(&Font24);
-	BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)"FATFS", CENTER_MODE);
+	BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)"KEYS", CENTER_MODE);
 	BSP_LCD_SetFont(&Font12);
-	BSP_LCD_DisplayStringAt(0, 30, (uint8_t *)"This example shows how to write", CENTER_MODE);
-	BSP_LCD_DisplayStringAt(0, 45, (uint8_t *)"and read data on the SD card ", CENTER_MODE);
-	BSP_LCD_DisplayStringAt(0, 60, (uint8_t *)"using FATFS", CENTER_MODE);
+	BSP_LCD_DisplayStringAt(0, 30, (uint8_t *)"This example shows keys input", CENTER_MODE);
+	BSP_LCD_DisplayStringAt(0, 45, (uint8_t *)"Press A + Down to leave ", CENTER_MODE);
 
-	/* Set the LCD Text Color */
-	/*BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
 	BSP_LCD_DrawRect(10, 90, BSP_LCD_GetXSize() - 20, BSP_LCD_GetYSize() - 100);
-	BSP_LCD_DrawRect(11, 91, BSP_LCD_GetXSize() - 22, BSP_LCD_GetYSize() - 102);*/
+	BSP_LCD_DrawRect(11, 91, BSP_LCD_GetXSize() - 22, BSP_LCD_GetYSize() - 102);
 
 	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	BSP_LCD_SetBackColor(LCD_COLOR_WHITE);

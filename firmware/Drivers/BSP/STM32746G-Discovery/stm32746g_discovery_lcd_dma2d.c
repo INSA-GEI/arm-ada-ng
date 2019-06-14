@@ -797,20 +797,34 @@ void BSP_LCD_DisplayStringAtLine(uint16_t Line, uint8_t *ptr)
  */
 void BSP_LCD_DrawHLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
 {
-	uint32_t  Xaddress = 0;
+	uint32_t  x_address = 0;
 
+#if (LCD_ORIENTATION == LCD_ORIENTATION_NORMAL)
 	/* Get the line address */
 	if(hLtdcHandler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)
 	{ /* RGB565 format */
-		Xaddress = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 2*(BSP_LCD_GetXSize()*Ypos + Xpos);
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 2*(BSP_LCD_GetXSize()*Ypos + Xpos);
 	}
 	else
 	{ /* ARGB8888 format */
-		Xaddress = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 4*(BSP_LCD_GetXSize()*Ypos + Xpos);
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 4*(BSP_LCD_GetXSize()*Ypos + Xpos);
 	}
+#elif (LCD_ORIENTATION == LCD_ORIENTATION_180)
+	/* Get the line address */
+	if(hLtdcHandler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)
+	{ /* RGB565 format */
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 2 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - (Xpos+Length) - (BSP_LCD_GetXSize() * Ypos));
+	}
+	else
+	{ /* ARGB8888 format */
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 4 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - (Xpos+Length) - (BSP_LCD_GetXSize() * Ypos));
+	}
+#else
+#error "LCD Orientation not available"
+#endif /*LCD_ORIENTATION */
 
 	/* Write line */
-	LL_FillBuffer(ActiveLayer, (uint32_t *)Xaddress, Length, 1, 0, DrawProp[ActiveLayer].TextColor);
+	LL_FillBuffer(ActiveLayer, (uint32_t *)x_address, Length+1, 1, 0, DrawProp[ActiveLayer].TextColor);
 }
 
 /**
@@ -822,20 +836,34 @@ void BSP_LCD_DrawHLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
  */
 void BSP_LCD_DrawVLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
 {
-	uint32_t  Xaddress = 0;
+	uint32_t  x_address = 0;
 
+#if (LCD_ORIENTATION == LCD_ORIENTATION_NORMAL)
 	/* Get the line address */
 	if(hLtdcHandler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)
 	{ /* RGB565 format */
-		Xaddress = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 2*(BSP_LCD_GetXSize()*Ypos + Xpos);
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 2*(BSP_LCD_GetXSize()*Ypos + Xpos);
 	}
 	else
 	{ /* ARGB8888 format */
-		Xaddress = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 4*(BSP_LCD_GetXSize()*Ypos + Xpos);
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 4*(BSP_LCD_GetXSize()*Ypos + Xpos);
 	}
+#elif (LCD_ORIENTATION == LCD_ORIENTATION_180)
+	/* Get the line address */
+	if(hLtdcHandler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)
+	{ /* RGB565 format */
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 2 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - Xpos - (BSP_LCD_GetXSize() * (Ypos+Length)));
+	}
+	else
+	{ /* ARGB8888 format */
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 4 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - Xpos - (BSP_LCD_GetXSize() * (Ypos+Length)));
+	}
+#else
+#error "LCD Orientation not available"
+#endif /*LCD_ORIENTATION */
 
 	/* Write line */
-	LL_FillBuffer(ActiveLayer, (uint32_t *)Xaddress, 1, Length, (BSP_LCD_GetXSize() - 1), DrawProp[ActiveLayer].TextColor);
+	LL_FillBuffer(ActiveLayer, (uint32_t *)x_address, 1, Length+1, (BSP_LCD_GetXSize() - 1), DrawProp[ActiveLayer].TextColor);
 }
 
 /**
@@ -1154,15 +1182,15 @@ void BSP_LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pbmp)
 	for(index=0; index < height; index++)
 	{
 		if(hLtdcHandler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)
-			{
-				LL_ConvertLineToRGB565((uint32_t *)pbmp, (uint32_t *)address, width, input_color_mode);
-				address-=  (BSP_LCD_GetXSize()*2);
-			}
-			else
-			{
-				LL_ConvertLineToARGB8888((uint32_t *)pbmp, (uint32_t *)address, width, input_color_mode);
-				address+=  (BSP_LCD_GetXSize()*4);
-			}
+		{
+			LL_ConvertLineToRGB565((uint32_t *)pbmp, (uint32_t *)address, width, input_color_mode);
+			address-=  (BSP_LCD_GetXSize()*2);
+		}
+		else
+		{
+			LL_ConvertLineToARGB8888((uint32_t *)pbmp, (uint32_t *)address, width, input_color_mode);
+			address+=  (BSP_LCD_GetXSize()*4);
+		}
 		/* Pixel format conversion */
 		//LL_ConvertLineToARGB8888((uint32_t *)pbmp, (uint32_t *)address, width, input_color_mode);
 
@@ -1201,11 +1229,11 @@ void BSP_LCD_FillRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
 
 	if(hLtdcHandler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)
 	{ /* RGB565 format */
-		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress + 2 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - (Xpos+Width) - (BSP_LCD_GetXSize() * (Ypos+Height))));
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress + 2 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - (Xpos+Width) - (BSP_LCD_GetXSize() * (Ypos+Height-1))));
 	}
 	else
 	{ /* ARGB8888 format */
-		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress + 4 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - (Xpos+Width) - (BSP_LCD_GetXSize() * (Ypos+Height))));
+		x_address = (hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress + 4 * ((RK043FN48H_WIDTH*RK043FN48H_HEIGHT) - (Xpos+Width) - (BSP_LCD_GetXSize() * (Ypos+Height-1))));
 	}
 #else
 #error "LCD Orientation not implemented"
@@ -1719,31 +1747,31 @@ static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint3
  */
 static void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode)
 {
-  /* Configure the DMA2D Mode, Color Mode and output offset */
-  hDma2dHandler.Init.Mode         = DMA2D_M2M_PFC;
-  hDma2dHandler.Init.ColorMode    = DMA2D_ARGB8888;
-  hDma2dHandler.Init.OutputOffset = 0;
+	/* Configure the DMA2D Mode, Color Mode and output offset */
+	hDma2dHandler.Init.Mode         = DMA2D_M2M_PFC;
+	hDma2dHandler.Init.ColorMode    = DMA2D_ARGB8888;
+	hDma2dHandler.Init.OutputOffset = 0;
 
-  /* Foreground Configuration */
-  hDma2dHandler.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hDma2dHandler.LayerCfg[1].InputAlpha = 0xFF;
-  hDma2dHandler.LayerCfg[1].InputColorMode = ColorMode;
-  hDma2dHandler.LayerCfg[1].InputOffset = 0;
+	/* Foreground Configuration */
+	hDma2dHandler.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+	hDma2dHandler.LayerCfg[1].InputAlpha = 0xFF;
+	hDma2dHandler.LayerCfg[1].InputColorMode = ColorMode;
+	hDma2dHandler.LayerCfg[1].InputOffset = 0;
 
-  hDma2dHandler.Instance = DMA2D;
+	hDma2dHandler.Instance = DMA2D;
 
-  /* DMA2D Initialization */
-  if(HAL_DMA2D_Init(&hDma2dHandler) == HAL_OK)
-  {
-    if(HAL_DMA2D_ConfigLayer(&hDma2dHandler, 1) == HAL_OK)
-    {
-      if (HAL_DMA2D_Start(&hDma2dHandler, (uint32_t)pSrc, (uint32_t)pDst, xSize, 1) == HAL_OK)
-      {
-        /* Polling For DMA transfer */
-        HAL_DMA2D_PollForTransfer(&hDma2dHandler, 10);
-      }
-    }
-  }
+	/* DMA2D Initialization */
+	if(HAL_DMA2D_Init(&hDma2dHandler) == HAL_OK)
+	{
+		if(HAL_DMA2D_ConfigLayer(&hDma2dHandler, 1) == HAL_OK)
+		{
+			if (HAL_DMA2D_Start(&hDma2dHandler, (uint32_t)pSrc, (uint32_t)pDst, xSize, 1) == HAL_OK)
+			{
+				/* Polling For DMA transfer */
+				HAL_DMA2D_PollForTransfer(&hDma2dHandler, 10);
+			}
+		}
+	}
 }
 
 /**
