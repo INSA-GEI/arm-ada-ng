@@ -44,7 +44,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
-   
+
 /** @addtogroup BSP
   * @{
   */
@@ -66,11 +66,29 @@ LED1 = 0,
 LED_GREEN = LED1,
 }Led_TypeDef;
 
+/* Definition for keys position */
+#define KEYS_A					   ((uint8_t)1<<3)
+#define KEYS_B					   ((uint8_t)1<<2)
+#define KEYS_X					   ((uint8_t)1<<1)
+#define KEYS_Y					   ((uint8_t)1<<0)
+#define KEYS_UP					   ((uint8_t)1<<7)
+#define KEYS_DOWN				   ((uint8_t)1<<6)
+#define KEYS_LEFT				   ((uint8_t)1<<5)
+#define KEYS_RIGHT				   ((uint8_t)1<<4)
+
 typedef enum 
 {  
   BUTTON_WAKEUP = 0,
   BUTTON_TAMPER = 1,
-  BUTTON_KEY = 2
+  BUTTON_KEY = 2,
+  BUTTON_A = 256+KEYS_A,
+  BUTTON_B = 256+KEYS_B,
+  BUTTON_X = 256+KEYS_X,
+  BUTTON_Y = 256+KEYS_Y,
+  BUTTON_UP = 256+KEYS_UP,
+  BUTTON_DOWN = 256+KEYS_DOWN,
+  BUTTON_LEFT = 256+KEYS_LEFT,
+  BUTTON_RIGHT = 256+KEYS_RIGHT
 }Button_TypeDef;
 
 typedef enum 
@@ -98,6 +116,11 @@ typedef enum
 #if !defined (USE_STM32746G_DISCO)
  #define USE_STM32746G_DISCO
 #endif
+
+/** @addtogroup STM32746G_DISCOVERY_LOW_LEVEL_LCD_ORIENTATION
+  * @{
+  */
+#define LCD_ORIENTATION					LCD_ORIENTATION_180
 
 /** @addtogroup STM32746G_DISCOVERY_LOW_LEVEL_LED
   * @{
@@ -181,13 +204,31 @@ typedef enum
 #define TS_INT_EXTI_IRQn                     EXTI15_10_IRQn
 
 /**
+  * @brief LSM6DS3 interrupt DRDY
+  */
+#define ACC_GYRO_DRDY_PIN                    GPIO_PIN_8
+#define ACC_GYRO_DRDY_GPIO_PORT              GPIOA
+#define ACC_GYRO_DRDY_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
+#define ACC_GYRO_DRDY_GPIO_CLK_DISABLE()     __HAL_RCC_GPIOA_CLK_DISABLE()
+#define ACC_GYRO_DRDY_EXTI_IRQn              EXTI9_5_IRQn
+
+/**
+  * @brief LSM6DS3 interrupt DRDY
+  */
+#define MAG_DRDY_PIN                        GPIO_PIN_6
+#define MAG_DRDY_GPIO_PORT                  GPIOH
+#define MAG_DRDY_GPIO_CLK_ENABLE()          __HAL_RCC_GPIOH_CLK_ENABLE()
+#define MAG_DRDY_GPIO_CLK_DISABLE()         __HAL_RCC_GPIOH_CLK_DISABLE()
+#define MAG_DRDY_EXTI_IRQn                  EXTI9_5_IRQn
+
+/**
   * @}
   */ 
 
 /** @addtogroup STM32746G_DISCOVERY_LOW_LEVEL_COM
   * @{
   */
-#define COMn                             ((uint8_t)1)
+#define COMn                             ((uint8_t)2)
 
 /**
  * @brief Definition for COM port1, connected to USART1
@@ -210,14 +251,35 @@ typedef enum
 
 #define DISCOVERY_COM1_IRQn                     USART1_IRQn
 
-#define DISCOVERY_COMx_CLK_ENABLE(__INDEX__)            do { if((__INDEX__) == COM1) DISCOVERY_COM1_CLK_ENABLE(); } while(0)
-#define DISCOVERY_COMx_CLK_DISABLE(__INDEX__)           (((__INDEX__) == 0) ? DISCOVERY_COM1_CLK_DISABLE() : 0)
+/**
+ * @brief Definition for COM port2, connected to USART6
+ */
+#define DISCOVERY_COM2                          USART6
+#define DISCOVERY_COM2_CLK_ENABLE()             __HAL_RCC_USART6_CLK_ENABLE()
+#define DISCOVERY_COM2_CLK_DISABLE()            __HAL_RCC_USART6_CLK_DISABLE()
 
-#define DISCOVERY_COMx_TX_GPIO_CLK_ENABLE(__INDEX__)    do { if((__INDEX__) == COM1) DISCOVERY_COM1_TX_GPIO_CLK_ENABLE(); } while(0)
-#define DISCOVERY_COMx_TX_GPIO_CLK_DISABLE(__INDEX__)   (((__INDEX__) == 0) ? DISCOVERY_COM1_TX_GPIO_CLK_DISABLE() : 0)
+#define DISCOVERY_COM2_TX_PIN                   GPIO_PIN_6
+#define DISCOVERY_COM2_TX_GPIO_PORT             GPIOC
+#define DISCOVERY_COM2_TX_GPIO_CLK_ENABLE()     __HAL_RCC_GPIOC_CLK_ENABLE()
+#define DISCOVERY_COM2_TX_GPIO_CLK_DISABLE()    __HAL_RCC_GPIOC_CLK_DISABLE()
+#define DISCOVERY_COM2_TX_AF                    GPIO_AF8_USART6
 
-#define DISCOVERY_COMx_RX_GPIO_CLK_ENABLE(__INDEX__)    do { if((__INDEX__) == COM1) DISCOVERY_COM1_RX_GPIO_CLK_ENABLE(); } while(0)
-#define DISCOVERY_COMx_RX_GPIO_CLK_DISABLE(__INDEX__)   (((__INDEX__) == 0) ? DISCOVERY_COM1_RX_GPIO_CLK_DISABLE() : 0)
+#define DISCOVERY_COM2_RX_PIN                   GPIO_PIN_7
+#define DISCOVERY_COM2_RX_GPIO_PORT             GPIOC
+#define DISCOVERY_COM2_RX_GPIO_CLK_ENABLE()     __HAL_RCC_GPIOC_CLK_ENABLE()
+#define DISCOVERY_COM2_RX_GPIO_CLK_DISABLE()    __HAL_RCC_GPIOC_CLK_DISABLE()
+#define DISCOVERY_COM2_RX_AF                    GPIO_AF8_USART6
+
+#define DISCOVERY_COM2_IRQn                     USART6_IRQn
+
+#define DISCOVERY_COMx_CLK_ENABLE(__INDEX__)            do { if((__INDEX__) == COM1) DISCOVERY_COM1_CLK_ENABLE(); else DISCOVERY_COM2_CLK_ENABLE();} while(0)
+#define DISCOVERY_COMx_CLK_DISABLE(__INDEX__)           (((__INDEX__) == 0) ? DISCOVERY_COM1_CLK_DISABLE() : DISCOVERY_COM2_CLK_DISABLE())
+
+#define DISCOVERY_COMx_TX_GPIO_CLK_ENABLE(__INDEX__)    do { if((__INDEX__) == COM1) DISCOVERY_COM1_TX_GPIO_CLK_ENABLE(); else DISCOVERY_COM2_TX_GPIO_CLK_ENABLE();} while(0)
+#define DISCOVERY_COMx_TX_GPIO_CLK_DISABLE(__INDEX__)   (((__INDEX__) == 0) ? DISCOVERY_COM1_TX_GPIO_CLK_DISABLE() : DISCOVERY_COM2_TX_GPIO_CLK_DISABLE())
+
+#define DISCOVERY_COMx_RX_GPIO_CLK_ENABLE(__INDEX__)    do { if((__INDEX__) == COM1) DISCOVERY_COM1_RX_GPIO_CLK_ENABLE(); else DISCOVERY_COM2_RX_GPIO_CLK_ENABLE();} while(0)
+#define DISCOVERY_COMx_RX_GPIO_CLK_DISABLE(__INDEX__)   (((__INDEX__) == 0) ? DISCOVERY_COM1_RX_GPIO_CLK_DISABLE() : DISCOVERY_COM2_RX_GPIO_CLK_DISABLE())
 
 /* Exported constant IO ------------------------------------------------------*/
 
@@ -284,6 +346,23 @@ typedef enum
 #define DISCOVERY_I2Cx_TIMING                      ((uint32_t)0x40912732)  
 #endif /* DISCOVERY_I2Cx_TIMING */
 
+#define DISCOVERY_SPIx 							SPI2
+
+/* Definition for SPI clock resources */
+#define DISCOVERY_SPIx_CLK_ENABLE()            __HAL_RCC_SPI2_CLK_ENABLE()
+#define DISCOVERY_SPIx_CLK_DISABLE()           __HAL_RCC_SPI2_CLK_DISABLE()
+#define DISCOVERY_SPIx_CLK_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
+#define DISCOVERY_SPIx_MISO_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
+#define DISCOVERY_SPIx_MOSI_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
+
+/* Definition for SPI Pins */
+#define DISCOVERY_SPIx_CLK_PIN               GPIO_PIN_1
+#define DISCOVERY_SPIx_CLK_GPIO_PORT         GPIOI
+#define DISCOVERY_SPIx_MISO_PIN              GPIO_PIN_14
+#define DISCOVERY_SPIx_MISO_GPIO_PORT        GPIOB
+#define DISCOVERY_SPIx_MOSI_PIN              GPIO_PIN_15
+#define DISCOVERY_SPIx_MOSI_GPIO_PORT        GPIOB
+
 /**
   * @}
   */ 
@@ -311,8 +390,8 @@ void      BSP_LED_Toggle(Led_TypeDef Led);
 void      BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode);
 void      BSP_PB_DeInit(Button_TypeDef Button);
 uint32_t  BSP_PB_GetState(Button_TypeDef Button);
-void      BSP_COM_Init(COM_TypeDef COM, UART_HandleTypeDef *husart);
-void      BSP_COM_DeInit(COM_TypeDef COM, UART_HandleTypeDef *huart);
+HAL_StatusTypeDef  BSP_COM_Init(COM_TypeDef COM, UART_HandleTypeDef *husart);
+HAL_StatusTypeDef  BSP_COM_DeInit(COM_TypeDef COM, UART_HandleTypeDef *huart);
 
 /**
   * @}

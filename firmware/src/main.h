@@ -48,6 +48,12 @@
 #include "stm32746g_discovery_camera.h"
 #include "stm32746g_discovery_audio.h"
 #include "stm32746g_discovery_qspi.h"
+#include "stm32746g_discovery_keys.h"
+#include "stm32746g_discovery_mag.h"
+#include "stm32746g_discovery_acc_gyro.h"
+#include "stm32746g_discovery_pressure.h"
+#include "stm32746g_discovery_wifi.h"
+#include "stm32746g_discovery_stdio.h"
 
 /* Macros --------------------------------------------------------------------*/
 #ifdef USE_FULL_ASSERT
@@ -137,6 +143,9 @@ void SD_demo (void);
 void FATFSSD_demo (void);
 void EEPROM_demo(void);
 void Camera_demo(void);
+void Keys_demo(void);
+void SENSORS_Demo(void);
+
 uint8_t AUDIO_Process(void);
 void QSPI_demo(void);
 uint8_t CheckForUserInput(void);

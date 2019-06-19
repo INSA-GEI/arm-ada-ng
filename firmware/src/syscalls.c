@@ -38,6 +38,7 @@ SOFTWARE.
 #include <sys/time.h>
 #include <sys/times.h>
 
+#include "stm32746g_discovery_stdio.h"
 
 /* Variables */
 #undef errno
@@ -80,8 +81,10 @@ int _write(int32_t file, uint8_t *ptr, int32_t len)
 	/* Implement your write code here, this is used by puts and printf for example */
 	/* return len; */
 	
-	errno = ENOSYS;
-	return -1;
+	/*errno = ENOSYS;
+	return -1;*/
+	BSP_STDIO_SendData(ptr, len);
+	return len;
 }
 
 void * _sbrk(int32_t incr)
