@@ -34,11 +34,16 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
-#include "rng.h"
 #include "stdio.h"
 #include "stdlib.h"
 
+#include "stm32746g_discovery.h"
+#include "stm32746g_discovery_lcd_dma2d.h"
+#include "stm32746g_discovery_rng.h"
+
+#include "tests.h"
+#include "../configuration/memory_mapping.h"
+#include "../Ressources/stlogo.h"
 /** @addtogroup STM32F7xx_HAL_Examples
  * @{
  */
@@ -196,20 +201,20 @@ static void LCD_Show_Feature(uint8_t feature)
 		/* Random drawFillRect */
 		while (CheckForUserInput() == 0)
 		{
-			color = RNG_GetNumber();
-			rng_val = (uint16_t)RNG_GetNumber();
+			color = BSP_RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			x1 = (uint16_t)((rng_val*(screenWidth-40))/0xFFFF);
 			x1 += 20;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			x2 = (uint16_t)((rng_val*(screenWidth-40))/0xFFFF);
 			x2 += 20;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			y1 = (uint16_t)((rng_val*(screenHeight-120))/0xFFFF);
 			y1 +=100;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			y2 = (uint16_t)((rng_val*(screenHeight-120))/0xFFFF);
 			y2 +=100;
 
@@ -242,20 +247,20 @@ static void LCD_Show_Feature(uint8_t feature)
 		/* Random drawFillRect */
 		while (CheckForUserInput() == 0)
 		{
-			color = RNG_GetNumber();
-			rng_val = (uint16_t)RNG_GetNumber();
+			color = BSP_RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			x1 = (uint16_t)((rng_val*(screenWidth-40))/0xFFFF);
 			x1 += 20;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			x2 = (uint16_t)((rng_val*(screenWidth-40))/0xFFFF);
 			x2 += 20;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			y1 = (uint16_t)((rng_val*(screenHeight-120))/0xFFFF);
 			y1 +=100;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			y2 = (uint16_t)((rng_val*(screenHeight-120))/0xFFFF);
 			y2 +=100;
 
@@ -288,12 +293,12 @@ static void LCD_Show_Feature(uint8_t feature)
 		/* Random drawFillRect */
 		while (CheckForUserInput() == 0)
 		{
-			color = RNG_GetNumber();
-			rng_val = (uint16_t)RNG_GetNumber();
+			color = BSP_RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			x1 = (uint16_t)((rng_val*(screenWidth-80))/0xFFFF);
 			x1 += 40;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			y1 = (uint16_t)((rng_val*(screenHeight-160))/0xFFFF);
 			y1 +=120;
 
@@ -313,11 +318,11 @@ static void LCD_Show_Feature(uint8_t feature)
 		while (CheckForUserInput() == 0)
 		{
 			/* Draw to numbers */
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			x1 = (uint16_t)((rng_val*(screenWidth-20))/0xFFFF);
 			x1 += 20;
 
-			rng_val = (uint16_t)RNG_GetNumber();
+			rng_val = (uint16_t)BSP_RNG_GetNumber();
 			y1 = (uint16_t)((rng_val*(screenHeight-120))/0xFFFF);
 			y1 +=100;
 

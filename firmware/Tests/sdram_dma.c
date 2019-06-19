@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    BSP/Src/sdram.c
+  * @file    BSP/Src/sdram_dma.c
   * @author  MCD Application Team
   * @brief   This example code shows how to use the SDRAM Driver
   ******************************************************************************
@@ -34,7 +34,14 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include <stdio.h>
+
+#include "stm32746g_discovery.h"
+#include "stm32746g_discovery_sdram.h"
+#include "stm32746g_discovery_lcd_dma2d.h"
+
+#include "tests.h"
+#include "../configuration/memory_mapping.h"
 
 /** @addtogroup STM32F7xx_HAL_Examples
   * @{
@@ -46,16 +53,23 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define SDRAM_BUFFER_SIZE      ((uint32_t)256)
+#define SDRAM_DMA_BUFFER_SIZE  ((uint32_t)256)
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-static uint32_t sdram_aTxBuffer[SDRAM_BUFFER_SIZE];
-static uint32_t sdram_aRxBuffer[SDRAM_BUFFER_SIZE];
+ALIGN_32BYTES (static uint32_t sdram_aTxBuffer[SDRAM_DMA_BUFFER_SIZE]);
+ALIGN_32BYTES (static uint32_t sdram_aRxBuffer[SDRAM_DMA_BUFFER_SIZE]);
+extern SDRAM_HandleTypeDef sdramHandle;
+//DMA_HandleTypeDef   hdma;
+/* DMA transfer complete flag */
+__IO uint32_t uwDMA_Transfer_Complete = 0;
+
 /* Private function prototypes -----------------------------------------------*/
-static void SDRAM_SetHint(void);
-static void Fill_Buffer(uint32_t *pBuffer, uint32_t uwBufferLenght, uint32_t uwOffset);
+static void SDRAM_DMA_SetHint(void);
+static void Fill_Buffer(uint32_t *pBuffer, uint32_t uwBufferLength, uint32_t uwOffset);
 static uint8_t Buffercmp(uint32_t* pBuffer1, uint32_t* pBuffer2, uint16_t BufferLength);
+
+
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -63,12 +77,12 @@ static uint8_t Buffercmp(uint32_t* pBuffer1, uint32_t* pBuffer2, uint16_t Buffer
   * @param  None
   * @retval None
   */
-void SDRAM_demo (void)
+void SDRAM_DMA_demo (void)
 {
 
-  SDRAM_SetHint();
+  SDRAM_DMA_SetHint();
 
-  /* SDRAM device configuration */
+  /* -1- SDRAM device configuration */
   if (BSP_SDRAM_Init() != SDRAM_OK)
   {
     BSP_LCD_DisplayStringAt(20, 115, (uint8_t *)"SDRAM Initialization : FAILED.", LEFT_MODE);
@@ -78,39 +92,53 @@ void SDRAM_demo (void)
   {
     BSP_LCD_DisplayStringAt(20, 100, (uint8_t *)"SDRAM Initialization : OK.", LEFT_MODE);
   }
-  /* Fill the buffer to write */
-  Fill_Buffer(sdram_aTxBuffer, SDRAM_BUFFER_SIZE, 0xA244250F);
 
-  /* Write data to the SDRAM memory */
-  if (BSP_SDRAM_WriteData((SDRAM_WRITE_READ_ADDR + SDRAM_WRITE_READ_ADDR_OFFSET), sdram_aTxBuffer, SDRAM_BUFFER_SIZE) != SDRAM_OK)
+  /* -2- Fill the buffer to write */
+  Fill_Buffer(sdram_aTxBuffer, SDRAM_DMA_BUFFER_SIZE, 0xA244250F);
+
+  /* -3- Write data to the SDRAM memory using DMA */
+  uwDMA_Transfer_Complete = 0;
+  if (BSP_SDRAM_WriteData_DMA((SDRAM_WRITE_READ_ADDR + SDRAM_WRITE_READ_ADDR_OFFSET), sdram_aTxBuffer, SDRAM_DMA_BUFFER_SIZE) != SDRAM_OK)
   {
-    BSP_LCD_DisplayStringAt(20, 115, (uint8_t *)"SDRAM WRITE : FAILED.", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 115, (uint8_t *)"SDRAM WRITE dma : FAILED.", LEFT_MODE);
     BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)"SDRAM Test Aborted.", LEFT_MODE);
   }
   else
   {
-    BSP_LCD_DisplayStringAt(20, 115, (uint8_t *)"SDRAM WRITE : OK.", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 115, (uint8_t *)"SDRAM WRITE DMA : REQUESTED", LEFT_MODE);
   }
 
-  /* Read back data from the SDRAM memory */
-  if (BSP_SDRAM_ReadData(SDRAM_WRITE_READ_ADDR + SDRAM_WRITE_READ_ADDR_OFFSET, sdram_aRxBuffer, SDRAM_BUFFER_SIZE) != SDRAM_OK)
+  /* Wait until DMA transfer is complete */
+  while (!uwDMA_Transfer_Complete)
+  {}
+  BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)"SDRAM WRITE DMA : COMPLETED", LEFT_MODE);
+
+  /* -4- Read back data from the SDRAM memory using DMA */
+  uwDMA_Transfer_Complete = 0;
+  if (BSP_SDRAM_ReadData_DMA((SDRAM_WRITE_READ_ADDR + SDRAM_WRITE_READ_ADDR_OFFSET), sdram_aRxBuffer, SDRAM_DMA_BUFFER_SIZE) != SDRAM_OK)
   {
-    BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)"SDRAM READ : FAILED.", LEFT_MODE);
-    BSP_LCD_DisplayStringAt(20, 145, (uint8_t *)"SDRAM Test Aborted.", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 145, (uint8_t *)"SDRAM  READ DMA : FAILED", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 160, (uint8_t *)"SDRAM  Test Aborted", LEFT_MODE);
   }
   else
   {
-    BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)"SDRAM READ : OK.", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 145, (uint8_t *)"SDRAM READ  DMA : REQUESTED", LEFT_MODE);
   }
 
-  if (Buffercmp(sdram_aTxBuffer, sdram_aRxBuffer, SDRAM_BUFFER_SIZE) > 0)
+  /* Wait until DMA transfer is complete */
+  while (!uwDMA_Transfer_Complete)
+  {}
+  BSP_LCD_DisplayStringAt(20, 160, (uint8_t *)"SDRAM READ  DMA : COMPLETED", LEFT_MODE);
+
+  /* -5- Compare both buffers */
+  if (Buffercmp(sdram_aTxBuffer, sdram_aRxBuffer, SDRAM_DMA_BUFFER_SIZE) > 0)
   {
-    BSP_LCD_DisplayStringAt(20, 145, (uint8_t *)"SDRAM COMPARE : FAILED.", LEFT_MODE);
-    BSP_LCD_DisplayStringAt(20, 160, (uint8_t *)"SDRAM Test Aborted.", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 175, (uint8_t *)"SDRAM COMPARE : FAILED.", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 190, (uint8_t *)"SDRAM Test Aborted.", LEFT_MODE);
   }
   else
   {
-    BSP_LCD_DisplayStringAt(20, 145, (uint8_t *)"SDRAM Test : OK.", LEFT_MODE);
+    BSP_LCD_DisplayStringAt(20, 175, (uint8_t *)"SDRAM TEST      : SUCCESSFULL", LEFT_MODE);
   }
 
   while (1)
@@ -123,11 +151,34 @@ void SDRAM_demo (void)
 }
 
 /**
+  * @brief  DMA conversion complete callback
+  * @note   This function is executed when the transfer complete interrupt
+  *         is generated
+  * @retval None
+  */
+void HAL_SDRAM_DMA_XferCpltCallback(DMA_HandleTypeDef *hdma)
+{
+  /* Set transfer complete flag */
+  uwDMA_Transfer_Complete = 1;
+}
+
+/**
+  * @brief  DMA transfer complete error callback.
+  * @param  hdma: DMA handle
+  * @retval None
+  */
+
+void HAL_SDRAM_DMA_XferErrorCallback(DMA_HandleTypeDef *hdma)
+{
+  BSP_LCD_SetTextColor(LCD_COLOR_RED);
+  BSP_LCD_DisplayStringAt(20, 215, (uint8_t *)"DMA ERROR", LEFT_MODE);
+}
+/**
   * @brief  Display SDRAM Demo Hint
   * @param  None
   * @retval None
   */
-static void SDRAM_SetHint(void)
+static void SDRAM_DMA_SetHint(void)
 {
   /* Clear the LCD */
   BSP_LCD_Clear(LCD_COLOR_WHITE);
@@ -138,7 +189,7 @@ static void SDRAM_SetHint(void)
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
   BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
   BSP_LCD_SetFont(&Font24);
-  BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)"SDRAM", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)"SDRAM DMA", CENTER_MODE);
   BSP_LCD_SetFont(&Font12);
   BSP_LCD_DisplayStringAt(0, 30, (uint8_t *)"This example shows how to write", CENTER_MODE);
   BSP_LCD_DisplayStringAt(0, 45, (uint8_t *)"and read data on SDRAM", CENTER_MODE);
@@ -155,19 +206,22 @@ static void SDRAM_SetHint(void)
 /**
   * @brief  Fills buffer with user predefined data.
   * @param  pBuffer: pointer on the buffer to fill
-  * @param  uwBufferLenght: size of the buffer to fill
+  * @param  uwBufferLength: size of the buffer to fill
   * @param  uwOffset: first value to fill on the buffer
   * @retval None
   */
-static void Fill_Buffer(uint32_t *pBuffer, uint32_t uwBufferLenght, uint32_t uwOffset)
+static void Fill_Buffer(uint32_t *pBuffer, uint32_t uwBufferLength, uint32_t uwOffset)
 {
   uint32_t tmpIndex = 0;
 
   /* Put in global buffer different values */
-  for (tmpIndex = 0; tmpIndex < uwBufferLenght; tmpIndex++ )
+  for (tmpIndex = 0; tmpIndex < uwBufferLength; tmpIndex++ )
   {
     pBuffer[tmpIndex] = tmpIndex + uwOffset;
   }
+
+  /* Clean Data Cache to update the content of the SRAM */
+  SCB_CleanDCache_by_Addr((uint32_t*)pBuffer, uwBufferLength*4);
 }
 
 /**
@@ -179,6 +233,9 @@ static void Fill_Buffer(uint32_t *pBuffer, uint32_t uwBufferLenght, uint32_t uwO
   */
 static uint8_t Buffercmp(uint32_t* pBuffer1, uint32_t* pBuffer2, uint16_t BufferLength)
 {
+  /* Invalidate Data Cache to get the updated content of the SRAM */
+  SCB_InvalidateDCache_by_Addr((uint32_t *)pBuffer2, BufferLength*4);
+
   while (BufferLength--)
   {
     if (*pBuffer1 != *pBuffer2)

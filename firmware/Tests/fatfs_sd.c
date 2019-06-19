@@ -34,12 +34,16 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
 #include "string.h"
 #include "stdio.h"
 
-#include "ff.h"
+#include "stm32746g_discovery.h"
+#include "stm32746g_discovery_sd.h"
+#include "stm32746g_discovery_lcd_dma2d.h"
 
+#include "ff.h"
+#include "tests.h"
+#include "../configuration/memory_mapping.h"
 /** @addtogroup STM32F7xx_HAL_Examples
  * @{
  */

@@ -35,10 +35,15 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
 #include <stdio.h>
 
+#include "stm32746g_discovery.h"
+#include "stm32746g_discovery_audio.h"
+#include "stm32746g_discovery_lcd_dma2d.h"
+#include "stm32746g_discovery_ts.h"
 
+#include "tests.h"
+#include "../configuration/memory_mapping.h"
 /** @addtogroup STM32F7xx_HAL_Examples
   * @{
   */
@@ -48,6 +53,7 @@
   */
 
 /* Private typedef -----------------------------------------------------------*/
+
 
 /* Private define ------------------------------------------------------------*/
 

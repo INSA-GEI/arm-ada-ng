@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    BSP/Src/rng.c
+  * @file    BSP/Src/log.c
   * @author  MCD Application Team
-  * @brief   Random number generator
+  * @brief   This example code shows how to use the LCD Log firmware functions
   ******************************************************************************
   * @attention
   *
@@ -34,8 +34,13 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "rng.h"
+#include "lcd_log.h"
 
+#include "stm32746g_discovery.h"
+#include "stm32746g_discovery_lcd_dma2d.h"
+
+#include "tests.h"
+#include "../configuration/memory_mapping.h"
 /** @addtogroup STM32F7xx_HAL_Examples
   * @{
   */
@@ -48,74 +53,73 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-RNG_HandleTypeDef RNG_Handle;
-
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
 /**
-  * @brief  Random number generator initialisation
-  * @param  RNG_HandleTypeDef
+  * @brief  LCD Log demo
+  * @param  None
   * @retval None
   */
-void RNG_InitGenerator(void)
+void Log_demo(void)
 {
-	RNG_Handle.State = HAL_RNG_STATE_RESET;
-	HAL_RNG_Init(&RNG_Handle);
+  uint8_t   i = 0;
+  uint8_t   scroll_direction = 0;
+  uint8_t   scroll_index = 0;
+
+  /* Initialize LCD Log module */
+  LCD_LOG_Init();
+
+  /* Show Header and Footer texts */
+  LCD_LOG_SetHeader((uint8_t *)"Log Example");
+
+  /* Output User logs */
+  for (i = 0; i < 10; i++)
+  {
+    LCD_UsrLog ("This is Line %d \n", i);
+  }
+
+  HAL_Delay(500);
+
+  /* Clear Old logs */
+  LCD_LOG_ClearTextZone();
+
+  /* Output new user logs */
+  for (i = 0; i < 30; i++)
+  {
+    LCD_UsrLog ("This is Line %d \n", i);
+  }
+
+  /* Check for joystick user input for scroll (back and forward) */
+  while (1)
+  {
+    if (scroll_direction == 0)
+    {
+      LCD_LOG_ScrollBack();
+      scroll_index++;
+      if (scroll_index > 30)
+      {
+        scroll_direction = 1;
+      }
+    }
+    else
+    {
+      LCD_LOG_ScrollForward();
+      scroll_index--;
+      if (scroll_index == 0)
+      {
+        scroll_direction = 0;
+      }
+    }
+
+    if (CheckForUserInput() > 0)
+    {
+      return;
+    }
+    HAL_Delay (10);
+  }
 }
 
-/**
-  * @brief  Get random number
-  * @param  RNG_HandleTypeDef
-  * @retval 32 bit random value
-  */
-uint32_t RNG_GetNumber(void)
-{
-uint32_t val;
-
-	if (HAL_RNG_GenerateRandomNumber(&RNG_Handle, &val) == HAL_OK)
-		return val;
-	else
-		return RNG_Handle.RandomNumber;
-}
-
-/**
-  * @brief  Low level Init (clock)
-  * @param  RNG_HandleTypeDef
-  * @retval None
-  */
-void HAL_RNG_MspInit(RNG_HandleTypeDef *hrng)
-{
-	/* Reset RNG */
-	__HAL_RCC_RNG_FORCE_RESET();
-
-	/* Release Reset RNG */
-	__HAL_RCC_RNG_RELEASE_RESET();
-
-	/* Enable clock for RNG */
-	__HAL_RCC_RNG_CLK_ENABLE();
-
-	hrng->Instance = RNG;
-}
-
-/**
-  * @brief  Low level deinit
-  * @param  RNG_HandleTypeDef
-  * @retval None
-  */
-void HAL_RNG_MspDeInit(RNG_HandleTypeDef *hrng)
-{
-	/* Reset RNG */
-	__HAL_RCC_RNG_FORCE_RESET();
-
-	/* Release Reset RNG */
-	__HAL_RCC_RNG_RELEASE_RESET();
-
-	/* Disable clock for RNG */
-	__HAL_RCC_RNG_CLK_DISABLE();
-
-	hrng->Instance = 0x0;
-}
 /**
   * @}
   */

@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    rng.h
+  * @file    BSP/Src/rng.c
   * @author  MCD Application Team
-  * @brief   Header for rng.c module
+  * @brief   Random number generator
   ******************************************************************************
   * @attention
   *
@@ -32,21 +32,96 @@
   *
   ******************************************************************************
   */
-  
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __RNG_H
-#define __RNG_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f7xx.h"
+#include "stm32746g_discovery_rng.h"
 
-/* Macros --------------------------------------------------------------------*/
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
+/** @addtogroup STM32F7xx_HAL_Examples
+  * @{
+  */
 
-void RNG_InitGenerator(void);
-uint32_t RNG_GetNumber(void);
-#endif /* __RNG_H */
+/** @addtogroup BSP
+  * @{
+  */
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+static RNG_HandleTypeDef RNG_Handle;
+
+/* Private function prototypes -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
+
+/**
+  * @brief  Random number generator initialisation
+  * @param  RNG_HandleTypeDef
+  * @retval None
+  */
+void BSP_RNG_InitGenerator(void)
+{
+	RNG_Handle.State = HAL_RNG_STATE_RESET;
+	HAL_RNG_Init(&RNG_Handle);
+}
+
+/**
+  * @brief  Get random number
+  * @param  RNG_HandleTypeDef
+  * @retval 32 bit random value
+  */
+uint32_t BSP_RNG_GetNumber(void)
+{
+uint32_t val;
+
+	if (HAL_RNG_GenerateRandomNumber(&RNG_Handle, &val) == HAL_OK)
+		return val;
+	else
+		return RNG_Handle.RandomNumber;
+}
+
+/**
+  * @brief  Low level Init (clock)
+  * @param  RNG_HandleTypeDef
+  * @retval None
+  */
+void HAL_RNG_MspInit(RNG_HandleTypeDef *hrng)
+{
+	/* Reset RNG */
+	__HAL_RCC_RNG_FORCE_RESET();
+
+	/* Release Reset RNG */
+	__HAL_RCC_RNG_RELEASE_RESET();
+
+	/* Enable clock for RNG */
+	__HAL_RCC_RNG_CLK_ENABLE();
+
+	hrng->Instance = RNG;
+}
+
+/**
+  * @brief  Low level deinit
+  * @param  RNG_HandleTypeDef
+  * @retval None
+  */
+void HAL_RNG_MspDeInit(RNG_HandleTypeDef *hrng)
+{
+	/* Reset RNG */
+	__HAL_RCC_RNG_FORCE_RESET();
+
+	/* Release Reset RNG */
+	__HAL_RCC_RNG_RELEASE_RESET();
+
+	/* Disable clock for RNG */
+	__HAL_RCC_RNG_CLK_DISABLE();
+
+	hrng->Instance = 0x0;
+}
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
