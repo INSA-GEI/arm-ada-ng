@@ -16,15 +16,15 @@
 /*    along with this program.  If not, see <http://www.gnu.org/licenses/>.   */
 /******************************************************************************/
 
-#include "stm32f30x.h"
+#include "stm32746g_discovery.h"
 
-#define NMI_IT					0
+#define NMI_IT				0
 #define HARD_FAULT_IT		1
-#define USAGE_FAULT_IT	4
+#define USAGE_FAULT_IT		4
 #define BUS_FAULT_IT		3
-#define MEMORY_FAULT_IT	2
+#define MEMORY_FAULT_IT		2
 
-void PANIC_EraseUserProgramEntry(void);
-void PANIC_ReadStack(uint32_t it_source, uint32_t *sp);
-void PANIC_Display(void);
-void PANIC_SoftwarePanic(char *Title, char *Message);
+void PANIC_EraseUserProgramEntry (void);
+void PANIC_ReadStack (uint32_t it_source, uint32_t *sp);
+void PANIC_Display (void);
+void PANIC_SoftwarePanic (char *Title, char *Message);

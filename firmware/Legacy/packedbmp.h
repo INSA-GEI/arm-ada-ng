@@ -18,8 +18,8 @@
 #ifndef __PACKEDBMP_H__
 #define __PACKEDBMP_H__
 
-#include "stm32f30x.h"
-#include "glcd.h"
+#include "stm32746g_discovery.h"
+#include "wrapper.h"
 
 struct PackedBMP_data_ST
 {

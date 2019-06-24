@@ -16,7 +16,9 @@
 /*    along with this program.  If not, see <http://www.gnu.org/licenses/>.   */
 /******************************************************************************/
 
-#include "system.h"
+#include "stm32746g_discovery.h"
+#include "wrapper.h"
+#include "panic.h"
 
 static volatile uint32_t R0,R1,R2,R3,R12,PC,LR,XPSR,SP;
 static uint32_t IT_Source;
@@ -24,17 +26,11 @@ static uint32_t IT_Source;
 
 extern void SetStack(void);
 
-void PANIC_EraseUserProgramEntry(void)
-{
-	/* Efface le premier secteur de la flash utilisateur */
-	FLASH_Unlock();
-	FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPERR);
-	FLASH_ErasePage(FLASH_USER_START_ADDR );
-	FLASH_Lock(); 
+void PANIC_EraseUserProgramEntry(void) {
+
 }
 
-void PANIC_ReadStack(uint32_t it_source, uint32_t *sp)
-{
+void PANIC_ReadStack(uint32_t it_source, uint32_t *sp) {
 	IT_Source = it_source;
 
 	if ( (sp >= (uint32_t*)0x10000000) && (sp <= (uint32_t*)(0x10002000 - 9*4)))
@@ -59,8 +55,7 @@ void PANIC_ReadStack(uint32_t it_source, uint32_t *sp)
 	PANIC_Display();
 }
 
-void PANIC_Display(void)
-{
+void PANIC_Display(void) {
 	char *title;
 	char str[42];
 
@@ -95,7 +90,7 @@ void PANIC_Display(void)
 	GLCD_SetTextColor(White);
 	GLCD_SetBackColor(Red);
 
-	GLCD_DrawString(0, 3, "Press C to erase flash and reset");
+	GLCD_DrawString(0, 3, "Press A to try again");
 
 	GLCD_DrawString(0, 14, "System halted !");
 	GLCD_DrawString(0, 10, "Backtrace :");
@@ -106,17 +101,13 @@ void PANIC_Display(void)
 	sprintf (str, "PC[%08X] XPSR[%08X]", (unsigned int)PC, (unsigned int)XPSR);
 	GLCD_DrawString(0, 13, str);
 
-	while (KEYS_GetState(KEY_CENTER) != KEY_PRESSED);
-
-	/* Efface le premier secteur de la flash utilisateur */
-	PANIC_EraseUserProgramEntry();
+	while (KEYS_GetState(KEY_A) != KEY_PRESSED);
 
 	/* Redemarrage de la carte */
 	NVIC_SystemReset();
 }
 
-void PANIC_SoftwarePanic(char *Title, char *Message)
-{
+void PANIC_SoftwarePanic(char *Title, char *Message) {
 	GUI_CreateWindow(Title, Yellow, White, Black);
 
 	/* Affiche la backtrace */
@@ -124,16 +115,10 @@ void PANIC_SoftwarePanic(char *Title, char *Message)
 	GLCD_SetBackColor(Red);
 
 	GLCD_DrawString(0, 5, Message);
-	GLCD_DrawString(0, 14, "Press B to erase flash and reset");
+	GLCD_DrawString(0, 14, "Press A to try again");
 
 	while (KEYS_GetState(KEY_B) != KEY_PRESSED);
 
-	/* efface le premier secteur de la flash utilisateur */
-	FLASH_Unlock();
-	FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPERR);
-	FLASH_ErasePage(FLASH_USER_START_ADDR );
-	FLASH_Lock(); 
-
-	/* Redemarrage de la carte */
+		/* Redemarrage de la carte */
 	NVIC_SystemReset();
 }

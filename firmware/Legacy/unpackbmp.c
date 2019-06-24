@@ -16,7 +16,7 @@
 /*    along with this program.  If not, see <http://www.gnu.org/licenses/>.   */
 /******************************************************************************/
 
-#include "stm32f30x.h"
+#include "stm32746g_discovery.h"
 #include "packedbmp.h"
 #include "unpackbmp.h"
 
