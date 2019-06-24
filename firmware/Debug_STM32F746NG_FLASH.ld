@@ -35,7 +35,9 @@ SOFTWARE.
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x20050000;    /* end of RAM */
+_estack = 0x20001400;    /* end of RAM */
+__initial_sp = _estack;
+StartMemoryAlloc = 0x20000800;
 
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0;      /* required amount of heap  */
@@ -48,7 +50,19 @@ MEMORY
   DTCMRAM (xrw)   : ORIGIN = 0x20000000, LENGTH = 64K
   SRAM1 (xrw)     : ORIGIN = 0x20010000, LENGTH = 240K
   SRAM2 (xrw)     : ORIGIN = 0x2004C000, LENGTH = 16K
-  MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
+  MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 4K
+  MEMORY_QSPI (r) : ORIGIN = 0x90000000, LENGTH = 16M
+  
+  RAM_STACK_APP(rw) : ORIGIN = 0x20000000, LENGTH = 0x1000
+  RAM_STACK(rw)     : ORIGIN = 0x20001000, LENGTH = 0x400
+  RAM_VECTOR(rw)	: ORIGIN = 0x20001400, LENGTH = 384
+  RAM_SHARED_DATA(rw): ORIGIN = 0x20001580, LENGTH = 4
+  RAM_BUFFERS(rw)	: ORIGIN = (0x20050000-0x2000), LENGTH = 8K
+  RAM (xrw)			: ORIGIN = (0x20001580+8), LENGTH = (0x20050000-0x20000000-0x1584-0x2000)
+  ROM_ENTRYPOINT    : ORIGIN = 0x8040000-8, LENGTH = 8
+  
+  LCD_FRAMEBUFFER_1 : ORIGIN = 0x60000000, LENGTH = (480*272*2)
+  LCD_FRAMEBUFFER_2 : ORIGIN = (0x60000000+(480*272*2)), LENGTH = (480*272*2)
 }
 
 /* Define output sections */
@@ -129,7 +143,7 @@ SECTIONS
 
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
-  } >SRAM1 AT> FLASH
+  } >RAM AT> FLASH
   
   _sidtcmram = LOADADDR(.dtcmram);
 
@@ -184,9 +198,9 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >SRAM1
+  } >RAM
 
-  /* User_heap_stack section, used to check that there is enough SRAM1 left */
+  /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
   {
     . = ALIGN(4);
@@ -195,7 +209,7 @@ SECTIONS
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
     . = ALIGN(4);
-  } >SRAM1
+  } >RAM
 
   /* MEMORY_bank1 section, code must be located here explicitly            */
   /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
@@ -207,6 +221,44 @@ SECTIONS
     *(.mb1rodata*)
   } >MEMORY_B1
 
+ /* Uninitialized data section into RAM memory */
+  . = ALIGN(4);
+  .bss_dma_buffer :
+  {
+    KEEP(*(DMA_BUFFERS))
+  } >RAM_BUFFERS
+  
+  /* Uninitialized data section into RAM memory */
+  . = ALIGN(4);
+  .bss_vector :
+  {
+    KEEP(*(VectorTable))
+    
+    . = ALIGN(4);
+  } >RAM_VECTOR
+  
+  /* Uninitialized data section into RAM memory */
+  . = ALIGN(4);
+  .bss_shared_data :
+  {
+    KEEP(*(PRG_ReprogAddrPattern))
+  } >RAM_SHARED_DATA
+  
+  /* User_heap_stack section, used to check that there is enough RAM left */
+  ._system_stack :
+  {
+    __system_stack_start__ = .;
+    KEEP(*(SYSSTACK))
+    __system_stack_end__ = .;
+  } >RAM_STACK
+
+  ._app_stack :
+  {
+    __app_stack_start__ = .;
+     KEEP(*(APPSTACK))
+    __app_stack_end__ = .;
+  } >RAM_STACK_APP
+  
   /* Remove information from the standard libraries */
   /DISCARD/ :
   {

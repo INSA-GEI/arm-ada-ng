@@ -76,7 +76,6 @@ static void MAIN_SystemInit(void);
 int main(void)
 {
 	uint8_t  lcd_status = LCD_OK;
-	//volatile uint32_t valRng;
 
 	/* Enable the FPU */
 	CPU_EnableFPU();
@@ -108,8 +107,8 @@ int main(void)
 
 	/* Initialize the LCD Layers */
 	//BSP_LCD_LayerDefaultInit(LTDC_ACTIVE_LAYER, LCD_FRAME_BUFFER);
-	BSP_LCD_LayerRgb565Init(LTDC_FOREGROUND_LAYER, LCD_FRAME_BUFFER);
-	BSP_LCD_LayerRgb565Init(LTDC_BACKGROUND_LAYER, LCD_FRAME_BUFFER+0x40000);
+	BSP_LCD_LayerRgb565Init(LTDC_FOREGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_1);
+	BSP_LCD_LayerRgb565Init(LTDC_BACKGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_2);
 
 	TESTS_Run();
 }
@@ -278,8 +277,12 @@ static void MAIN_SystemInit(void)
 	/* Configure the User Button in GPIO Mode */
 	BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
 
-	/* Init RNG */
-	BSP_RNG_InitGenerator();
+	/* Init External SRAM */
+	BSP_SDRAM_Init();
+
+	/* Init QSPI */
+	BSP_QSPI_Init();
+	BSP_QSPI_EnableMemoryMappedMode();
 
 	/* Init Keys */
 	BSP_KEYS_Init();
@@ -290,11 +293,15 @@ static void MAIN_SystemInit(void)
 	/* Init accelerometer and gyroscope sensor */
 	BSP_ACC_GYRO_Init();
 
-	/* Init accelerometer and gyroscope sensor */
+	/* Init pressure sensor */
 	BSP_PRESSURE_Init();
 
 	/* Init WIFI */
 	//BSP_WIFI_Init();
+
+	/* Init RNG */
+	BSP_RNG_InitGenerator();
+
 }
 
 #ifdef USE_FULL_ASSERT
