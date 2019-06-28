@@ -64,6 +64,11 @@ defined in linker script */
 .word  _ebss
 /* stack used for SystemInit_ExtMemCtl; always internal RAM used */
 
+.word __app_stack_start__
+.word __system_stack_start__
+.word __app_stack_end__
+.word __system_stack_end__
+
 /**
  * @brief  This is the code that gets called when the processor first
  *          starts execution following a reset event. Only the absolutely
@@ -115,6 +120,50 @@ LoopFillZerobss:
   bl  main
   bx  lr    
 .size  Reset_Handler, .-Reset_Handler
+
+/**
+ * @brief  This function help move stack ptr to defined area
+ *
+ * @param  R0: System stack
+ * @param  R1: Application stack
+ * @retval : None
+*/
+	.section	.text.SetStack
+	.type	SetStack, %function
+	.global SetStack
+SetStack:
+	CPSID	i // Disable interrupts
+
+	//LDR 	R0, =__initial_sp
+	MSR		MSP, R0
+	MSR		PSP, R1
+
+	MOV		R0, #0
+	MSR		CONTROL, R0 // MSP in use, Privileged, Float point registers will not be saved
+
+	ISB		// Flush cache
+
+	LDR 	R0, =#0xDEADBEEF
+	LDR		R1, =#__system_stack_start__
+	LDR		R2, =#__system_stack_end__
+
+SetStack_LoopSystemStack:
+	STR		R0,[R1]
+	ADD		R1,R1,#4
+	CMP		R1,R2
+	BNE		SetStack_LoopSystemStack
+
+	LDR		R1, =#__app_stack_start__
+	LDR		R2, =#__app_stack_end__
+SetStack_LoopApplicationStack:
+	STR		R0,[R1]
+	ADD		R1,R1,#4
+	CMP		R1,R2
+	BNE		SetStack_LoopApplicationStack
+
+	CPSIE	i // Enable back interrupts
+	BX		LR
+	.size	SetStack, .-SetStack
 
 /**
  * @brief  This is the code that gets called when the processor receives an 

@@ -16,7 +16,7 @@ typedef enum {
   AUDIO_ERROR_EOF,
 }AUDIO_ErrorTypeDef;
 
-uint8_t AUDIO_Process(void);
+uint8_t Audio_Test_Process(void);
 void TESTS_Run(void);
 uint8_t CheckForUserInput(void);
 

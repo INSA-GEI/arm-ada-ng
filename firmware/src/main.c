@@ -38,6 +38,8 @@
 #include "tests.h"
 
 #include "memory_mapping.h"
+int LEGACY_System (void);
+
 /** @addtogroup STM32F7xx_HAL_Examples
  * @{
  */
@@ -86,6 +88,9 @@ int main(void)
 	/* Enable the CPU Cache */
 	CPU_CACHE_Enable();
 
+	/* Configure the system clock to 200 Mhz */
+	SystemClock_Config();
+
 	/* STM32F7xx HAL library initialization:
        - Configure the Flash prefetch, instruction and Data caches
        - Configure the Systick to generate an interrupt each 1 msec
@@ -93,9 +98,6 @@ int main(void)
        - Global MSP (MCU Support Package) initialization
 	 */
 	HAL_Init();
-
-	/* Configure the system clock to 200 Mhz */
-	SystemClock_Config();
 
 	/* Configure system and BSP peripherals (except LCD) */
 	MAIN_SystemInit();
@@ -107,10 +109,18 @@ int main(void)
 
 	/* Initialize the LCD Layers */
 	//BSP_LCD_LayerDefaultInit(LTDC_ACTIVE_LAYER, LCD_FRAME_BUFFER);
-	BSP_LCD_LayerRgb565Init(LTDC_FOREGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_1);
-	BSP_LCD_LayerRgb565Init(LTDC_BACKGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_2);
+	BSP_LCD_LayerRgb565Init(LTDC_FOREGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_FOREGROUND);
+	BSP_LCD_LayerRgb565Init(LTDC_BACKGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_BACKGROUND);
 
-	TESTS_Run();
+	BSP_LCD_ResetScreen();
+
+	if (BSP_PB_GetState(BUTTON_X) != RESET)	{
+		TESTS_Run();
+	}
+
+	LEGACY_System();
+
+	for (;;); /* Never leave main function */
 }
 
 /**

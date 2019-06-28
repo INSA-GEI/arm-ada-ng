@@ -25,7 +25,7 @@ void SENSORS_Demo(void);
 void Touchscreen_demo(void);
 void AudioRec_demo(void);
 void AudioLoopback_demo(void);
-void AudioPlay_demo(void);
+void AudioPlay_Demo(void);
 void SDRAM_demo(void);
 void SDRAM_DMA_demo(void);
 void QSPI_demo(void);
@@ -40,7 +40,7 @@ BSP_DemoTypedef  BSP_examples[] =
 		{Touchscreen_demo, "TOUCHSCREEN", 0},
 		{AudioRec_demo, "AUDIO RECORD", 0},
 		{AudioLoopback_demo, "AUDIO LOOPBACK", 0},
-		{AudioPlay_demo, "AUDIO PLAY", 0},
+		{AudioPlay_Demo, "AUDIO PLAY", 0},
 		{SDRAM_demo, "SDRAM", 0},
 		{SDRAM_DMA_demo, "SDRAM DMA", 0},
 		{QSPI_demo, "QSPI", 0},

@@ -188,6 +188,7 @@ ABI_Ptr_Table:
 		.word 	MELODY_Start
 		.word 	MELODY_Stop
 		.word 	MELODY_GetPosition
+
 ABI_Ptr_Table_End:
 
 //******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE*****

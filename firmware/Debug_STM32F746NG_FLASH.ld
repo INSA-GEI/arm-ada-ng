@@ -41,28 +41,50 @@ StartMemoryAlloc = 0x20000800;
 
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0;      /* required amount of heap  */
-_Min_Stack_Size = 0x400; /* required amount of stack */
+_Min_Stack_Size = 0x500; /* required amount of stack */
+
+_App_Stack_Size = 0x500; /* amount of stack for application */
+_System_Stack_Size = 0x400; /* amount of stack for system */
+__app_stack_start__ = 0x20000000;
+__system_stack_start__ = 0x20000500;
+__app_stack_end__ = __app_stack_start__ + _App_Stack_Size;
+__system_stack_end__ = __system_stack_start__ + _System_Stack_Size;
+
+
+__external_sram_base_address 	= 0xC0000000;
+__qspi_base_address 			= 0x90000000;
+
+__framebuffer_length			= (480*272*2);
+__framebuffer_foreground_org	= __external_sram_base_address;
+__framebuffer_background_org	= __framebuffer_foreground_org + __framebuffer_length;
+__memory_sram_org				= __framebuffer_background_org + __framebuffer_length;
+__legacy_sram_org 				= __memory_sram_org;
+__legacy_sram_length			= (2*1024*1024);
+__dynamic_sram_org 				= __external_sram_base_address + 0x300000;
+
 
 /* Specify the memory areas */
 MEMORY
 {
-  FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K
-  DTCMRAM (xrw)   : ORIGIN = 0x20000000, LENGTH = 64K
-  SRAM1 (xrw)     : ORIGIN = 0x20010000, LENGTH = 240K
-  SRAM2 (xrw)     : ORIGIN = 0x2004C000, LENGTH = 16K
-  MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 4K
-  MEMORY_QSPI (r) : ORIGIN = 0x90000000, LENGTH = 16M
+  VECTORS (r)			: ORIGIN = 0x08000000,						LENGTH = 500
+  FLASH (rx)      		: ORIGIN = 0x08080000, 						LENGTH = 512K
+  MEMORY_BANK1 (rx)		: ORIGIN = __external_sram_base_address, 	LENGTH = 4M
+  MEMORY_QSPI (r) 		: ORIGIN = __qspi_base_address, 			LENGTH = 16M
   
-  RAM_STACK_APP(rw) : ORIGIN = 0x20000000, LENGTH = 0x1000
-  RAM_STACK(rw)     : ORIGIN = 0x20001000, LENGTH = 0x400
-  RAM_VECTOR(rw)	: ORIGIN = 0x20001400, LENGTH = 384
-  RAM_SHARED_DATA(rw): ORIGIN = 0x20001580, LENGTH = 4
-  RAM_BUFFERS(rw)	: ORIGIN = (0x20050000-0x2000), LENGTH = 8K
-  RAM (xrw)			: ORIGIN = (0x20001580+8), LENGTH = (0x20050000-0x20000000-0x1584-0x2000)
-  ROM_ENTRYPOINT    : ORIGIN = 0x8040000-8, LENGTH = 8
+  RAM_STACK_APP(rw) 	: ORIGIN = __app_stack_start__, 			LENGTH = 0x500
+  RAM_STACK(rw)     	: ORIGIN = __system_stack_start__, 			LENGTH = 0x400
+  RAM_VECTOR(rw)		: ORIGIN = 0x20000900, 						LENGTH = 500
+  RAM_SHARED_DATA(rw)	: ORIGIN = 0x20000B00, 						LENGTH = 4
+  RAM_BUFFERS(rw)		: ORIGIN = (0x20050000-0x2000), 			LENGTH = 8K
+  RAM (xrw)				: ORIGIN = 0x2000B000, 						LENGTH = (0x20050000-0x2000B000)
+  ROM_ENTRYPOINT    	: ORIGIN = 0x8040000-8, 					LENGTH = 8
   
-  LCD_FRAMEBUFFER_1 : ORIGIN = 0x60000000, LENGTH = (480*272*2)
-  LCD_FRAMEBUFFER_2 : ORIGIN = (0x60000000+(480*272*2)), LENGTH = (480*272*2)
+  /* Memory mapping for external SRAM */
+  LCD_FRAMEBUFFER_FOREGROUND 	: ORIGIN = __framebuffer_foreground_org, LENGTH = __framebuffer_length
+  LCD_FRAMEBUFFER_BACKGROUND 	: ORIGIN = __framebuffer_background_org, LENGTH = __framebuffer_length
+  MEMORY_SRAM					: ORIGIN = __memory_sram_org, 	LENGTH = (4M-__framebuffer_length*2)
+  LEGACY_SRAM					: ORIGIN = __legacy_sram_org, 	LENGTH = 2M
+  DYNAMIC_SRAM					: ORIGIN = __dynamic_sram_org, 	LENGTH = 1M
 }
 
 /* Define output sections */
@@ -74,7 +96,7 @@ SECTIONS
     . = ALIGN(4);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(4);
-  } >FLASH
+  } >VECTORS
 
   /* The program code and other data goes into FLASH */
   .text :
@@ -145,7 +167,7 @@ SECTIONS
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
   
-  _sidtcmram = LOADADDR(.dtcmram);
+ /* _sidtcmram = LOADADDR(.dtcmram);*/
 
   /* DTCMRAM section 
   * 
@@ -153,36 +175,35 @@ SECTIONS
   * If initialized variables will be placed in this section, 
   * the startup code needs to be modified to copy the init-values.  
   */
-  .dtcmram :
+ /* .dtcmram :
   {
     . = ALIGN(4);
-    _sdtcmram = .;       /* create a global symbol at dtcmram start */
-    *(.dtcmram)
+    _sdtcmram = .; */      /* create a global symbol at dtcmram start */
+ /*   *(.dtcmram)
     *(.dtcmram*)
     
     . = ALIGN(4);
-    _edtcmram = .;       /* create a global symbol at dtcmram end */
-  } >DTCMRAM AT> FLASH
+    _edtcmram = .;   */    /* create a global symbol at dtcmram end */
+ /* } >DTCMRAM AT> FLASH
 
  _sisram2 = LOADADDR(.sram2);
-
+*/
   /* SRAM2 section 
   * 
   * IMPORTANT NOTE! 
   * If initialized variables will be placed in this section, 
   * the startup code needs to be modified to copy the init-values.  
   */
-  .sram2 :
+ /* .sram2 :
   {
-    . = ALIGN(4);
-    _ssram2 = .;       /* create a global symbol at sram2 start */
-    *(.sram2)
+   . = ALIGN(4);
+    _ssram2 = .;  */     /* create a global symbol at sram2 start */
+/*    *(.sram2)
     *(.sram2*)
     
     . = ALIGN(4);
-    _esram2 = .;       /* create a global symbol at sram2 end */
-  } >SRAM2 AT> FLASH
-
+    _esram2 = .;    */   /* create a global symbol at sram2 end */
+/*  } >SRAM2 AT> FLASH*/
 
   /* Uninitialized data section */
   . = ALIGN(4);
@@ -211,16 +232,71 @@ SECTIONS
     . = ALIGN(4);
   } >RAM
 
-  /* MEMORY_bank1 section, code must be located here explicitly            */
-  /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
-  .memory_b1_text :
+  /* System stack section */
+  ._system_stack :
   {
+    KEEP(*(SYSSTACK))
+  } >RAM_STACK
+  
+  /* Application stack section */
+  ._app_stack :
+  {
+     KEEP(*(APPSTACK))
+  } >RAM_STACK_APP
+  
+  /* MEMORY bank1 section       */
+  .memory_bank1_text :
+  {
+  	_memory_bank1_start = .;       /* create a global symbol at memory bank1 start */
+
+    _memory_bank1_end = .;       /* create a global symbol at memory bank1 end */
+  } >MEMORY_BANK1
+
+  /* MEMORY SRAM section, code must be located here explicitly            */
+  /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
+  .memory_sram_text :
+  {
+  	. = ALIGN(4);
+  	_memory_sram_start = .;       /* create a global symbol at memory sram start */
+  	
     *(.mb1text)        /* .mb1text sections (code) */
     *(.mb1text*)       /* .mb1text* sections (code)  */
     *(.mb1rodata)      /* read-only data (constants) */
     *(.mb1rodata*)
-  } >MEMORY_B1
-
+    
+    _memory_sram_end = .;       /* create a global symbol at memory sram end */
+  } >MEMORY_SRAM
+  
+  /* FRAMEBUFFER Background Section 
+  * 
+  * IMPORTANT NOTE! 
+  * If initialized variables will be placed in this section, 
+  * the startup code needs to be modified to copy the init-values.  
+  */
+  ._lcd_framebuffer_background :
+  {
+    . = ALIGN(4);
+    _framebuffer_background_start = .;       /* create a global symbol at framebuffer background start */
+    
+    . = ALIGN(4);
+    _framebuffer_background_end = .;       /* create a global symbol at framebuffer background end */
+  } >LCD_FRAMEBUFFER_BACKGROUND
+  
+  /* FRAMEBUFFER Foreground Section 
+  * 
+  * IMPORTANT NOTE! 
+  * If initialized variables will be placed in this section, 
+  * the startup code needs to be modified to copy the init-values.  
+  */
+  ._lcd_framebuffer_foreground :
+  {
+    . = ALIGN(4);
+    _framebuffer_foreground_start = .;       /* create a global symbol at framebuffer foreground start */
+    
+    . = ALIGN(4);
+    _framebuffer_foreground_end = .;       /* create a global symbol at framebuffer foreground end */
+  } >LCD_FRAMEBUFFER_FOREGROUND
+  
  /* Uninitialized data section into RAM memory */
   . = ALIGN(4);
   .bss_dma_buffer :
@@ -244,20 +320,44 @@ SECTIONS
     KEEP(*(PRG_ReprogAddrPattern))
   } >RAM_SHARED_DATA
   
-  /* User_heap_stack section, used to check that there is enough RAM left */
-  ._system_stack :
+  /* LEGACY SRAM Section 
+  * 
+  * IMPORTANT NOTE! 
+  * If initialized variables will be placed in this section, 
+  * the startup code needs to be modified to copy the init-values.  
+  */
+  ._legacy_sram :
   {
-    __system_stack_start__ = .;
-    KEEP(*(SYSSTACK))
-    __system_stack_end__ = .;
-  } >RAM_STACK
-
-  ._app_stack :
+    . = ALIGN(4);
+    _legacysram_start = .;       /* create a global symbol at legacy sram start */
+    
+    . = ALIGN(4);
+    _legacysram_end = .;       /* create a global symbol at legacy sram end */
+  } >LEGACY_SRAM
+  
+  /* DYNAMIC SRAM Section 
+  * 
+  * Used for memory allocation 
+  */
+  ._dynamic_sram :
   {
-    __app_stack_start__ = .;
-     KEEP(*(APPSTACK))
-    __app_stack_end__ = .;
-  } >RAM_STACK_APP
+    . = ALIGN(4);
+    _dynamicsram_start = .;       /* create a global symbol at dynamic sram start */
+    
+    . = ALIGN(4);
+    _dynamicsram_end = .;       /* create a global symbol at dynamic sram end */
+  } >DYNAMIC_SRAM
+  
+  /* RAM_SHARED_DATA Section 
+  * 
+  * Used for keeping info between reset
+  */
+  ._shared_data_area :
+  {
+    . = ALIGN(4);
+    PRG_ReprogPatternAddr = .;       /* create a global symbol at dynamic sram start */
+    
+  } >RAM_SHARED_DATA
   
   /* Remove information from the standard libraries */
   /DISCARD/ :

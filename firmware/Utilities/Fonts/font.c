@@ -12,6 +12,12 @@ extern const uint8_t Font16_Table[];
 extern const uint8_t Font20_Table[];
 extern const uint8_t Font24_Table[];
 
+sFONT FontLegacy= {
+  Font12_Table,
+  8, /* Width */
+  12, /* Height */
+};
+
 sFONT Font8 = {
   Font8_Table,
   5, /* Width */

@@ -54,10 +54,12 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Legacy}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Tests}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Ressources}&quot;"/>
 								</option>
 								<option id="com.atollic.truestudio.gcc.symbols.defined.1435772239" name="Defined symbols" superClass="com.atollic.truestudio.gcc.symbols.defined" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="STM32F746xx"/>
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+									<listOptionValue builtIn="false" value="ADA_TEST_SYSTEM"/>
 								</option>
 								<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1964465434" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0s" valueType="enumerated"/>
 								<option id="com.atollic.truestudio.gcc.optimization.prep_garbage.1078742027" name="Prepare dead code removal " superClass="com.atollic.truestudio.gcc.optimization.prep_garbage" useByScannerDiscovery="false" value="true" valueType="boolean"/>
@@ -108,6 +110,28 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="com.atollic.truestudio.exe.0.388750236" name="/" resourcePath="Drivers/STM32F7xx_HAL_Driver">
+						<toolChain id="com.atollic.truestudio.exe.debug.toolchain.1217899512" name="Atollic ARM Tools" superClass="com.atollic.truestudio.exe.debug.toolchain" unusedChildren="">
+							<option id="com.atollic.truestudio.general.runtimelib.529126547.1575521895" name="Runtime Library" superClass="com.atollic.truestudio.general.runtimelib.529126547"/>
+							<option id="com.atollic.truestudio.toolchain_options.mcu.1151824914.702605868" name="Microcontroller" superClass="com.atollic.truestudio.toolchain_options.mcu.1151824914"/>
+							<option id="com.atollic.truestudio.toolchain_options.vendor.823505773.85507870" name="Vendor name" superClass="com.atollic.truestudio.toolchain_options.vendor.823505773"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.atollic.truestudio.exe.debug.toolchain.platform" isAbstract="false" name="Debug platform" osList="all" superClass="com.atollic.truestudio.exe.debug.toolchain.platform"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.1713139995" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as.1569612853">
+								<inputType id="com.atollic.truestudio.as.input.727492436" name="Input" superClass="com.atollic.truestudio.as.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1069876271" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605">
+								<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.256121907" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0g" valueType="enumerated"/>
+								<inputType id="com.atollic.truestudio.gcc.input.695141369" superClass="com.atollic.truestudio.gcc.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.ld.1227886437" name="C Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ld.1117646297"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gpp.493218491" name="C++ Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gpp.71853365">
+								<inputType id="com.atollic.truestudio.gpp.input.1424556574" superClass="com.atollic.truestudio.gpp.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.ldcc.1491815974" name="C++ Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ldcc.1819049402"/>
+							<tool id="com.atollic.truestudio.ar.base.1612688893" name="Archiver" superClass="com.atollic.truestudio.ar.base.1904317072"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.secoutput.700702213" name="Other" superClass="com.atollic.truestudio.exe.debug.toolchain.secoutput.779282198"/>
+						</toolChain>
+					</folderInfo>
 					<fileInfo id="com.atollic.truestudio.exe.0.412967092" name="stm32f7xx_hal_uart.c" rcbsApplicability="disable" resourcePath="Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605.671254403">
 						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605.671254403" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605">
 							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.378568514" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.00" valueType="enumerated"/>
@@ -146,7 +170,7 @@
 					</fileInfo>
 					<fileInfo id="com.atollic.truestudio.exe.0.309091774" name="stm32746g_discovery_lcd_dma2d.c" rcbsApplicability="disable" resourcePath="Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_lcd_dma2d.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605.1637357860">
 						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605.1637357860" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605">
-							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1037936437" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0fast" valueType="enumerated"/>
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1037936437" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.00" valueType="enumerated"/>
 							<inputType id="com.atollic.truestudio.gcc.input.1475462423" superClass="com.atollic.truestudio.gcc.input"/>
 						</tool>
 						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.1144723639" name="Resource Custom Build Step">
@@ -192,22 +216,111 @@
 							<outputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.outputtype.1102780720" name="Resource Custom Build Step Output Type"/>
 						</tool>
 					</fileInfo>
+					<folderInfo id="com.atollic.truestudio.exe.0.1479044811" name="/" resourcePath="src">
+						<toolChain id="com.atollic.truestudio.exe.debug.toolchain.2016241286" name="Atollic ARM Tools" superClass="com.atollic.truestudio.exe.debug.toolchain" unusedChildren="">
+							<option id="com.atollic.truestudio.general.runtimelib.529126547.756220745" name="Runtime Library" superClass="com.atollic.truestudio.general.runtimelib.529126547"/>
+							<option id="com.atollic.truestudio.toolchain_options.mcu.1151824914.1185435117" name="Microcontroller" superClass="com.atollic.truestudio.toolchain_options.mcu.1151824914"/>
+							<option id="com.atollic.truestudio.toolchain_options.vendor.823505773.2082852409" name="Vendor name" superClass="com.atollic.truestudio.toolchain_options.vendor.823505773"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.atollic.truestudio.exe.debug.toolchain.platform" isAbstract="false" name="Debug platform" osList="all" superClass="com.atollic.truestudio.exe.debug.toolchain.platform"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.2082801754" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as.1569612853">
+								<inputType id="com.atollic.truestudio.as.input.1486546579" name="Input" superClass="com.atollic.truestudio.as.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1696788042" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605">
+								<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1447620994" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0g" valueType="enumerated"/>
+								<inputType id="com.atollic.truestudio.gcc.input.1959343938" superClass="com.atollic.truestudio.gcc.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.ld.1852843590" name="C Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ld.1117646297"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gpp.1323913601" name="C++ Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gpp.71853365">
+								<inputType id="com.atollic.truestudio.gpp.input.496458239" superClass="com.atollic.truestudio.gpp.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.ldcc.1496301670" name="C++ Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ldcc.1819049402"/>
+							<tool id="com.atollic.truestudio.ar.base.1874683262" name="Archiver" superClass="com.atollic.truestudio.ar.base.1904317072"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.secoutput.1587137115" name="Other" superClass="com.atollic.truestudio.exe.debug.toolchain.secoutput.779282198"/>
+						</toolChain>
+					</folderInfo>
+					<fileInfo id="com.atollic.truestudio.exe.0.7050093" name="main.c" rcbsApplicability="disable" resourcePath="src/main.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1696788042.185709204">
+						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1696788042.185709204" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1696788042">
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1452252559" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.00" valueType="enumerated"/>
+							<inputType id="com.atollic.truestudio.gcc.input.1296179211" superClass="com.atollic.truestudio.gcc.input"/>
+						</tool>
+						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.1628931796" name="Resource Custom Build Step">
+							<inputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.inputtype.380939156" name="Resource Custom Build Step Input Type">
+								<additionalInput kind="additionalinputdependency" paths=""/>
+							</inputType>
+							<outputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.outputtype.494566293" name="Resource Custom Build Step Output Type"/>
+						</tool>
+					</fileInfo>
 					<folderInfo id="com.atollic.truestudio.exe.0.216088922" name="/" resourcePath="Legacy">
 						<toolChain id="com.atollic.truestudio.exe.debug.toolchain.1112148754" name="Atollic ARM Tools" superClass="com.atollic.truestudio.exe.debug.toolchain" unusedChildren="">
 							<option id="com.atollic.truestudio.general.runtimelib.529126547.919198238" name="Runtime Library" superClass="com.atollic.truestudio.general.runtimelib.529126547"/>
 							<option id="com.atollic.truestudio.toolchain_options.mcu.1151824914.989180342" name="Microcontroller" superClass="com.atollic.truestudio.toolchain_options.mcu.1151824914"/>
 							<option id="com.atollic.truestudio.toolchain_options.vendor.823505773.1177322155" name="Vendor name" superClass="com.atollic.truestudio.toolchain_options.vendor.823505773"/>
-							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.1574260564" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as.1569612853"/>
-							<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.atollic.truestudio.exe.debug.toolchain.platform" isAbstract="false" name="Debug platform" osList="all" superClass="com.atollic.truestudio.exe.debug.toolchain.platform"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.1574260564" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as.1569612853">
+								<inputType id="com.atollic.truestudio.as.input.185928725" name="Input" superClass="com.atollic.truestudio.as.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1513525605">
+								<inputType id="com.atollic.truestudio.gcc.input.1869436135" superClass="com.atollic.truestudio.gcc.input"/>
+							</tool>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.ld.1540207101" name="C Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ld.1117646297"/>
-							<tool id="com.atollic.truestudio.exe.debug.toolchain.gpp.1615988531" name="C++ Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gpp.71853365"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gpp.1615988531" name="C++ Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gpp.71853365">
+								<inputType id="com.atollic.truestudio.gpp.input.757172003" superClass="com.atollic.truestudio.gpp.input"/>
+							</tool>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.ldcc.1240412059" name="C++ Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ldcc.1819049402"/>
 							<tool id="com.atollic.truestudio.ar.base.462167819" name="Archiver" superClass="com.atollic.truestudio.ar.base.1904317072"/>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.secoutput.504698515" name="Other" superClass="com.atollic.truestudio.exe.debug.toolchain.secoutput.779282198"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="com.atollic.truestudio.exe.0.1655461826" name="wrapper.c" rcbsApplicability="disable" resourcePath="Legacy/wrapper.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.2100285829">
+						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.2100285829" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859">
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1161123553" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.00" valueType="enumerated"/>
+							<inputType id="com.atollic.truestudio.gcc.input.1089078479" superClass="com.atollic.truestudio.gcc.input"/>
+						</tool>
+						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.721442368" name="Resource Custom Build Step">
+							<inputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.inputtype.309248557" name="Resource Custom Build Step Input Type">
+								<additionalInput kind="additionalinputdependency" paths=""/>
+							</inputType>
+							<outputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.outputtype.1718244821" name="Resource Custom Build Step Output Type"/>
+						</tool>
+					</fileInfo>
+					<fileInfo id="com.atollic.truestudio.exe.0.1634493200" name="panic.c" rcbsApplicability="disable" resourcePath="Legacy/panic.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.224389461">
+						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.224389461" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859">
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1188977929" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.00" valueType="enumerated"/>
+							<inputType id="com.atollic.truestudio.gcc.input.131087851" superClass="com.atollic.truestudio.gcc.input"/>
+						</tool>
+						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.1744053441" name="Resource Custom Build Step">
+							<inputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.inputtype.45567057" name="Resource Custom Build Step Input Type">
+								<additionalInput kind="additionalinputdependency" paths=""/>
+							</inputType>
+							<outputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.outputtype.1102156936" name="Resource Custom Build Step Output Type"/>
+						</tool>
+					</fileInfo>
+					<fileInfo id="com.atollic.truestudio.exe.0.1740914876" name="abi-table.c" rcbsApplicability="disable" resourcePath="Legacy/abi-table.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.134959940">
+						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.134959940" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859">
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.25689493" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.00" valueType="enumerated"/>
+							<inputType id="com.atollic.truestudio.gcc.input.2002179374" superClass="com.atollic.truestudio.gcc.input"/>
+						</tool>
+						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.763963630" name="Resource Custom Build Step">
+							<inputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.inputtype.1255514291" name="Resource Custom Build Step Input Type">
+								<additionalInput kind="additionalinputdependency" paths=""/>
+							</inputType>
+							<outputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.outputtype.346809360" name="Resource Custom Build Step Output Type"/>
+						</tool>
+					</fileInfo>
+					<fileInfo id="com.atollic.truestudio.exe.0.70798098" name="system.c" rcbsApplicability="disable" resourcePath="Legacy/system.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.1740898528">
+						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859.1740898528" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1642688859">
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.462437984" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.00" valueType="enumerated"/>
+							<inputType id="com.atollic.truestudio.gcc.input.491873471" superClass="com.atollic.truestudio.gcc.input"/>
+						</tool>
+						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.1465446934" name="Resource Custom Build Step">
+							<inputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.inputtype.898048110" name="Resource Custom Build Step Input Type">
+								<additionalInput kind="additionalinputdependency" paths=""/>
+							</inputType>
+							<outputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.outputtype.1067691910" name="Resource Custom Build Step Output Type"/>
+						</tool>
+					</fileInfo>
 					<sourceEntries>
-						<entry excluding="Tests/log.c|Tests/camera.c|Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_bus_mgr.c|Middlewares/Third_Party/FreeRTOS|Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_lcd.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU|Drivers/BSP/Components|Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_camera.c|Middlewares/Third_Party/FreeRTOS/Source/portable/Keil|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_2.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM0|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c|Middlewares/Third_Party/fatfs/rtc_stm32f1.c|Middlewares/Third_Party/FreeRTOS/Source/portable/IAR|Middlewares/Third_Party/FreeRTOS/Source/portable/Tasking|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3_MPU|src/camera.c|Utilities/CPU|Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_1.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_5.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/syscalls.c|Legacy/m_alloc.c|Tests/log.c|Tests/camera.c|Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_bus_mgr.c|Middlewares/Third_Party/FreeRTOS|Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_lcd.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU|Drivers/BSP/Components|Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_camera.c|Middlewares/Third_Party/FreeRTOS/Source/portable/Keil|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_2.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM0|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c|Middlewares/Third_Party/fatfs/rtc_stm32f1.c|Middlewares/Third_Party/FreeRTOS/Source/portable/IAR|Middlewares/Third_Party/FreeRTOS/Source/portable/Tasking|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3_MPU|src/camera.c|Utilities/CPU|Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_1.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3|Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_5.c|Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers/BSP/Components/Common"/>
 						<entry excluding="Example_BMP280" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers/BSP/Components/bmp280"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers/BSP/Components/esp8266_wifi"/>

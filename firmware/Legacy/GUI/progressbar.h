@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* version.h: File for holding bootloader version and ABI version             */
+/* potentiometers.h: Header for potentiometers managment                      */
 /*                                                                            */
 /******************************************************************************/
 /* This program is free software: you can redistribute it and/or modify       */
@@ -15,12 +15,8 @@
 /*    You should have received a copy of the GNU General Public License       */
 /*    along with this program.  If not, see <http://www.gnu.org/licenses/>.   */
 /******************************************************************************/
-#ifndef __VERSION_H__
-#define __VERSION_H__
 
-#define BL_MAJOR_VERSION	10
-#define BL_MINOR_VERSION	0
+#include "stm32746g_discovery.h"
 
-#define ABI_VERSION			0xF0
-
-#endif /* __VERSION_H__ */
+void LEGACY_GUI_ProgressBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t val, uint8_t maxval);
+void LEGACY_GUI_CenterBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, int val, uint32_t absolutemaxval);

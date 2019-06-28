@@ -390,14 +390,10 @@ uint32_t BSP_PB_GetState(Button_TypeDef Button)
 {
 	uint32_t status=0;
 
-	__disable_irq();
-
-	if (Button >=BUTTON_A)
+	if (Button >=256)
 		status= BSP_KEYS_GetKey(Button-256);
 	else
 		status= HAL_GPIO_ReadPin(BUTTON_PORT[Button], BUTTON_PIN[Button]);
-
-	__enable_irq();
 
 	return status;
 }

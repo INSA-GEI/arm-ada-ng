@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* version.h: File for holding bootloader version and ABI version             */
+/* gui.h: Top header for GUI functions                                        */
 /*                                                                            */
 /******************************************************************************/
 /* This program is free software: you can redistribute it and/or modify       */
@@ -15,12 +15,15 @@
 /*    You should have received a copy of the GNU General Public License       */
 /*    along with this program.  If not, see <http://www.gnu.org/licenses/>.   */
 /******************************************************************************/
-#ifndef __VERSION_H__
-#define __VERSION_H__
+#ifndef __GUI_H__
+#define __GUI_H__
 
-#define BL_MAJOR_VERSION	10
-#define BL_MINOR_VERSION	0
+#include "stm32746g_discovery.h"
 
-#define ABI_VERSION			0xF0
+#define GUI_MAX_X 319
+#define GUI_MAX_Y 239
 
-#endif /* __VERSION_H__ */
+#include "progressbar.h"
+#include "window.h"
+
+#endif /* __GUI_H__ */

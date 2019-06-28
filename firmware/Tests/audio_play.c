@@ -100,9 +100,9 @@ __IO uint32_t uwPauseEnabledStatus = 0;
 static uint32_t AudioFreq[9] = {8000 ,11025, 16000, 22050, 32000, 44100, 48000, 96000, 192000};
 
 /* Private function prototypes -----------------------------------------------*/
-static void Audio_SetHint(void);
+static void Audio_Test_SetHint(void);
 static uint32_t GetData(void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t NbrOfData);
-AUDIO_ErrorTypeDef AUDIO_Start(uint32_t audio_start_address, uint32_t audio_file_size);
+AUDIO_ErrorTypeDef Audio_Test_Start(uint32_t audio_start_address, uint32_t audio_file_size);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -111,7 +111,7 @@ AUDIO_ErrorTypeDef AUDIO_Start(uint32_t audio_start_address, uint32_t audio_file
   * @param  None
   * @retval None
   */
-void AudioPlay_demo (void)
+void AudioPlay_Demo (void)
 {
   uint32_t *AudioFreq_ptr;
   uint8_t FreqStr[256] = {0};
@@ -121,7 +121,7 @@ void AudioPlay_demo (void)
   uwPauseEnabledStatus = 1; /* 0 when audio is running, 1 when Pause is on */
   uwVolume = 70;
 
-  Audio_SetHint();
+  Audio_Test_SetHint();
 
   //if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_HEADPHONE, uwVolume, *AudioFreq_ptr) == 0)
   if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_BOTH, uwVolume, *AudioFreq_ptr) == 0)
@@ -152,7 +152,7 @@ void AudioPlay_demo (void)
   using Transfer complete and/or half transfer complete interrupts callbacks 
   (DISCOVERY_AUDIO_TransferComplete_CallBack() or DISCOVERY_AUDIO_HalfTransfer_CallBack()...
   */
-  AUDIO_Start(AUDIO_FILE_ADDRESS, AUDIO_FILE_SIZE);
+  Audio_Test_Start(AUDIO_FILE_ADDRESS, AUDIO_FILE_SIZE);
 
   /* Display the state on the screen */
   BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
@@ -174,7 +174,7 @@ void AudioPlay_demo (void)
   while (1)
   {
     
-    AUDIO_Process();
+    Audio_Test_Process();
     
     /* Check in polling mode in touch screen the touch status and coordinates */
     /* if touch occurred                                                      */
@@ -276,7 +276,7 @@ void AudioPlay_demo (void)
   * @param  None
   * @retval None
   */
-static void Audio_SetHint(void)
+static void Audio_Test_SetHint(void)
 {
   /* Clear the LCD */
   BSP_LCD_Clear(LCD_COLOR_WHITE);
@@ -306,7 +306,7 @@ static void Audio_SetHint(void)
   * @param  None
   * @retval Audio error
   */ 
-AUDIO_ErrorTypeDef AUDIO_Start(uint32_t audio_start_address, uint32_t audio_file_size)
+AUDIO_ErrorTypeDef Audio_Test_Start(uint32_t audio_start_address, uint32_t audio_file_size)
 {
   uint32_t bytesread;
   
@@ -335,7 +335,7 @@ AUDIO_ErrorTypeDef AUDIO_Start(uint32_t audio_start_address, uint32_t audio_file
   * @param  None
   * @retval Audio error
   */
-uint8_t AUDIO_Process(void)
+uint8_t Audio_Test_Process(void)
 {
   uint32_t bytesread;
   AUDIO_ErrorTypeDef error_state = AUDIO_ERROR_NONE;  

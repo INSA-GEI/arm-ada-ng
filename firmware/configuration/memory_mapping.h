@@ -16,14 +16,18 @@
   * @brief  LCD FB_StartAddress
   * LCD Frame buffer start address : starts at beginning of SDRAM
   */
-#define LCD_FRAME_BUFFER          	SDRAM_DEVICE_ADDR
-#define LCD_FRAME_BUFFER_LAYER_1  	LCD_FRAME_BUFFER
-#define LCD_FRAME_BUFFER_LAYER_2 	((uint32_t)(LCD_FRAME_BUFFER_LAYER_1 + (RK043FN48H_WIDTH * RK043FN48H_HEIGHT * RGB565_BYTE_PER_PIXEL)))
+extern const uint32_t _framebuffer_foreground_start;
+extern const uint32_t _framebuffer_background_start;
+
+//#define LCD_FRAME_BUFFER          	SDRAM_DEVICE_ADDR
+#define LCD_FRAME_BUFFER_LAYER_FOREGROUND  	((uint32_t)&_framebuffer_foreground_start)
+#define LCD_FRAME_BUFFER_LAYER_BACKGROUND 	((uint32_t)&_framebuffer_background_start)
 /**
   * @brief  Camera frame buffer start address
   * Assuming LCD frame buffer is of size 480x272 and format RGB565 (16 bits per pixel) with 2 layers.
   */
-#define SDRAM_WRITE_READ_ADDR       ((uint32_t)(LCD_FRAME_BUFFER_LAYER_2 + (RK043FN48H_WIDTH * RK043FN48H_HEIGHT * RGB565_BYTE_PER_PIXEL)))
+extern uint32_t _memory_sram_start;
+#define SDRAM_WRITE_READ_ADDR       ((uint32_t)&_memory_sram_start)
 
 /**
   * @brief  SDRAM Write read buffer start address after CAM Frame buffer

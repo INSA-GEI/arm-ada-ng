@@ -390,6 +390,15 @@ void BSP_LCD_SelectLayer(uint32_t LayerIndex)
 } 
 
 /**
+ * @brief  Get active LCD Layer.
+ * @retval Active layer
+ */
+uint32_t BSP_LCD_GetLayer(void)
+{
+	return ActiveLayer;
+}
+
+/**
  * @brief  Sets an LCD Layer visible
  * @param  LayerIndex: Visible Layer
  * @param  State: New state of the specified layer
@@ -669,7 +678,7 @@ uint32_t BSP_LCD_ReadPixel(uint16_t Xpos, uint16_t Ypos)
 }
 
 /**
- * @brief  Clears the hole LCD.
+ * @brief  Clears the whole LCD.
  * @param  Color: Color of the background
  * @retval None
  */
@@ -679,6 +688,17 @@ void BSP_LCD_Clear(uint32_t Color)
 	LL_FillBuffer(ActiveLayer, (uint32_t *)(hLtdcHandler.LayerCfg[ActiveLayer].FBStartAdress), BSP_LCD_GetXSize(), BSP_LCD_GetYSize(), 0, Color);
 }
 
+/**
+ * @brief  Full reset of screen.
+ * @param none
+ * @retval None
+ */
+void BSP_LCD_ResetScreen(void) {
+	BSP_LCD_SelectLayer(LTDC_BACKGROUND_LAYER);
+	BSP_LCD_Clear(LCD_COLOR_WHITE);
+	BSP_LCD_SelectLayer(LTDC_FOREGROUND_LAYER);
+	BSP_LCD_Clear(LCD_COLOR_WHITE);
+}
 /**
  * @brief  Clears the selected line.
  * @param  Line: Line to be cleared

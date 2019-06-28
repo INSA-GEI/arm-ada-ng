@@ -18,43 +18,21 @@
 #ifndef __SYSTEM_H__
 #define __SYSTEM_H__
 
-#include "stm32f30x.h"
+#include "stm32746g_discovery.h"
 
-#include "config.h"
 #include "version.h"
 #include "abi.h"
 #include "panic.h"
 
-#include "timer.h"
-#include "glcd.h"
-#include "packedbmp.h"
-#include "unpackbmp.h"
-#include "usart.h"
-#include "keys.h"
-#include "led.h"
-#include "potentiometers.h"
-#include "rng.h"
-#include "audio.h"
-#include "sram.h"
-//#include "ff.h"
-//#include "sd_spi_drv.h"
-//#include "stm32303c_eval_spi_sd.h"
-#include "l3gd20.h"
-#include "lsm303dlhc.h"
 #include "console.h"
-
-#include "audio-synth.h"
-#include "audio-melody.h"
-
-#include "gui.h"
+#include "wrapper.h"
+#include "config.h"
 
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
 
-#include "m_alloc.h"
-
-#include "reprog.h"
+//#include "m_alloc.h"
 
 extern FILE __stdout;
 extern FILE __stdin;

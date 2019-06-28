@@ -169,7 +169,7 @@ void AudioRec_demo (void)
 
   while (1)
   {
-    AUDIO_Process();
+    Audio_Test_Process();
     
     if (CheckForUserInput() > 0)
     {

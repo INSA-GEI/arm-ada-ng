@@ -9,6 +9,7 @@
 #define LEGACY_WRAPPER_H_
 
 // Basic OS services
+void WRAPPER_Init (void);
 void API_InvalidFunction(void);
 void Delay(volatile uint32_t nTime);
 
