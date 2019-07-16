@@ -43,10 +43,10 @@ StartMemoryAlloc = 0x20000800;
 _Min_Heap_Size = 0;      /* required amount of heap  */
 _Min_Stack_Size = 0x500; /* required amount of stack */
 
-_App_Stack_Size = 0x500; /* amount of stack for application */
+_App_Stack_Size = 0x1000; /* amount of stack for application */
 _System_Stack_Size = 0x400; /* amount of stack for system */
 __app_stack_start__ = 0x20000000;
-__system_stack_start__ = 0x20000500;
+__system_stack_start__ = 0x20001000;
 __app_stack_end__ = __app_stack_start__ + _App_Stack_Size;
 __system_stack_end__ = __system_stack_start__ + _System_Stack_Size;
 
@@ -71,13 +71,13 @@ MEMORY
   MEMORY_BANK1 (rx)		: ORIGIN = __external_sram_base_address, 	LENGTH = 4M
   MEMORY_QSPI (r) 		: ORIGIN = __qspi_base_address, 			LENGTH = 16M
   
-  RAM_STACK_APP(rw) 	: ORIGIN = __app_stack_start__, 			LENGTH = 0x500
-  RAM_STACK(rw)     	: ORIGIN = __system_stack_start__, 			LENGTH = 0x400
-  RAM_VECTOR(rw)		: ORIGIN = 0x20000900, 						LENGTH = 500
-  RAM_SHARED_DATA(rw)	: ORIGIN = 0x20000B00, 						LENGTH = 4
+  RAM_STACK_APP(rw) 	: ORIGIN = __app_stack_start__, 			LENGTH = _App_Stack_Size
+  RAM_STACK(rw)     	: ORIGIN = __system_stack_start__, 			LENGTH = _System_Stack_Size
+  RAM_VECTOR(rw)		: ORIGIN = 0x20001400, 						LENGTH = 500
+  RAM_SHARED_DATA(rw)	: ORIGIN = 0x20001600, 						LENGTH = 4
   RAM_BUFFERS(rw)		: ORIGIN = (0x20050000-0x2000), 			LENGTH = 8K
-  RAM (xrw)				: ORIGIN = 0x2000B000, 						LENGTH = (0x20050000-0x2000B000)
-  ROM_ENTRYPOINT    	: ORIGIN = 0x8040000-8, 					LENGTH = 8
+  RAM (xrw)				: ORIGIN = 0x2000B000, 						LENGTH = (0x20050000-0x2000-0x2000B000)
+  LEGACY_ABI_ENTRYPOINT : ORIGIN = 0x8040000-8, 					LENGTH = 8
   
   /* Memory mapping for external SRAM */
   LCD_FRAMEBUFFER_FOREGROUND 	: ORIGIN = __framebuffer_foreground_org, LENGTH = __framebuffer_length
@@ -98,6 +98,12 @@ SECTIONS
     . = ALIGN(4);
   } >VECTORS
 
+  /* Legacy entrypoint */
+  .legacy_isr_vector :
+  {
+    KEEP(*(.legacy_isr_vector)) /* Startup code */
+  } >LEGACY_ABI_ENTRYPOINT
+  
   /* The program code and other data goes into FLASH */
   .text :
   {

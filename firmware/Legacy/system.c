@@ -23,6 +23,12 @@
 
 #include "stm32746g_discovery_stdio.h"
 #include "stm32746g_discovery_lcd_dma2d.h"
+/* todo a supprimer */
+#include "audio-synth/audio-synth.h"
+#include "audio-synth/audio-synth-const.h"
+#include "audio-synth/audio.h"
+#include "stm32746g_discovery_audio.h"
+/* todo a supprimer */
 
 COLOR *data;
 const PackedBMP_Header logo_insa;
@@ -69,6 +75,32 @@ extern const uint32_t* __app_stack_end__;
 extern const uint32_t* __system_stack_end__;
 
 extern uint32_t PRG_ReprogPatternAddr;
+//extern AUDIO_BufferTypeDef  AUDIO_Buffer;
+//volatile double tmp,value;
+//int i=0;
+//int myvar=0;
+//
+//typedef struct {
+//	const SYNTH_Instrument *instrument;
+//	const char* str;
+//} INSTR_TEST;
+//
+//INSTR_TEST Instr_Test_Array []=
+//{
+//		{&SYNTH_Inst_Sin, "Sinus"},
+//		{&SYNTH_Inst_Triangle,"Triangle"},
+//		{&SYNTH_Inst_Square,"Square"},
+//		{&SYNTH_Inst_Saw,"Saw"},
+//		{&SYNTH_Inst_HalfSin,"Half Sinus"},
+//		{&SYNTH_Inst_HalfTriangle,"Half Triangle"},
+//		{&SYNTH_Inst_HalfSquare,"Half Square"},
+//		{&SYNTH_Inst_QuaterSin,"Quater Sinus"},
+//		{&SYNTH_Inst_HalfSaw,"Half Saw"},
+//		{&SYNTH_Inst_SinHach,"Hach Sinus"},
+//		{&SYNTH_Inst_SquareHach,"Hach Square"},
+//		{&SYNTH_Inst_Noise,"Noise"},
+//		{&SYNTH_Inst_HalfNoise,"Half Noise"}
+//};
 
 int LEGACY_System (void)
 {
@@ -78,13 +110,11 @@ int LEGACY_System (void)
 	RETARGET_Init();
 
 	/* Init du systeme */
-
 	WRAPPER_Init();
 	BSP_LCD_ResetScreen();
 
 	GLCD_SetBackColor(White);
 	GLCD_SetTextColor(Black);
-
 
 #ifndef ADA_TEST_SYSTEM	
 	if (PRG_CheckReprogRequest()==PRG_RESET_HARDRESET) 
@@ -104,12 +134,56 @@ int LEGACY_System (void)
 	GLCD_SetBackColor(White);
 	GLCD_SetTextColor(Black);
 
+	//	/* Essai du synthe */
+	//	if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_BOTH, 92, 44100)== 0) {
+	//		GLCD_DrawString(1,10, "Codec Init OK: 44100 Khz");
+	//		/* Clean Data Cache to update the content of the SRAM */
+	//		SCB_CleanDCache_by_Addr((uint32_t*)&AUDIO_Buffer.buffer1[0], AUDIO_BUFFER_SIZE*4);
+	//
+	//		//BSP_AUDIO_OUT_Play((uint16_t*)&AUDIO_Buffer.buffer1[0], AUDIO_BUFFER_SIZE*4);
+	//	}
+	//	else GLCD_DrawString(1,10, "Codec Init fail");
+	//
+	//	i=0;
+	//
+	//	GLCD_DrawString(1,11, Instr_Test_Array[i].str);
+	//
+	//	SYNTH_Start();
+	//	SYNTH_SetMainVolume(0xFF);
+	//	SYNTH_SetInstrument(0,(SYNTH_Instrument* )Instr_Test_Array[i].instrument);
+	//	SYNTH_SetVolume(0,0xFF);
+	//
+	//	while (1) {
+	//		if (BSP_PB_GetState(BUTTON_A) != RESET)
+	//		{
+	//			while (BSP_PB_GetState(BUTTON_A) != RESET) {}
+	//
+	//			i++;
+	//			if (i >= (sizeof(Instr_Test_Array)/sizeof(INSTR_TEST))) i=0;
+	//
+	//			GLCD_DrawString(1,11, Instr_Test_Array[i].str);
+	//			SYNTH_SetInstrument(0,(SYNTH_Instrument* )Instr_Test_Array[i].instrument);
+	//		}
+	//
+	//		//SYNTH_NoteOff(0);
+	//		GLCD_DrawString(10,11, "G4");
+	//		SYNTH_NoteOn(0,G4);
+	//		HAL_Delay(400);
+	//
+	//		//SYNTH_NoteOff(0);
+	//		GLCD_DrawString(10,11, "C5");
+	//		SYNTH_NoteOn(0,C5);
+	//		HAL_Delay(400);
+	//		//SYNTH_NoteOff(0);
+	//
+	//		GLCD_DrawString(10,11, "C4");
+	//		SYNTH_NoteOn(0,C4);
+	//		HAL_Delay(2000);
+	//	}
+
 	/* Lance l'application ADA (si les auto test n'ont pas été activés avant) */
 	while (SYSTEM_RunApp()!= BAD_APPLICATION_RETURN_CODE);
 
-	/* On arrive ici si l'application est pourrie */
-	/* efface le premier secteur du programme utilisateur (pour le rendre invalid et forcer la reprog) */
-	PANIC_EraseUserProgramEntry();
 	/* Redemarre le system (devrait rester bloqué dans le bootloader) */
 	NVIC_SystemReset();	
 	//while (1);
@@ -166,10 +240,6 @@ int SYSTEM_RunApp(void)
 			/* Verification de la version d'abi */
 			if (mh->abi_version <= ABI_VERSION)
 			{
-				/*  */
-				GLCD_DrawString(1,12, "Program found");
-				GLCD_DrawString(1,14, "Run it.");
-
 				/* Lancement de l'appli */
 				/* Sauvegarde de la stack systeme */
 				SYSTEM_Stack = __get_MSP();
@@ -224,7 +294,11 @@ int SYSTEM_RunApp(void)
 
 				while ((KEYS_GetState(KEY_A)!=KEY_PRESSED) && (KEYS_GetState(KEY_B)!=KEY_PRESSED));
 				while ((KEYS_GetState(KEY_A)==KEY_PRESSED) || (KEYS_GetState(KEY_B)==KEY_PRESSED));
-				BSP_LCD_ResetScreen();
+
+				BSP_LCD_Clear(Black);
+				GLCD_Clear(White);
+				GLCD_SetTextColor(Black);
+				GLCD_SetBackColor(White);
 
 				return 0;
 			}

@@ -35,7 +35,7 @@ void PANIC_EraseUserProgramEntry(void) {
 void PANIC_ReadStack(uint32_t it_source, uint32_t *sp) {
 	IT_Source = it_source;
 
-	if ( (sp >= (uint32_t*)0x20000000) && (sp <= (uint32_t*)(0x20001000)))
+	if ( (sp >= (uint32_t*)0x20000000) && (sp <= (uint32_t*)(0x20001400)))
 	{
 		R0 = sp[0];
 		R1 = sp[1];

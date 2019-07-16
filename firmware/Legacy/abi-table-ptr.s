@@ -191,4 +191,19 @@ ABI_Ptr_Table:
 
 ABI_Ptr_Table_End:
 
+/******************************************************************************
+*
+* The minimal vector table for a Cortex-M.  Note that the proper constructs
+* must be placed on this to ensure that it ends up at physical address
+* 0x0000.0000.
+*
+******************************************************************************/
+ 	.section	.legacy_isr_vector,"a",%progbits
+	.type	g_pfnVectors, %object
+	.size	g_pfnVectors, .-g_pfnVectors
+
+g_pfnVectors:
+	.word	Reset_Handler
+	.word	ABI_Table
+
 //******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE*****

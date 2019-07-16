@@ -1280,7 +1280,7 @@ void BSP_LCD_FillCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
 	current_x = 0;
 	current_y = Radius;
 
-	BSP_LCD_SetTextColor(DrawProp[ActiveLayer].TextColor);
+	//BSP_LCD_SetTextColor(DrawProp[ActiveLayer].TextColor);
 
 	while (current_x <= current_y)
 	{
@@ -1307,8 +1307,8 @@ void BSP_LCD_FillCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
 		current_x++;
 	}
 
-	BSP_LCD_SetTextColor(DrawProp[ActiveLayer].TextColor);
-	BSP_LCD_DrawCircle(Xpos, Ypos, Radius);
+	//BSP_LCD_SetTextColor(DrawProp[ActiveLayer].TextColor);
+	//BSP_LCD_DrawCircle(Xpos, Ypos, Radius);
 }
 
 /**
