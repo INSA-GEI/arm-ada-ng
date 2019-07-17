@@ -18,7 +18,6 @@
 
 #include "audio-synth.h"
 #include "audio.h"
-
 #include "audio-synth-const.h"
 
 typedef struct {
@@ -43,9 +42,9 @@ uint8_t SYNTH_MainVolume;
 
 static void SYNTH_AudioCallback(int buffer_nbr);
 static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels);
-//SYNTH_Wave *SYNTH_Buffer_1, *SYNTH_Buffer_2;
 
-int16_t SYNTH_LocalBuffer[AUDIO_BUFFER_SIZE];
+//int16_t SYNTH_LocalBuffer[AUDIO_BUFFER_SIZE];
+uint8_t SYNTH_LocalBuffer[AUDIO_BUFFER_SIZE];
 
 SYNTH_Status SYNTH_Start(void) {
 	int i;
@@ -168,9 +167,10 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 	SYNTH_Instrument *instrument;
 
 	SYNTH_Wave 	*wave;
+	//SYNTH_Wave 	*buffer;
 	uint8_t 	volume;
 	volatile int cnt_int;
-	int32_t 	tmp;
+	uint32_t 	tmp;
 
 	for (channel_nbr=0; channel_nbr<SYNTH_ChannelsNbr; channel_nbr++)
 	{
@@ -194,16 +194,14 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 
 			for (i=0; i< AUDIO_BUFFER_SIZE; i++) {
 				cnt_int = (int)counter;
-
-				tmp = (SYNTH_Wave)(((int32_t)wave[cnt_int]*volume)/256);
-
+				tmp = (SYNTH_Wave)(((uint32_t)wave[cnt_int]*volume)>>8);
 				counter = counter + increment;
 				if (counter >= (float)WaveTableLength) counter = counter - (float)WaveTableLength;
 
 				switch (AHDSR_state)
 				{
 				case AHDSR_ATTACK:
-					tmp = (int32_t)(tmp * AHDSR_increment);
+					tmp = (uint32_t)(tmp * AHDSR_increment);
 					AHDSR_increment += instrument->attack_increment;
 
 					if (AHDSR_increment >= 1.0f)
@@ -222,7 +220,7 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 					}
 					break;
 				case AHDSR_DECAY:
-					tmp = (int32_t)(tmp * AHDSR_increment);
+					tmp = (uint32_t)(tmp * AHDSR_increment);
 					AHDSR_increment -= instrument->decay_increment;
 
 					if (AHDSR_increment <= instrument->decay_level)
@@ -234,7 +232,7 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 				case AHDSR_SUSTAIN:
 					AHDSR_counter++;
 
-					tmp = (int32_t)(tmp * instrument->decay_level);
+					tmp = (uint32_t)(tmp * instrument->decay_level);
 
 					if (AHDSR_counter>=instrument->sustain_time)
 					{
@@ -243,7 +241,7 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 					}
 					break;
 				case AHDSR_RELEASE:
-					tmp = (int32_t)(tmp * AHDSR_increment);
+					tmp = (uint32_t)(tmp * AHDSR_increment);
 					AHDSR_increment -= instrument->release_increment;
 
 					if (AHDSR_increment <= 0.0f)
@@ -254,7 +252,6 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 					}
 					break;
 				default: // AHDSR_IDLE
-
 					tmp=0;
 				}
 
@@ -262,13 +259,6 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 					SYNTH_LocalBuffer[i]=(SYNTH_Wave)tmp;	// Si c'est le premier canal, on ecrit direct dans le buffer
 				else
 					SYNTH_LocalBuffer[i]+=(SYNTH_Wave)tmp; // si on ajoute aux valeur déjà ecrites
-
-				//SYNTH_LocalBuffer[i]=(int16_t)tmp;
-				//				if (i<10) {
-				//					SYNTH_LocalBuffer[i]=32760;
-				//				} else {
-				//					SYNTH_LocalBuffer[i]=0;
-				//				}
 			}
 
 			channels[channel_nbr].counter = counter;
@@ -280,17 +270,153 @@ static void SYNTH_FillBuffer(int buffer_nbr, SYNTH_Channel *channels)
 
 		/* Application du volume principal */
 		for (i=0; i< AUDIO_BUFFER_SIZE; i++) {
-			tmp = ((int32_t)SYNTH_LocalBuffer[i]*(int32_t)SYNTH_MainVolume)/256;
-
-			if (tmp >=32760) tmp=32760;
-			else if (tmp <=-32760) tmp=-32760;
-			SYNTH_LocalBuffer[i] = (int16_t)tmp;
+			tmp = ((uint32_t)SYNTH_LocalBuffer[i]*(uint32_t)SYNTH_MainVolume)>>8;
+			if (tmp >=256) tmp=255;
+			SYNTH_LocalBuffer[i] = (uint8_t)tmp;
 		}
 
 		/* Recopie des echantillons */
-		AUDIO_FillBuffer16(buffer_nbr, SYNTH_LocalBuffer);
+		AUDIO_FillBuffer(buffer_nbr, SYNTH_LocalBuffer);
 	}
 }
+
+//static void SYNTH_FillBuffer16(int buffer_nbr, SYNTH_Channel *channels)
+//{
+//	int 		channel_nbr;
+//
+//	int 		i;
+//	float 		counter;
+//	float 		increment;
+//	float 		AHDSR_increment;
+//	uint32_t 	AHDSR_counter;
+//	uint8_t  	AHDSR_level;
+//	SYNTH_Instrument_State AHDSR_state;
+//	SYNTH_Instrument *instrument;
+//
+//	SYNTH_Wave 	*wave;
+//	uint8_t 	volume;
+//	volatile int cnt_int;
+//	int32_t 	tmp;
+//
+//	for (channel_nbr=0; channel_nbr<SYNTH_ChannelsNbr; channel_nbr++)
+//	{
+//		increment = channels[channel_nbr].increment;
+//
+//		if ((increment == 0.0f) || (channels[channel_nbr].AHDSR_state==AHDSR_IDLE)) {
+//			if (channel_nbr==0) { // Si le canal est le canal 0 (premier canal), on rempli le buffer avec des zeros, sinon, on ne fait rien
+//				for (i=0; i< AUDIO_BUFFER_SIZE; i++) {
+//					SYNTH_LocalBuffer[i]=0;
+//				}
+//			}
+//		} else {
+//			counter = channels[channel_nbr].counter;
+//			wave = channels[channel_nbr].instrument->wavetable;
+//			volume = channels[channel_nbr].volume;
+//			AHDSR_state = channels[channel_nbr].AHDSR_state;
+//			AHDSR_level=channels[channel_nbr].AHDSR_level;
+//			AHDSR_increment=channels[channel_nbr].AHDSR_increment;
+//			AHDSR_counter=channels[channel_nbr].AHDSR_counter;
+//			instrument = channels[channel_nbr].instrument;
+//
+//			for (i=0; i< AUDIO_BUFFER_SIZE; i++) {
+//				cnt_int = (int)counter;
+//
+//				tmp = (SYNTH_Wave)(((int32_t)wave[cnt_int]*volume)/256);
+//
+//				counter = counter + increment;
+//				if (counter >= (float)WaveTableLength) counter = counter - (float)WaveTableLength;
+//
+//				switch (AHDSR_state)
+//				{
+//				case AHDSR_ATTACK:
+//					tmp = (int32_t)(tmp * AHDSR_increment);
+//					AHDSR_increment += instrument->attack_increment;
+//
+//					if (AHDSR_increment >= 1.0f)
+//					{
+//						AHDSR_state = AHDSR_HOLD;
+//						AHDSR_counter=0;
+//					}
+//					break;
+//				case AHDSR_HOLD:
+//					AHDSR_counter++;
+//
+//					if (AHDSR_counter>=instrument->hold_time)
+//					{
+//						AHDSR_state = AHDSR_DECAY;
+//						AHDSR_increment = 1.0f;
+//					}
+//					break;
+//				case AHDSR_DECAY:
+//					tmp = (int32_t)(tmp * AHDSR_increment);
+//					AHDSR_increment -= instrument->decay_increment;
+//
+//					if (AHDSR_increment <= instrument->decay_level)
+//					{
+//						AHDSR_state = AHDSR_SUSTAIN;
+//						AHDSR_counter=0;
+//					}
+//					break;
+//				case AHDSR_SUSTAIN:
+//					AHDSR_counter++;
+//
+//					tmp = (int32_t)(tmp * instrument->decay_level);
+//
+//					if (AHDSR_counter>=instrument->sustain_time)
+//					{
+//						AHDSR_state = AHDSR_RELEASE;
+//						AHDSR_increment = instrument->decay_level;
+//					}
+//					break;
+//				case AHDSR_RELEASE:
+//					tmp = (int32_t)(tmp * AHDSR_increment);
+//					AHDSR_increment -= instrument->release_increment;
+//
+//					if (AHDSR_increment <= 0.0f)
+//					{
+//						AHDSR_state = AHDSR_IDLE;
+//						AHDSR_counter=0;
+//						AHDSR_increment=0;
+//					}
+//					break;
+//				default: // AHDSR_IDLE
+//
+//					tmp=0;
+//				}
+//
+//				if (channel_nbr == 0)
+//					SYNTH_LocalBuffer[i]=(SYNTH_Wave)tmp;	// Si c'est le premier canal, on ecrit direct dans le buffer
+//				else
+//					SYNTH_LocalBuffer[i]+=(SYNTH_Wave)tmp; // si on ajoute aux valeur déjà ecrites
+//
+//				//SYNTH_LocalBuffer[i]=(int16_t)tmp;
+//				//				if (i<10) {
+//				//					SYNTH_LocalBuffer[i]=32760;
+//				//				} else {
+//				//					SYNTH_LocalBuffer[i]=0;
+//				//				}
+//			}
+//
+//			channels[channel_nbr].counter = counter;
+//			channels[channel_nbr].AHDSR_state = AHDSR_state;
+//			channels[channel_nbr].AHDSR_counter = AHDSR_counter;
+//			channels[channel_nbr].AHDSR_level = AHDSR_level;
+//			channels[channel_nbr].AHDSR_increment = AHDSR_increment;
+//		}
+//
+//		/* Application du volume principal */
+//		for (i=0; i< AUDIO_BUFFER_SIZE; i++) {
+//			tmp = ((int32_t)SYNTH_LocalBuffer[i]*(int32_t)SYNTH_MainVolume)/256;
+//
+//			if (tmp >=32760) tmp=32760;
+//			else if (tmp <=-32760) tmp=-32760;
+//			SYNTH_LocalBuffer[i] = (int16_t)tmp;
+//		}
+//
+//		/* Recopie des echantillons */
+//		AUDIO_FillBuffer16(buffer_nbr, SYNTH_LocalBuffer);
+//	}
+//}
 
 static void SYNTH_AudioCallback(int buffer_nbr)
 {

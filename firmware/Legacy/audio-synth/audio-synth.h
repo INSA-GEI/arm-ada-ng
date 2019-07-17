@@ -22,7 +22,8 @@
 //#include "stm32f30x.h"
 #include "stm32746g_discovery.h"
 
-typedef int16_t 	SYNTH_Wave;
+//typedef int16_t 	SYNTH_Wave;
+typedef uint8_t 	SYNTH_Wave;
 typedef uint32_t 	SYNTH_Frequencies;
 
 typedef enum SYNTH_Status_ST {
@@ -66,7 +67,7 @@ typedef struct {
 
 #define SYNTH_ChannelsNbr 4
 
-#include "audio-synth-const.h"
+#include "audio-synth-const-16.h"
 
 //SYNTH_Status SYNTH_Init(void);
 SYNTH_Status SYNTH_Start(void);

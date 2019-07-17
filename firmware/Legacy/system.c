@@ -25,8 +25,8 @@
 #include "stm32746g_discovery_lcd_dma2d.h"
 /* todo a supprimer */
 #include "audio-synth/audio-synth.h"
-#include "audio-synth/audio-synth-const.h"
 #include "audio-synth/audio.h"
+#include "audio-synth/audio-synth-const.h"
 #include "stm32746g_discovery_audio.h"
 /* todo a supprimer */
 
