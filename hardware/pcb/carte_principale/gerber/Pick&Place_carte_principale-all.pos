@@ -1,0 +1,26 @@
+### Module positions - created on Wed 18 Sep 2019 15:16:18 CEST ###
+### Printed by Pcbnew version kicad 5.1.4-e60b266~84~ubuntu18.04.1
+## Unit = mm, Angle = deg.
+## Side : All
+# Ref	PosX		PosY		Rot		Val		Package				Side
+name	X-axis		Y-axis		angle		value		package				side
+
+C1	16.6800		-12.8350	90.0000		100nF		C_1206_3216Metric		top
+C2	35.7300		-42.6800	270.0000	100nF 		C_1206_3216Metric		top
+C3	11.6000		-33.7900	0.0000		100nF		C_1206_3216Metric		top
+C4	18.5850		-33.6600	270.0000	100nF		C_1206_3216Metric		top
+C5	21.7600		-16.6450	0.0000		100nF		C_1206_3216Metric		top
+C6	28.7450		-17.9150	0.0000		100nF		C_1206_3216Metric		top
+C7	19.2200		-42.0450	270.0000	100nF		C_1206_3216Metric		top
+C10	14.7750		-46.4900	0.0000		220nF		C_1206_3216Metric		top
+P1	16.0450		-27.0550	90.0000		TE-FFC-10-0.5	FFC-10-0.5			top
+P2	40.4600		-27.0550	270.0000	TE-FFC-10-0.5	FFC-10-0.5			top
+R1	27.9275		-36.3209	270.0000	10K		R_1206_3216Metric		top
+R2	25.6375		-36.3209	270.0000	10K		R_1206_3216Metric		top
+U1	31.9200		-7.1200		0.0000		ESP-WROOM-02	ESP-WROOM-02			top
+U2	30.3975		-42.6800	90.0000		LSM6DS3		LGA-14_3x2.5mm_P0.5mm		top
+U3	11.6000		-37.6000	270.0000	BMP280		Bosch_LGA-8_2x2.5mm		top
+U5	21.1250		-19.8200	90.0000		74AHC1G125	SOT-353_SC-70-5			top
+U6	28.7450		-28.0750	180.0000	74LS166		SOIC-16_3.9x9.9mm_P1.27mm	top
+U7	14.7750		-42.0450	0.0000		LIS2MDL		LGA-12_2x2mm_P0.5mm-slim	top
+## End

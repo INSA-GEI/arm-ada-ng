@@ -1,0 +1,15 @@
+"Id";"Designator";"Package";"Quantity";"Designation";"Supplier and ref";
+1;"J1";"Arduino_UNO_R3_Pin_Only";1;"Arduino_UNO_R3";;;
+2;"P2,P1";"FFC-10-0.5";2;"TE-FFC-10-0.5";;;
+3;"U3";"Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering";1;"BMP280";;;
+4;"U1";"ESP-WROOM-02";1;"ESP-WROOM-02";;;
+5;"U5";"SOT-353_SC-70-5";1;"74AHC1G125";;;
+6;"U6";"SOIC-16_3.9x9.9mm_P1.27mm";1;"74LS166";;;
+7;"J2,J3";"PinHeader_1x02_P2.54mm_Vertical";2;"Conn_01x02";;;
+8;"C1,C2,C3,C4,C5,C6,C7";"C_1206_3216Metric";7;"100nF";;;
+9;"C10";"C_1206_3216Metric";1;"220nF";;;
+10;"Logo1";"insa-image";1;"LOGO";;;
+11;"R1,R2";"R_1206_3216Metric";2;"10K";;;
+12;"U2";"LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y-slim";1;"LSM6DS3";;;
+13;"U7";"LGA-12_2x2mm_P0.5mm-slim";1;"LIS2MDL";;;
+14;"JP1,JP2,JP3";"SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm";3;"SJ";;;
