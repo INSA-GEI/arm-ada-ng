@@ -18,7 +18,7 @@
 #ifndef __VERSION_H__
 #define __VERSION_H__
 
-#define BL_MAJOR_VERSION	10
+#define BL_MAJOR_VERSION	1
 #define BL_MINOR_VERSION	0
 
 #define ABI_VERSION			0xF0
