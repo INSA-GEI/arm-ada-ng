@@ -168,12 +168,12 @@ SECTIONS
     _sdata = .;        /* create a global symbol at data start */
     *(.data)           /* .data sections */
     *(.data*)          /* .data* sections */
-
+    
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
   
- /* _sidtcmram = LOADADDR(.dtcmram);*/
+  /* _sidtcmram = LOADADDR(.dtcmram);*/
 
   /* DTCMRAM section 
   * 
@@ -209,7 +209,7 @@ SECTIONS
     
     . = ALIGN(4);
     _esram2 = .;    */   /* create a global symbol at sram2 end */
-/*  } >SRAM2 AT> FLASH*/
+/*  } >SRAM2 AT> FLASH */
 
   /* Uninitialized data section */
   . = ALIGN(4);
@@ -260,6 +260,9 @@ SECTIONS
 
   /* MEMORY SRAM section, code must be located here explicitly            */
   /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
+   /* used by the startup to initialize data */
+  _si_memory_sram_text = LOADADDR(.memory_sram_text);
+  
   .memory_sram_text :
   {
   	. = ALIGN(4);
@@ -271,8 +274,8 @@ SECTIONS
     *(.mb1rodata*)
     
     _memory_sram_end = .;       /* create a global symbol at memory sram end */
-  } >MEMORY_SRAM
-  
+  } > DYNAMIC_SRAM AT> FLASH
+
   /* FRAMEBUFFER Background Section 
   * 
   * IMPORTANT NOTE! 
@@ -374,4 +377,5 @@ SECTIONS
   }
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
+  
 }

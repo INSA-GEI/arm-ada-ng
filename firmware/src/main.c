@@ -67,7 +67,7 @@ static void CPU_CACHE_Enable(void);
 static void CPU_EnableFPU(void);
 static void CPU_EnableFaultHandler(void);
 static void MAIN_SystemInit(void);
-
+static void MPU_Init(void);
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -98,6 +98,8 @@ int main(void)
        - Global MSP (MCU Support Package) initialization
 	 */
 	HAL_Init();
+
+	MPU_Init();
 
 	/* Configure system and BSP peripherals (except LCD) */
 	MAIN_SystemInit();
@@ -155,7 +157,7 @@ void SystemClock_Config(void)
 	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
 	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 	RCC_OscInitStruct.PLL.PLLM = 25;
-	RCC_OscInitStruct.PLL.PLLN = 432;
+	RCC_OscInitStruct.PLL.PLLN = 400; // 432
 	RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
 	RCC_OscInitStruct.PLL.PLLQ = 9;
 
@@ -311,6 +313,33 @@ static void MAIN_SystemInit(void)
 
 	/* Init RNG */
 	BSP_RNG_InitGenerator();
+
+}
+
+void MPU_Init(void)
+{
+	MPU_Region_InitTypeDef MPU_InitStruct = {0};
+
+	/* Disables the MPU */
+	HAL_MPU_Disable();
+
+	/** Initializes and configures the Region and the memory to be protected
+	 */
+	MPU_InitStruct.Enable = MPU_REGION_ENABLE;
+	MPU_InitStruct.Number = MPU_REGION_NUMBER0;
+	MPU_InitStruct.BaseAddress = 0xC0000000;
+	MPU_InitStruct.Size = MPU_REGION_SIZE_8MB;
+	MPU_InitStruct.SubRegionDisable = 0x0;
+	MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
+	MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
+	MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_ENABLE;
+	MPU_InitStruct.IsShareable = MPU_ACCESS_NOT_SHAREABLE;
+	MPU_InitStruct.IsCacheable = MPU_ACCESS_CACHEABLE;
+	MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
+
+	HAL_MPU_ConfigRegion(&MPU_InitStruct);
+	/* Enables the MPU */
+	HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 
 }
 

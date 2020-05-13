@@ -28,6 +28,8 @@
 #include "audio-synth/audio.h"
 #include "audio-synth/audio-synth-const.h"
 #include "stm32746g_discovery_audio.h"
+#include "externalcode.h"
+
 /* todo a supprimer */
 
 COLOR *data;
@@ -73,6 +75,10 @@ int return_val;
 char RunAutoTest=0;
 extern const uint32_t* __app_stack_end__;
 extern const uint32_t* __system_stack_end__;
+
+extern const int _si_memory_sram_text;
+extern const int _memory_sram_start;
+extern const int _memory_sram_end;
 
 extern uint32_t PRG_ReprogPatternAddr;
 //extern AUDIO_BufferTypeDef  AUDIO_Buffer;
@@ -133,6 +139,37 @@ int LEGACY_System (void)
 	GLCD_Clear(White);
 	GLCD_SetBackColor(White);
 	GLCD_SetTextColor(Black);
+
+	GLCD_DrawString(3,3,"Premiere ligne en 3,3");
+
+	GLCD_SetTextColor(Red);
+	GLCD_DrawString(10,6,"Deuxieme ligne en 10,6");
+
+	GLCD_SetTextColor(Blue);
+	GLCD_DrawString(5,10,"troisieme ligne en 5,10");
+
+	GLCD_SetTextColor(Green);
+	GLCD_DrawString(7,14,"Quatrieme ligne en 7,14");
+
+	GLCD_SetTextColor(Black);
+
+	// Essai de code en SRAM
+	// code de recopie a mettre là
+	int src_addr = (int)&_si_memory_sram_text;
+	int dest_addr_start = (int)&_memory_sram_start;
+	int dest_addr_end = (int)&_memory_sram_end;
+
+	char *src = (char*)(src_addr);
+	char *dest= (char*)(dest_addr_start);
+
+	while (dest <= (char*)(dest_addr_end))
+	{
+		*dest=*src;
+		src++;
+		dest++;
+	};
+
+	EssaiCodeSRAM();
 
 	//	/* Essai du synthe */
 	//	if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_BOTH, 92, 44100)== 0) {
