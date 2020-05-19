@@ -76,16 +76,9 @@ Project Logs for*/
 *.kicad_pcb-bak
 
 # temporary
-cgpu
-firmware/Utilities/Media
-firmware/Utilities/JPEG
-firmware/Middlewares/Third_Party/mbedTLS
-firmware/Middlewares/Third_Party/LwIP
-firmware/Middlewares/Third_Party/LibJPEG
-firmware/Middlewares/ST/STemWin
-firmware/Middlewares/ST/STM32_USB_Host_Library
-firmware/Middlewares/ST/STM32_USB_Device_Library
-firmware/Middlewares/ST/STM32_Audio
-firmware/Drivers/CMSIS/Documentation
-firmware/Drivers/CMSIS/DSP_Lib
+firmware/Debug/
+firmware/TouchGFX/simulator/
+firmware/TouchGFX/build/
+
+
 

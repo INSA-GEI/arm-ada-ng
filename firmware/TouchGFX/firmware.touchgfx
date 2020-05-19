@@ -1,0 +1,618 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Components": [
+          {
+            "RelativeFilename": "__designer\\Dark_Backgrounds_Main_bg_texture_480x272px.png",
+            "Alpha": 255,
+            "Name": "imageBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 480,
+            "Height": 272,
+            "Type": "Image",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "RelativeFilename": "AnimationBackground.png",
+            "Alpha": 255,
+            "Name": "imageBackgroundAnimation",
+            "X": 0,
+            "Y": 0,
+            "Width": 480,
+            "Height": 272,
+            "Type": "Image",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "RelativeFilename": "logo-splashscreen.png",
+            "Alpha": 103,
+            "Name": "ImageLogo",
+            "X": 155,
+            "Y": 51,
+            "Width": 170,
+            "Height": 170,
+            "Type": "Image",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "InteractionWait",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerScreenEntered"
+            },
+            "Action": {
+              "Duration": 5000,
+              "Type": "ActionDelay"
+            }
+          },
+          {
+            "InteractionName": "InteractionMainScreen",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "InteractionToTriggerOn": "InteractionWait",
+              "Type": "TriggerInteractionCompleted"
+            },
+            "Action": {
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "MainScreen",
+              "Type": "ActionGotoScreen"
+            }
+          },
+          {
+            "InteractionName": "InteractionStartAnimation",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerScreenEntered"
+            },
+            "Action": {
+              "FunctionName": "functionStartAnimation",
+              "Type": "ActionCustom"
+            }
+          }
+        ],
+        "Name": "AnimationScreen",
+        "OverrideDefaultBufferSize": false,
+        "CanvasBufferSize": 0
+      },
+      {
+        "Components": [
+          {
+            "RelativeFilename": "__designer\\Dark_Backgrounds_Main_bg_texture_480x272px.png",
+            "Alpha": 255,
+            "Name": "ImageBackground",
+            "X": 0,
+            "Y": -1,
+            "Width": 480,
+            "Height": 272,
+            "Type": "Image",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "RelativeFilename": "Border.png",
+            "Alpha": 170,
+            "Name": "imageBorder",
+            "X": 0,
+            "Y": 242,
+            "Width": 480,
+            "Height": 30,
+            "Type": "Image",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "TextId": "SingleUseId2",
+            "TextRotation": "180",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Alpha": 255,
+            "AutoSize": true,
+            "LineSpacing": 0,
+            "Wildcard1": {
+              "TextId": "SingleUseId3",
+              "UseBuffer": true,
+              "BufferSize": 30
+            },
+            "Name": "textDateTime",
+            "X": 216,
+            "Y": 248,
+            "Width": 38,
+            "Height": 19,
+            "Type": "TextArea",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Pressed": "menu-icon.png",
+            "Released": "menu-icon.png",
+            "Alpha": 255,
+            "Name": "buttonMenu",
+            "X": 8,
+            "Y": 242,
+            "Width": 30,
+            "Height": 30,
+            "Type": "Button",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "TextId": "SingleUseId6",
+            "TextRotation": "180",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Alpha": 255,
+            "AutoSize": false,
+            "LineSpacing": 0,
+            "Wildcard1": {
+              "TextId": "SingleUseId7",
+              "UseBuffer": true,
+              "BufferSize": 100
+            },
+            "Name": "textMsg",
+            "X": 0,
+            "Y": 0,
+            "Width": 480,
+            "Height": 20,
+            "Type": "TextArea",
+            "Visible": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Pressed": "sd-icon-tiny.png",
+            "Released": "sd-icon-tiny.png",
+            "Alpha": 255,
+            "Name": "buttonSDCard",
+            "X": 48,
+            "Y": 245,
+            "Width": 24,
+            "Height": 24,
+            "Type": "Button",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "TextId": "SingleUseId10",
+                "TextRotation": "180",
+                "Color": {
+                  "Red": 0,
+                  "Green": 0,
+                  "Blue": 0
+                },
+                "Alpha": 255,
+                "AutoSize": true,
+                "LineSpacing": 0,
+                "Name": "textModal",
+                "X": 54,
+                "Y": 159,
+                "Width": 213,
+                "Height": 20,
+                "Type": "TextArea",
+                "Visible": true,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+                "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+                "Alpha": 255,
+                "TextId": "SingleUseId9",
+                "ReleasedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "PressedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "TextRotation": "180",
+                "Style": "Style4",
+                "Name": "buttonModal",
+                "X": 75,
+                "Y": 36,
+                "Width": 170,
+                "Height": 60,
+                "Type": "ButtonWithLabel",
+                "Visible": true,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "FileName": "__designer\\Dark_Backgrounds_Main_bg_320x240px.png",
+            "Color": {
+              "Red": 0,
+              "Green": 0,
+              "Blue": 0
+            },
+            "ModalX": 80,
+            "ModalY": 16,
+            "ModalWidth": 320,
+            "ModalHeight": 240,
+            "ContX": 0,
+            "ContY": 0,
+            "Alpha": 126,
+            "Name": "modalWindow",
+            "X": 0,
+            "Y": 0,
+            "Width": 480,
+            "Height": 272,
+            "Type": "ModalWindow",
+            "Visible": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "InteractionUpdateScreen",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerScreenEntered"
+            },
+            "Action": {
+              "FunctionName": "updateScreen",
+              "Type": "ActionCustom"
+            }
+          },
+          {
+            "InteractionName": "InteractionButtonSDCard",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "TriggerComponent": "buttonSDCard",
+              "Type": "TriggerClicked"
+            },
+            "Action": {
+              "ActionComponent": "modalWindow",
+              "Type": "ActionShow"
+            }
+          },
+          {
+            "InteractionName": "InteractionButtonMenu",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "TriggerComponent": "buttonMenu",
+              "Type": "TriggerClicked"
+            },
+            "Action": {
+              "ActionComponent": "modalWindow",
+              "Type": "ActionShow"
+            }
+          },
+          {
+            "InteractionName": "InteractionButtonModal",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "TriggerComponent": "buttonModal",
+              "Type": "TriggerClicked"
+            },
+            "Action": {
+              "ActionComponent": "modalWindow",
+              "Type": "ActionHide"
+            }
+          },
+          {
+            "InteractionName": "InteractionChangeScreenTests",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "ButtonKey": 0,
+              "Type": "TriggerPhysicalButtonClicked"
+            },
+            "Action": {
+              "ScreenTransitionType": "ScreenTransitionCover",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "Tests",
+              "Type": "ActionGotoScreen"
+            }
+          }
+        ],
+        "Name": "MainScreen",
+        "OverrideDefaultBufferSize": false,
+        "CanvasBufferSize": 0
+      },
+      {
+        "Components": [
+          {
+            "RelativeFilename": "__designer\\Dark_Backgrounds_Main_bg_texture_480x272px.png",
+            "Alpha": 255,
+            "Name": "image1",
+            "X": 0,
+            "Y": 0,
+            "Width": 480,
+            "Height": 272,
+            "Type": "Image",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "TextId": "SingleUseId11",
+            "TextRotation": "180",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Alpha": 255,
+            "AutoSize": true,
+            "LineSpacing": 0,
+            "Name": "textArea1",
+            "X": 220,
+            "Y": 178,
+            "Width": 34,
+            "Height": 19,
+            "Type": "TextArea",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "Alpha": 255,
+            "TextId": "SingleUseId12",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "180",
+            "Style": "Style4",
+            "Name": "buttonRetour",
+            "X": 155,
+            "Y": 53,
+            "Width": 170,
+            "Height": 60,
+            "Type": "ButtonWithLabel",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "InteractionChangeScreen",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "TriggerComponent": "buttonRetour",
+              "Type": "TriggerClicked"
+            },
+            "Action": {
+              "ScreenTransitionType": "ScreenTransitionCover",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "MainScreen",
+              "Type": "ActionGotoScreen"
+            }
+          }
+        ],
+        "Name": "Tests",
+        "OverrideDefaultBufferSize": false,
+        "CanvasBufferSize": 0
+      }
+    ],
+    "CustomContainerDefinitions": [
+      {
+        "Components": [
+          {
+            "TextId": "SingleUseId4",
+            "TextRotation": "180",
+            "Color": {
+              "Red": 255,
+              "Green": 252,
+              "Blue": 252
+            },
+            "Alpha": 255,
+            "AutoSize": true,
+            "LineSpacing": 0,
+            "Wildcard1": {
+              "TextId": "SingleUseId5",
+              "UseBuffer": true,
+              "BufferSize": 16
+            },
+            "Name": "text",
+            "X": 32,
+            "Y": 7,
+            "Width": 49,
+            "Height": 19,
+            "Type": "TextArea",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Pressed": "launcher-button-clicked.png",
+            "Released": "launcher-button-released.png",
+            "Alpha": 255,
+            "IconPressed": "app-icon-large.png",
+            "IconReleased": "app-icon-large.png",
+            "IconX": 8,
+            "IconY": 8,
+            "IconHeight": 64,
+            "IconWidth": 64,
+            "Name": "button",
+            "X": 20,
+            "Y": 34,
+            "Width": 80,
+            "Height": 80,
+            "Type": "ButtonWithIcon",
+            "Visible": true,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "InteractionButtonClicked",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "TriggerComponent": "button",
+              "Type": "TriggerClicked"
+            },
+            "Action": {
+              "FunctionName": "buttonClicked",
+              "Type": "ActionCustom"
+            }
+          }
+        ],
+        "Name": "IconLauncher",
+        "X": 0,
+        "Y": 0,
+        "Width": 120,
+        "Height": 120
+      }
+    ],
+    "TextEntries": [
+      {
+        "TextEntryId": "SingleUseId2",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId3",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId4",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId5",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId6",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId7",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId9",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId10",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId11",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId12",
+        "IsResource": false
+      }
+    ],
+    "Name": "firmware",
+    "Resolution": {
+      "Width": 480,
+      "Height": 272
+    },
+    "SelectedColorDepth": 24,
+    "StartupScreenName": "AnimationScreen",
+    "SelectedStartupLanguage": "GB",
+    "Skin": "Blue",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      24
+    ],
+    "AvailableLCDs": {
+      "24": "LCD24bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 480,
+        "Height": 272
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD24bpp": {
+        "Id": "LCD24bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project --project-file=../firmware.ioc --platform=m7",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Landscape"
+  },
+  "Version": "4.13.0",
+  "CreatedBy": "4.13.0"
+}
