@@ -8,7 +8,7 @@ class IconLauncher : public IconLauncherBase
 {
 public:
     IconLauncher();
-    IconLauncher(int launchType);
+    IconLauncher(LauncherType launchType);
     virtual ~IconLauncher() {}
 
     virtual void initialize();
@@ -16,7 +16,7 @@ public:
     virtual void SetText(const char* str);
     virtual void SetIcon (const Bitmap &iconPressed, const Bitmap &iconReleased);
     virtual void SetId(int id);
-    virtual void SetLaunchType(int launchType);
+    virtual void SetLaunchType(LauncherType launchType);
 
 protected:
     int id;

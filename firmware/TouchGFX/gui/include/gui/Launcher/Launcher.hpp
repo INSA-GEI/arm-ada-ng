@@ -8,15 +8,32 @@
 #ifndef GUI_INCLUDE_GUI_LAUNCHER_HPP_
 #define GUI_INCLUDE_GUI_LAUNCHER_HPP_
 
+enum class LauncherType {
+	IncludedTests,
+	IncludedGames,
+	ExecfromSRAM,
+	ExecfromSDCard,
+	Undefined
+};
+
+enum class ExecStatus {
+	Successful,
+	InvalidProgram,
+	CorruptedProgram,
+	CardIOError,
+	OtherError
+};
+
 class Launcher {
 public:
+
 	Launcher();
-	Launcher(int type);
+	Launcher(LauncherType type);
 	virtual ~Launcher();
-	virtual void setLaunchType(int type);
-	virtual void exec(int id);
+	virtual void setLaunchType(LauncherType type);
+	virtual ExecStatus exec(int id, int* returnCode);
 protected:
-	int type;
+	LauncherType type;
 };
 
 #endif /* GUI_INCLUDE_GUI_LAUNCHER_HPP_ */

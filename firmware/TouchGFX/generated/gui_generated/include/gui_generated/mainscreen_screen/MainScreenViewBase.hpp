@@ -10,12 +10,11 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/Button.hpp>
+#include <gui/containers/IconLauncher.hpp>
 #include <touchgfx/containers/ModalWindow.hpp>
 #include <touchgfx/Color.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
-#include <gui/containers/IconLauncher.hpp>
-#include <touchgfx/mixins/ClickListener.hpp>
 
 class MainScreenViewBase : public touchgfx::View<MainScreenPresenter>
 {
@@ -34,6 +33,11 @@ public:
         // Override and implement this function in MainScreen
     }
 
+    virtual void buttonSDCardPressed()
+    {
+        // Override and implement this function in MainScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -47,11 +51,18 @@ protected:
     touchgfx::TextAreaWithOneWildcard textDateTime;
     touchgfx::Button buttonMenu;
     touchgfx::TextAreaWithOneWildcard textMsg;
-    touchgfx::Button buttonSDCard;
+    touchgfx::Button buttonSDCardIcon;
+    IconLauncher iconLauncher1;
+    IconLauncher iconLauncher2;
+    IconLauncher iconLauncher3;
+    IconLauncher iconLauncher4;
+    IconLauncher iconLauncher5;
+    IconLauncher iconLauncher6;
+    IconLauncher iconLauncher7;
+    IconLauncher iconLauncher8;
     touchgfx::ModalWindow modalWindow;
     touchgfx::TextArea textModal;
     touchgfx::ButtonWithLabel buttonModal;
-
 
     /*
      * Wildcard Buffers

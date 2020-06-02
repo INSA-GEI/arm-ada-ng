@@ -9,7 +9,7 @@
 #include <gui/tests_screen/TestsPresenter.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
-#include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/widgets/ButtonWithIcon.hpp>
 
 class TestsViewBase : public touchgfx::View<TestsPresenter>
 {
@@ -28,7 +28,7 @@ protected:
      */
     touchgfx::Image image1;
     touchgfx::TextArea textArea1;
-    touchgfx::ButtonWithLabel buttonRetour;
+    touchgfx::ButtonWithIcon buttonRetour;
 
 private:
 

@@ -11,13 +11,12 @@ IconLauncherBase::IconLauncherBase() :
 {
     setWidth(120);
     setHeight(120);
-    text.setXY(32, 7);
+    text.setPosition(0, 6, 120, 22);
     text.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 252, 252));
     text.setLinespacing(0);
     text.setRotation(touchgfx::TEXT_ROTATE_180);
     Unicode::snprintf(textBuffer, TEXT_SIZE, "%s", touchgfx::TypedText(T_SINGLEUSEID5).getText());
     text.setWildcard(textBuffer);
-    text.resizeToCurrentText();
     text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID4));
 
     button.setXY(20, 34);

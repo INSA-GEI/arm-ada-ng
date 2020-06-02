@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_cwf9AKDwEeqgvJGSOpZCKA" name="Arm-Ada">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_c7d24KDwEeqgvJGSOpZCKA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_c1IlYKDwEeqgvJGSOpZCKA" name="Interaction2" classifierBehavior="_fpRrgKDxEeqgvJGSOpZCKA">
+    <ownedBehavior xmi:type="uml:Activity" xmi:id="_fpRrgKDxEeqgvJGSOpZCKA" name="Activity1" node="_lZ0t0KDxEeqgvJGSOpZCKA _nGiuUKDxEeqgvJGSOpZCKA _ErNtIKDyEeqgvJGSOpZCKA">
+      <edge xmi:type="uml:ControlFlow" xmi:id="_weqUQKDxEeqgvJGSOpZCKA" target="_nGiuUKDxEeqgvJGSOpZCKA" source="_lZ0t0KDxEeqgvJGSOpZCKA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_TSoCcKDyEeqgvJGSOpZCKA" target="_ErNtIKDyEeqgvJGSOpZCKA" source="_nGiuUKDxEeqgvJGSOpZCKA"/>
+      <node xmi:type="uml:InitialNode" xmi:id="_lZ0t0KDxEeqgvJGSOpZCKA" name="Reset" outgoing="_weqUQKDxEeqgvJGSOpZCKA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_nGiuUKDxEeqgvJGSOpZCKA" name="Initialisation de la HAL" incoming="_weqUQKDxEeqgvJGSOpZCKA" outgoing="_TSoCcKDyEeqgvJGSOpZCKA"/>
+      <node xmi:type="uml:DecisionNode" xmi:id="_ErNtIKDyEeqgvJGSOpZCKA" name="Test de la source du reset" incoming="_TSoCcKDyEeqgvJGSOpZCKA"/>
+    </ownedBehavior>
+  </packagedElement>
+</uml:Model>

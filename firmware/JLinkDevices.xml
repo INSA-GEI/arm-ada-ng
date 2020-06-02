@@ -1,0 +1,6 @@
+<Database>
+  <Device>
+   <ChipInfo Vendor="ST" Name="STM32F746NG" Core="JLINK_CORE_CORTEX_M7" />
+   <FlashBankInfo Name="QSPI Flash" BaseAddr="0x90000000" MaxSize="0x01000000" Loader="segger/ST_STM32F746G_Disco_QSPI.elf" LoaderType="FLASH_ALGO_TYPE_OPEN" />
+  </Device>
+</Database>

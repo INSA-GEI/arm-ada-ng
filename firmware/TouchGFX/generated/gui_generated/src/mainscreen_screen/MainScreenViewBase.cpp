@@ -10,7 +10,7 @@ MainScreenViewBase::MainScreenViewBase() :
     buttonCallback(this, &MainScreenViewBase::buttonCallbackHandler)
 {
 
-    ImageBackground.setXY(0, -1);
+    ImageBackground.setXY(0, 0);
     ImageBackground.setBitmap(touchgfx::Bitmap(BITMAP_DARK_BACKGROUNDS_MAIN_BG_TEXTURE_480X272PX_ID));
 
     imageBorder.setXY(0, 242);
@@ -39,9 +39,34 @@ MainScreenViewBase::MainScreenViewBase() :
     textMsg.setWildcard(textMsgBuffer);
     textMsg.setTypedText(touchgfx::TypedText(T_SINGLEUSEID6));
 
-    buttonSDCard.setXY(48, 245);
-    buttonSDCard.setBitmaps(touchgfx::Bitmap(BITMAP_SD_ICON_TINY_ID), touchgfx::Bitmap(BITMAP_SD_ICON_TINY_ID));
-    buttonSDCard.setAction(buttonCallback);
+    buttonSDCardIcon.setXY(57, 245);
+    buttonSDCardIcon.setVisible(false);
+    buttonSDCardIcon.setBitmaps(touchgfx::Bitmap(BITMAP_SD_ICON_TINY_ID), touchgfx::Bitmap(BITMAP_SD_ICON_TINY_ID));
+    buttonSDCardIcon.setAction(buttonCallback);
+
+    iconLauncher1.setXY(360, 122);
+    iconLauncher1.setVisible(false);
+
+    iconLauncher2.setXY(240, 122);
+    iconLauncher2.setVisible(false);
+
+    iconLauncher3.setXY(120, 122);
+    iconLauncher3.setVisible(false);
+
+    iconLauncher4.setXY(0, 122);
+    iconLauncher4.setVisible(false);
+
+    iconLauncher5.setXY(360, 2);
+    iconLauncher5.setVisible(false);
+
+    iconLauncher6.setXY(235, 2);
+    iconLauncher6.setVisible(false);
+
+    iconLauncher7.setXY(120, 2);
+    iconLauncher7.setVisible(false);
+
+    iconLauncher8.setXY(0, 2);
+    iconLauncher8.setVisible(false);
 
     modalWindow.setBackground(touchgfx::BitmapId(BITMAP_DARK_BACKGROUNDS_MAIN_BG_320X240PX_ID), 80, 16);
     modalWindow.setShadeColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
@@ -64,20 +89,33 @@ MainScreenViewBase::MainScreenViewBase() :
     buttonModal.setAction(buttonCallback);
     modalWindow.add(buttonModal);
 
-
     add(ImageBackground);
     add(imageBorder);
     add(textDateTime);
     add(buttonMenu);
     add(textMsg);
-    add(buttonSDCard);
+    add(buttonSDCardIcon);
+    add(iconLauncher1);
+    add(iconLauncher2);
+    add(iconLauncher3);
+    add(iconLauncher4);
+    add(iconLauncher5);
+    add(iconLauncher6);
+    add(iconLauncher7);
+    add(iconLauncher8);
     add(modalWindow);
-
 }
 
 void MainScreenViewBase::setupScreen()
 {
-
+    iconLauncher1.initialize();
+    iconLauncher2.initialize();
+    iconLauncher3.initialize();
+    iconLauncher4.initialize();
+    iconLauncher5.initialize();
+    iconLauncher6.initialize();
+    iconLauncher7.initialize();
+    iconLauncher8.initialize();
 }
 
 //Handles when a key is pressed
@@ -111,13 +149,12 @@ void MainScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& s
         modalWindow.setVisible(true);
         modalWindow.invalidate();
     }
-    else if (&src == &buttonSDCard)
+    else if (&src == &buttonSDCardIcon)
     {
         //InteractionButtonSDCard
-        //When buttonSDCard clicked show modalWindow
-        //Show modalWindow
-        modalWindow.setVisible(true);
-        modalWindow.invalidate();
+        //When buttonSDCardIcon clicked call virtual function
+        //Call buttonSDCardPressed
+        buttonSDCardPressed();
     }
     else if (&src == &buttonModal)
     {

@@ -20,11 +20,8 @@ TestsViewBase::TestsViewBase() :
     textArea1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID11));
 
     buttonRetour.setXY(155, 53);
-    buttonRetour.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    buttonRetour.setLabelText(touchgfx::TypedText(T_SINGLEUSEID12));
-    buttonRetour.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    buttonRetour.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    buttonRetour.setLabelRotation(TEXT_ROTATE_180);
+    buttonRetour.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_DONE_32_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_DONE_32_ID));
+    buttonRetour.setIconXY(70, 15);
     buttonRetour.setAction(buttonCallback);
 
     add(image1);

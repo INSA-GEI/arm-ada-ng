@@ -3,10 +3,10 @@
 
 IconLauncher::IconLauncher()
 {
-	launcher.setLaunchType(-1);
+	launcher.setLaunchType(LauncherType::Undefined);
 }
 
-IconLauncher::IconLauncher(int launchType)
+IconLauncher::IconLauncher(LauncherType launchType)
 {
 	launcher.setLaunchType(launchType);
 }
@@ -18,7 +18,9 @@ void IconLauncher::initialize()
 
 void IconLauncher::buttonClicked()
 {
-	launcher.exec(this->id);
+	int code;
+
+	launcher.exec(this->id, &code);
 }
 
 void IconLauncher::SetText(const char* str)
@@ -40,7 +42,7 @@ void IconLauncher::SetId(int id)
 	this->id=id;
 }
 
-void IconLauncher::SetLaunchType(int launchType)
+void IconLauncher::SetLaunchType(LauncherType launchType)
 {
 	launcher.setLaunchType(launchType);
 }
