@@ -141,7 +141,7 @@
             "Name": "textDateTime",
             "X": 216,
             "Y": 248,
-            "Width": 38,
+            "Width": 72,
             "Height": 19,
             "Type": "TextArea",
             "Visible": true,
@@ -536,17 +536,15 @@
         ],
         "Interactions": [
           {
-            "InteractionName": "InteractionChangeScreen",
+            "InteractionName": "Interaction1",
             "HasCompletedTrigger": false,
             "Trigger": {
               "TriggerComponent": "buttonRetour",
               "Type": "TriggerClicked"
             },
             "Action": {
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "MainScreen",
-              "Type": "ActionGotoScreen"
+              "FunctionName": "function1",
+              "Type": "ActionCustom"
             }
           }
         ],

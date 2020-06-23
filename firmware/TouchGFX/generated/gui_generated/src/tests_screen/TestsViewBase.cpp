@@ -38,9 +38,9 @@ void TestsViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
     if (&src == &buttonRetour)
     {
-        //InteractionChangeScreen
-        //When buttonRetour clicked change screen to MainScreen
-        //Go to MainScreen with screen transition towards West
-        application().gotoMainScreenScreenCoverTransitionWest();
+        //Interaction1
+        //When buttonRetour clicked call virtual function
+        //Call function1
+        function1();
     }
 }

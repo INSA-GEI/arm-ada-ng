@@ -18,6 +18,14 @@ public:
     virtual ~TestsViewBase() {}
     virtual void setupScreen();
 
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void function1()
+    {
+        // Override and implement this function in Tests
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());

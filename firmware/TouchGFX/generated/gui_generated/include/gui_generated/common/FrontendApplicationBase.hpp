@@ -21,8 +21,6 @@ public:
     // MainScreen
     void gotoMainScreenScreenNoTransition();
 
-    void gotoMainScreenScreenCoverTransitionWest();
-
     // Tests
     void gotoTestsScreenCoverTransitionEast();
 
@@ -36,8 +34,6 @@ protected:
 
     // MainScreen
     void gotoMainScreenScreenNoTransitionImpl();
-
-    void gotoMainScreenScreenCoverTransitionWestImpl();
 
     // Tests
     void gotoTestsScreenCoverTransitionEastImpl();
