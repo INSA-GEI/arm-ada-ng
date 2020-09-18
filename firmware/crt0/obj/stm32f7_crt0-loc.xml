@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file />
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/stm32f7_crt0.gpr</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 23" line=" 13" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/stm32f7_crt0.gpr</vfs_file>
+    </file_marker>
+  </Project>
+  <Project >
+    <vfs_file >/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/stm32f7_crt0.gpr</vfs_file>
+    <file_marker column=" 1" line=" 1">
+      <vfs_project  />
+      <vfs_file >/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/stm32f7_crt0.gpr</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 23" line=" 13">
+      <vfs_project  />
+      <vfs_file >/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/stm32f7_crt0.gpr</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

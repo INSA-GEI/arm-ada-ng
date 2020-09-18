@@ -89,3 +89,12 @@ firmware/Middlewares/ST/STM32_Audio
 firmware/Drivers/CMSIS/Documentation
 firmware/Drivers/CMSIS/DSP_Lib
 
+# Misc
+*.db
+*.cswi
+*.deps
+*.cgpr
+*.stderr
+*.stdout
+
+
