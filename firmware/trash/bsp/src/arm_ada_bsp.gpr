@@ -1,0 +1,75 @@
+project ARM_ADA_bsp is
+
+   type Loader_Type is ("ROM", "RAM");
+   Loader : Loader_Type := external ("LOADER", "ROM");
+
+   type Build_Type is ("Debug", "Production");
+   Build   : Build_Type := external ("BUILD", "Production");
+
+   for Target use "arm-eabi";
+   for Languages use ("C", "Asm");
+
+   for Library_Name use "bsp";
+   for Object_Dir use "obj";
+   for Library_Dir use "lib";
+
+   for Source_Dirs use
+     ("src",
+      "src/BSP/STM32746G-Discovery/src",
+      "src/BSP/STM32746G-Discovery/inc",
+      "src/BSP/Components/Common",
+      "src/BSP/Components/ft5336",
+      "src/BSP/Components/lis2mdl",
+      "src/BSP/Components/lsm6ds3",
+      "src/BSP/Components/rk043fn48h",
+      "src/BSP/Components/wm8994",
+      "src/BSP/Components/n25q128a",
+      "src/BSP/Components/bmp280",
+      "src/BSP/Components/ov9655",
+      "src/Utilities/Fonts",
+      "src/Middlewares/Third_Party/fatfs",
+      "src/Middlewares/Third_Party/FreeRTOS/Source/include",
+      "src/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS",
+      "src/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7_MPU/r0p1",
+      "src/Middlewares/Third_Party/FreeRTOS/Source/portable/Common",
+      "src/Legacy",
+      "res",
+      "../crt0/src/STM32F7xx_HAL_Driver/Inc",
+      "../crt0/src/CMSIS/Include",
+      "../crt0/src/CMSIS/Device/ST/STM32F7xx/Include",
+      "../crt0/conf",
+      "conf");
+
+   Common_Switches :=
+     ("-mlittle-endian", "-mhard-float",
+      "-mcpu=cortex-m7", "-mfpu=fpv4-sp-d16",
+      "-mthumb", "-g");
+
+   package Compiler is
+     -- for Switches ("C") use Common_Switches &
+     --   ("-ffunction-sections", "-fdata-sections",
+     --    "-DSTM32F746xx", "-DUSE_HAL_DRIVER");
+      for Switches ("C") use Common_Switches &
+        ("-DSTM32F746xx", "-DUSE_HAL_DRIVER");
+      case Build is
+         when "Debug" =>
+            for Switches ("C") use Compiler'Switches ("C") &
+              ("-g", "-O0");
+            for Switches ("Asm") use Compiler'Switches ("Asm") &
+              ("-g");
+         when "Production" =>
+            for Switches ("C") use Compiler'Switches ("C") &
+              ("-O0");
+            for Switches ("Asm") use Compiler'Switches ("Asm") &
+              ("-g");
+      end case;
+   end Compiler;
+
+   -- Linker_Switches := Common_Switches &
+   --  ("-Wl,-T," & Project'Project_Dir & "ld/STM32F746NGHX_FLASH.ld",
+   --   "-L" & Project'Project_Dir & "lib",
+   --   "-Wl,--gc-sections", "-nostartfiles",
+   --   "-lc", "-Wl,--whole-archive", "-lcrt0", "-Wl,--no-whole-archive",
+   --   "-Wl,-z,muldefs", "-g");
+
+end ARM_ADA_bsp;
