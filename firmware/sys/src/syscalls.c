@@ -31,8 +31,8 @@
 extern int errno;
 //register char* stack_ptr asm("sp");
 
-extern const uint32_t* _dynamicsram_start;
-extern const uint32_t* _dynamicsram_end;
+extern const uint32_t* __heap_start;
+extern const uint32_t* __heap_end;
 
 FILE __stdout;
 FILE __stdin;
@@ -53,7 +53,7 @@ void RETARGET_Init (void)
 }
 /* Functions */
 
-int _write (int fd, char *ptr, int len)
+int write (int fd, char *ptr, int len)
 {
 	int i;
 
@@ -71,7 +71,7 @@ int _write (int fd, char *ptr, int len)
 	return len;
 }
 
-int _read (int fd, char *ptr, int len)
+int read (int fd, char *ptr, int len)
 {
 	int count=-1;
 	int i;
@@ -91,18 +91,19 @@ int _read (int fd, char *ptr, int len)
 /* Functions */
 
 
-int _getpid(void)
+/*int _getpid(void)
 {
 	return 1;
-}
+}*/
 
 int
 getpid (void)
 {
-  return _getpid();
+  return 1;
 }
 
-int _gettimeofday(struct timeval  *ptimeval, void *ptimezone)
+//int _gettimeofday(struct timeval  *ptimeval, void *ptimezone)
+int gettimeofday(struct timeval  *ptimeval, void *ptimezone)
 {
   errno = ENOSYS;
   return -1;
@@ -164,19 +165,15 @@ lseek (int fd, off_t offset, int whence)
 
 caddr_t sbrk(int incr)
 {
-	//extern char end asm("end");
-	#define HEAP_BASE_ADDRESS	_dynamicsram_start
-	#define HEAP_END_ADDRESS	_dynamicsram_end
-
 	static char *heap_end;
 	char *prev_heap_end;
 
 	if (heap_end == 0)
-		heap_end = (char*)HEAP_BASE_ADDRESS;
+		heap_end = (char*)__heap_start;
 
 	prev_heap_end = heap_end;
 
-	if (heap_end + incr > (char*)HEAP_END_ADDRESS)
+	if (heap_end + incr > (char*)__heap_end)
 	{
 		errno = ENOMEM;
 		return (caddr_t) -1;

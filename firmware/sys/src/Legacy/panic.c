@@ -24,8 +24,8 @@ static volatile uint32_t R0,R1,R2,R3,R12,PC,LR,XPSR,SP;
 static uint32_t IT_Source;
 #define FLASH_USER_START_ADDR   ((uint32_t)0x0800C000)   /* Start @ of user Flash area */
 
-extern const uint32_t* __app_stack_end__;
-extern const uint32_t* __system_stack_end__;
+extern const uint32_t* __stack_end;
+extern const uint32_t* __interrupt_stack_end;
 extern void SetStack(uint32_t systemstack, uint32_t applistack);
 
 void PANIC_EraseUserProgramEntry(void) {
@@ -53,7 +53,7 @@ void PANIC_ReadStack(uint32_t it_source, uint32_t *sp) {
 		SP = (uint32_t)sp;
 	}
 
-	SetStack((uint32_t)&__system_stack_end__,(uint32_t)&__app_stack_end__);
+	SetStack((uint32_t)&__interrupt_stack_end,(uint32_t)&__stack_end);
 	PANIC_Display();
 }
 

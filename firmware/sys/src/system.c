@@ -76,8 +76,8 @@ volatile int DataReady=0;
 int return_val;
 
 char RunAutoTest=0;
-extern const uint32_t* __app_stack_end__;
-extern const uint32_t* __system_stack_end__;
+extern const uint32_t* __stack_end;
+extern const uint32_t* __interrupt_stack_end;
 
 extern uint32_t PRG_ReprogPatternAddr;
 //extern AUDIO_BufferTypeDef  AUDIO_Buffer;
@@ -192,8 +192,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
  * @retval None
  */
 void MAIN_SystemInit(void)              
- {                                              
- 	/* Init standard IO serial link */            
+{   
+  /* Init standard IO serial link */            
  	BSP_STDIO_Init();                             
                                                 
  	/* Init led1 */                               
@@ -201,10 +201,10 @@ void MAIN_SystemInit(void)
                                                 
  	/* Configure the User Button in GPIO Mode */  
  	BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);    
-                                                
- 	/* Init External SRAM */                      
- 	BSP_SDRAM_Init();                             
-                                                
+                 
+  /* Init External SRAM */                      
+  BSP_SDRAM_Init();
+  
  	/* Init QSPI */                               
  	BSP_QSPI_Init();                              
  	BSP_QSPI_EnableMemoryMappedMode();            
@@ -219,10 +219,7 @@ void MAIN_SystemInit(void)
  	BSP_ACC_GYRO_Init();                          
                                                 
  	/* Init pressure sensor */                    
- 	BSP_PRESSURE_Init();                          
-                                                
- 	/* Init WIFI */                               
- 	//BSP_WIFI_Init();                            
+ 	BSP_PRESSURE_Init();                                                                                            
                                                 
  	/* Init RNG */                                
  	BSP_RNG_InitGenerator();                      
@@ -262,7 +259,7 @@ void RUNTIME_Main(void)
 	GLCD_SetBackColor(White);
 	GLCD_SetTextColor(Black);
   CONSOLE_GotoXY(0,0);
-  
+ 
 	//	/* Essai du synthe */
 	//	if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_BOTH, 92, 44100)== 0) {
 	//		GLCD_DrawString(1,10, "Codec Init OK: 44100 Khz");

@@ -90,11 +90,11 @@
 /************************* Miscellaneous Configuration ************************/
 /*!< Uncomment the following line if you need to use external SDRAM mounted
      on DK as data memory  */
-/* #define DATA_IN_ExtSDRAM */
+#define DATA_IN_ExtSDRAM 
 
 /*!< Uncomment the following line if you need to relocate your vector Table in
      Internal SRAM. */
-/* #define VECT_TAB_SRAM */
+#define VECT_TAB_SRAM 
 #define VECT_TAB_OFFSET  0x00 /*!< Vector Table base offset field. 
                                    This value must be a multiple of 0x200. */
 /******************************************************************************/
@@ -181,7 +181,7 @@ void SystemInit(void)
 #if defined (DATA_IN_ExtSDRAM)
   SystemInit_ExtMemCtl(); 
 #endif /* DATA_IN_ExtSDRAM */
-
+  
   /* Configure the Vector Table location add offset address ------------------*/
 #ifdef VECT_TAB_SRAM
   SCB->VTOR = SRAM1_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */

@@ -20,11 +20,17 @@
 #include "gui.h"
 #include "../wrapper.h"
 #include "string.h"
+#include "stdlib.h"
+#include "stdio.h"
 
 const char* blackbkg="                                        ";
 
 void LEGACY_GUI_CreateWindow(const char *title, COLOR background, COLOR titlebarText, COLOR titlebarBgnd)
 {
+  int *a = (int*)malloc(400);
+
+  printf("toto");
+
 	GLCD_Clear(background);
 	GLCD_SetTextColor(titlebarText);
 	GLCD_SetBackColor(titlebarBgnd);

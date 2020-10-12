@@ -50,24 +50,8 @@
 
 .global  g_pfnVectors
 .global  Default_Handler
-
-/* start address for the initialization values of the .data section. 
-defined in linker script */
-.word  _sidata
-/* start address for the .data section. defined in linker script */  
-.word  _sdata
-/* end address for the .data section. defined in linker script */
-.word  _edata
-/* start address for the .bss section. defined in linker script */
-.word  _sbss
-/* end address for the .bss section. defined in linker script */
-.word  _ebss
-/* stack used for SystemInit_ExtMemCtl; always internal RAM used */
-
-.word __app_stack_start__
-.word __system_stack_start__
-.word __app_stack_end__
-.word __system_stack_end__
+.global  _cpu_start
+.global SetStack
 
 /**
  * @brief  This is the code that gets called when the processor first
@@ -78,48 +62,196 @@ defined in linker script */
  * @retval : None
 */
 
-    .section  .text.Reset_Handler
-  .weak  Reset_Handler
-  .type  Reset_Handler, %function
-Reset_Handler:  
-  ldr   sp, =_estack      /* set stack pointer */
+/**
+ * @brief: This is the entry point, first called when processor starts execution.
+           Only initial setup are done here. Next is done in Init_ctr0() function.
+ */
+  .section  .text._cpu_start
+  .globl	_cpu_start
+  .type  _cpu_start, %function
+_cpu_start:
+  /* Enable FPU and cache when appropriate */
+  /* bl _cpu_start_common */
 
-/* Copy the data segment initializers from flash to SRAM */  
-  movs  r1, #0
-  b  LoopCopyDataInit
+	/* Copy .data */
+	movw	r0,#:lower16:__data_start
+	movt	r0,#:upper16:__data_start
+	movw	r1,#:lower16:__data_words
+	movw	r2,#:lower16:__data_load
+	movt	r2,#:upper16:__data_load
+	cbz	r1,1f
+0:	
+  ldr	r4,[r2],#4
+	str	r4,[r0],#4
+	subs	r1,r1,#1
+	bne	0b
+1:
+	/* Copy .ccmdata */
+	movw	r0,#:lower16:__ccmdata_start
+	movt	r0,#:upper16:__ccmdata_start
+	movw	r1,#:lower16:__ccmdata_words
+	movw	r2,#:lower16:__ccmdata_load
+	movt	r2,#:upper16:__ccmdata_load
+	cbz	r1,1f
+0:	
+  ldr	r4,[r2],#4
+	str	r4,[r0],#4
+	subs	r1,r1,#1
+	bne	0b
+1:
+	/* Clear .bss */
+	movw	r0,#:lower16:__bss_start
+	movt	r0,#:upper16:__bss_start
+	movw	r1,#:lower16:__bss_words
+	mov	r2,#0
+	cbz	r1,1f
+0:	
+  str	r2,[r0],#4
+	subs	r1,r1,#1
+	bne	0b
 
-CopyDataInit:
-  ldr  r3, =_sidata
-  ldr  r3, [r3, r1]
-  str  r3, [r0, r1]
-  adds  r1, r1, #4
-    
-LoopCopyDataInit:
-  ldr  r0, =_sdata
-  ldr  r3, =_edata
-  adds  r2, r0, r1
-  cmp  r2, r3
-  bcc  CopyDataInit
-  ldr  r2, =_sbss
-  b  LoopFillZerobss
-/* Zero fill the bss segment. */  
-FillZerobss:
-  movs  r3, #0
-  str  r3, [r2], #4
-    
-LoopFillZerobss:
-  ldr  r3, = _ebss
-  cmp  r2, r3
-  bcc  FillZerobss
+1:
+	/*bl  SystemInit*/   
+/* Call static constructors 
+  bl __libc_init_array */
 
-/* Call the clock system initialization function.*/
-  bl  SystemInit   
-/* Call static constructors */
-    bl __libc_init_array
 /* Call the application's entry point.*/
   bl  init_crt0
-  bx  lr    
-.size  Reset_Handler, .-Reset_Handler
+
+	bl	_exit
+        
+hang:   b .
+.size  _cpu_start, .-_cpu_start
+
+/**
+ * @brief  This code enable FPU and cache
+ * @param  None
+ * @retval : None
+*/
+	.text
+	.thumb_func
+	.globl	_cpu_start_common
+  .type _cpu_start_common, #function
+_cpu_start_common:
+
+        /**************/
+        /* Enable FPU */
+        /**************/
+
+        movw     r0,#0xED88
+        movt     r0,#0xE000
+        ldr      r1,[r0]
+        orr      r1,r1,#(0xF << 20)
+        str      r1,[r0]
+
+        dsb
+        isb
+
+        /*************************
+         * Check MCU = Cortex-M7 *
+        *************************/
+
+        .set    MCU_ID_REG, 0xE0042000
+        ldr     r0, =MCU_ID_REG
+        ldr     r1, [r0]
+        ldr     r2, =#0xFFF
+        and     r1, r1, r2  /* Retrieve the DEV_ID field of the MCU_ID reg */
+        ldr     r2, =#0x449
+        cmp     r1, r2      /* Compare to STM32F74xxx/75xxx Dev ID */
+        beq      init_cache
+        ldr     r2, =#0x451
+        cmp     r1, r2      /* Compare to STM32F76xxx/77xxx Dev ID */
+        bne     end         /* Do not initialize cache on STM32F4 */
+
+init_cache:
+        /********************
+         * Enable I/D cache *
+        ********************/
+
+        /* Register definition for cache handling */
+        .set    CCSIDR,  0xE000ED80
+        .set    CSSELR,  0xE000ED84
+        .set    DCISW,   0xE000EF60
+        .set    ICIALLU, 0xE000EF50
+        .set    CCR,     0xE000ED14
+
+        /* First invalidate the data cache */
+        mov     r0, #0x0
+        ldr     r11, =CSSELR
+        str     r0, [r11]       /* Select the data cache size */
+        dsb
+
+        ldr     r11, =CCSIDR
+        ldr     r2, [r11]       /* Cache size identification */
+        and     r1, r2, #0x7    /* Number of words in a cache line */
+        add     r7, r1, #0x4
+
+        ubfx    r4, r2, #3, #10  /* r4 = number of ways - 1 of data cache */
+        ubfx    r2, r2, #13, #15 /* r2 = number of sets - 1 of data cache */
+        clz     r6, r4           /* Calculate bit offset for "way" in DCISW */
+
+        ldr     r11, =DCISW
+
+inv_loop1:                       /* For each set */
+        mov     r1, r4
+        lsls    r8, r2, r7
+
+inv_loop2:                       /* For each way */
+        lsls    r3, r1, r6
+        orrs    r3, r3, r8
+
+        str     r3, [r11]        /* Invalidate the D-Cache line */
+        subs    r1, r1, #1
+        bge     inv_loop2
+        subs    r2, r2, #1
+        bge     inv_loop1
+
+        dsb
+
+        /* Now invalidate the instruction cache */
+        mov     r0, #0x0
+        ldr     r11, =ICIALLU
+        str     r0, [r11]
+
+        dsb
+        isb
+
+        /* Finally enable Instruction and Data cache */
+        ldr     r11, =CCR
+        ldr     r0, [r11]
+        orr     r0, r0, #(0x30000) /* Sets the I and D cache enabled fields */
+        str     r0, [r11]
+
+        dsb
+        isb
+
+        /* Wait for store to complete and reset pipeline with FPU enabled  */
+        dsb
+        isb
+
+        /*****************************
+         * TCM Memory initialisation *
+        *****************************/
+tcm_init:
+        .set    CM7_ITCMCR, 0xE000EF90
+        .set    CM7_DTCMCR, 0xE000EF94
+
+        ldr     r0, =CM7_ITCMCR
+        ldr     r1, [r0]
+        orr     r1, r1, #0x1 /* set the EN field */
+        str     r1, [r0]
+
+        ldr     r0, =CM7_DTCMCR
+        ldr     r1, [r0]
+        orr     r1, r1, #0x1 /* set the EN field */
+        str     r1, [r0]
+
+        dsb
+        isb
+
+end:
+        bx lr
+  .size _cpu_start_common, . - _cpu_start_common
 
 /**
  * @brief  This function help move stack ptr to defined area
@@ -134,7 +266,7 @@ LoopFillZerobss:
 SetStack:
 	CPSID	i // Disable interrupts
 
-	//LDR 	R0, =__initial_sp
+	LDR 	R0, =__interrupt_stack_end
 	MSR		MSP, R0
 	MSR		PSP, R1
 
@@ -144,8 +276,8 @@ SetStack:
 	ISB		// Flush cache
 
 	LDR 	R0, =#0xDEADBEEF
-	LDR		R1, =#__system_stack_start__
-	LDR		R2, =#__system_stack_end__
+	LDR		R1, =#__interrupt_stack_start
+	LDR		R2, =#__interrupt_stack_end
 
 SetStack_LoopSystemStack:
 	STR		R0,[R1]
@@ -153,8 +285,8 @@ SetStack_LoopSystemStack:
 	CMP		R1,R2
 	BNE		SetStack_LoopSystemStack
 
-	LDR		R1, =#__app_stack_start__
-	LDR		R2, =#__app_stack_end__
+	LDR		R1, =#__stack_start
+	LDR		R2, =#__stack_end
 SetStack_LoopApplicationStack:
 	STR		R0,[R1]
 	ADD		R1,R1,#4
@@ -188,10 +320,9 @@ Infinite_Loop:
   .type  g_pfnVectors, %object
   .size  g_pfnVectors, .-g_pfnVectors
    
-   
 g_pfnVectors:
-  .word  _estack
-  .word  Reset_Handler
+  .word  __interrupt_stack_end
+  .word  _cpu_start
 
   .word  NMI_Handler
   .word  HardFault_Handler
@@ -339,8 +470,8 @@ g_pfnVectors:
    .weak      PendSV_Handler
    .thumb_set PendSV_Handler,Default_Handler
 
-   .weak      SysTick_Handler
-   .thumb_set SysTick_Handler,Default_Handler              
+   /*.weak      SysTick_Handler
+   .thumb_set SysTick_Handler,Default_Handler    */          
   
    .weak      WWDG_IRQHandler                   
    .thumb_set WWDG_IRQHandler,Default_Handler      

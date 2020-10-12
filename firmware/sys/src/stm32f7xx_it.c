@@ -64,6 +64,25 @@ extern SDRAM_HandleTypeDef sdramHandle;
 
 extern SD_HandleTypeDef uSdHandle;
 /* Private function prototypes -----------------------------------------------*/
+void NMI_Handler(void) __attribute__((section(".interrupt_handlers")));
+void HardFault_Handler(void) __attribute__((section(".interrupt_handlers")));
+void MemManage_Handler(void) __attribute__((section(".interrupt_handlers")));
+void BusFault_Handler(void) __attribute__((section(".interrupt_handlers")));
+void UsageFault_Handler(void) __attribute__((section(".interrupt_handlers")));
+void DebugMon_Handler(void) __attribute__((section(".interrupt_handlers")));
+void SysTick_Handler(void) __attribute__((section(".interrupt_handlers")));
+void EXTI0_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void EXTI2_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void EXTI9_5_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void EXTI15_10_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void AUDIO_IN_SAIx_DMAx_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void BSP_SDRAM_DMA_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void DMA2_Stream1_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void AUDIO_OUT_SAIx_DMAx_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void DCMI_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void DMA2D_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+void USART1_IRQHandler(void) __attribute__((section(".interrupt_handlers")));
+
 /* Private functions ---------------------------------------------------------*/
 
 /******************************************************************************/
@@ -335,16 +354,6 @@ void DMA2D_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
 	BSP_STDIO_IRQHandler();
-}
-
-/**
- * @brief  This function handles Wifi (COM2 / USART6) Handler.
- * @param  None
- * @retval None
- */
-void USART6_IRQHandler(void)
-{
-	BSP_WIFI_IRQHandler();
 }
 
 /**

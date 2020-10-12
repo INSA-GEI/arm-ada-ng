@@ -79,8 +79,6 @@ void RUNTIME_Main(void);
  */
 int init_crt0(void)
 {
-	//uint8_t  lcd_status = LCD_OK;
-
 	/* Enable the FPU */
 	CPU_EnableFPU();
 
@@ -92,35 +90,6 @@ int init_crt0(void)
 
 	/* Configure the system clock to 200 Mhz */
 	SystemClock_Config();
-
-	/* STM32F7xx HAL library initialization:
-       - Configure the Flash prefetch, instruction and Data caches
-       - Configure the Systick to generate an interrupt each 1 msec
-       - Set NVIC Group Priority to 4
-       - Global MSP (MCU Support Package) initialization
-	 */
-	//HAL_Init();
-
-	/* Configure system and BSP peripherals (except LCD) */
-	//MAIN_SystemInit();
-
-	/*##-1- Initialize the LCD #################################################*/
-	/* Initialize the LCD */
-	//lcd_status = BSP_LCD_Init();
-	//ASSERT(lcd_status != LCD_OK);
-
-	/* Initialize the LCD Layers */
-	//BSP_LCD_LayerDefaultInit(LTDC_ACTIVE_LAYER, LCD_FRAME_BUFFER);
-	//BSP_LCD_LayerRgb565Init(LTDC_FOREGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_FOREGROUND);
-	//BSP_LCD_LayerRgb565Init(LTDC_BACKGROUND_LAYER, LCD_FRAME_BUFFER_LAYER_BACKGROUND);
-
-	//BSP_LCD_ResetScreen();
-
-	//if (BSP_PB_GetState(BUTTON_X) != RESET)	{
-	//	TESTS_Run();
-	//}
-
-	//LEGACY_System();
 
   BSP_Init();
 
