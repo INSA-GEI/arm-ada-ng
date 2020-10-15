@@ -1,0 +1,25 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+/home/dimercur/arm-ada/gnatstudio/proj_1/exceptions.gpr
+20201015082830 564c6d1273fcd768d6a38c0abfa9124f
+/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr
+20201014150800 222792f3db9e83307f3997aa53008e3a
+/home/dimercur/arm-ada/gnatstudio/sys/sys.gpr
+20201014150147 a6fbfdac4678b056488f1db1b017664b
+[BOUND OBJECT FILES]
+/home/dimercur/arm-ada/gnatstudio/proj_1/obj/last_chance_handler.o
+/home/dimercur/arm-ada/gnatstudio/proj_1/obj/main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-L/home/dimercur/arm-ada/gnatstudio/proj_1/obj/
+-L/home/dimercur/arm-ada/gnatstudio/proj_1/obj/
+-L/home/dimercur/arm-ada/gnatstudio/sys/lib/
+-L/home/dimercur/arm-ada/gnatstudio/insa/lib/
+-L/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/
+-static
+-static-libgcc
+/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/libgnat.a

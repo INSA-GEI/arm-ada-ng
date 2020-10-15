@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Ada program",
+      "type": "cppdbg",
+      "request": "launch",
+      "preLaunchTask": "Start gdbserver",
+      "postDebugTask": "Kill gdbserver",
+      "program": "${workspaceFolder}/application.elf",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "miDebuggerServerAddress": "localhost:61234",
+      "miDebuggerPath": "arm-none-eabi-gdb",
+      "setupCommands": [],
+      "logging": {
+        "trace": false,
+        "traceResponse": false,
+        "engineLogging": false
+      }
+    }
+  ]
+}

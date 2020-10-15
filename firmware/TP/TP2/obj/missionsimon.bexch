@@ -1,0 +1,26 @@
+[GENERATED OBJECT FILE]
+b__missionsimon.o
+[PROJECT FILES]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP2/simon.gpr
+20201015142752 2da48979b45496d3e42e3cc9c2b71279
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/insa.gpr
+20201015123810 7bccf02b67d14e719ccd0df8f91558a4
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/sys.gpr
+20201015123823 fd6988f6f61bfbf393568364d2cc35f2
+[BOUND OBJECT FILES]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP2/obj/ressources.o
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP2/obj/simon.o
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP2/obj/missionsimon.o
+[GENERATED SOURCE FILES]
+b__missionsimon.ads
+b__missionsimon.adb
+b__missionsimon.ali
+[RESULTING OPTIONS]
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP2/obj/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP2/obj/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/lib/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/lib/
+-L/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/
+-static
+-static-libgcc
+/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/libgnat.a

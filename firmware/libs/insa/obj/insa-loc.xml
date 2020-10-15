@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project >
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 127" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/ld/common-ROM.ld</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 94" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 77" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/startup_stm32f746xx.s</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 106" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/Legacy/panic.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 216" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 406" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system_stm32f7xx.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 741" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 3" line=" 206" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 3" line=" 206" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 216" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 219" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 129" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 16" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/stm32f7xx_it.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 212" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/stm32f7xx_it.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 213" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/stm32f7xx_it.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 16" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 2" line=" 262" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 16" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 2" line=" 262" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 8" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 52" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/gnat/interfac.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 8" line=" 75" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/gnat/interfac.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/Legacy/wrapper.h</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 12" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 8" line=" 11" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 8" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 8" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 8" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada/lib/lib-ada/insa-graphics.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 8" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada/lib/lib-ada/insa-graphics.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 91" line=" 8" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 29" line=" 8" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 11" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 207" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 11" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 6" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 7" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 207" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 7" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 208" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/sys/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 7" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 11" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file />
+    </file_marker>
+    <file_marker column=" 4" line=" 3" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 3" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/wrap.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 8" line=" 11" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 7" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 11" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 11" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 14" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/libinsa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 17" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/libinsa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 4" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 15" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 10" line=" 2" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/support.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 15" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 17" line=" 5" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/libinsa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 15" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 3" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 16" line=" 18" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 3" line=" 154" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/sys/sys.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/sys/src/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h</vfs_file>
+    </file_marker>
+    <file_marker column=" 48" line=" 13" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 20" line=" 26" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/insa-sensors.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 30" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/insa-sensors.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 20" line=" 49" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/insa-sensors.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 75" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/insa-sensors.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 22" line=" 18" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/insa-timer.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 29" line=" 34" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/insa-timer.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 35" line=" 39" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/src/insa-memory.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_project>
+      <vfs_file>/home/dimercur/arm-ada/gnatstudio/insa/insa.gpr</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

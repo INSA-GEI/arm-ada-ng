@@ -1,0 +1,714 @@
+<?xml version="1.0"?>
+<Locations>
+  <Project>
+    <vfs_file />
+    <file_marker column=" 1" line=" 239" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/syscalls.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 250" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 85" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 126" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 320" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 174" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 85" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 318" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 213" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_lcd.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 186" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_sdram.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 236" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_sdram.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 15" line=" 118" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 202" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 213" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_lcd.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 202" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 14" line=" 118" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 154" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 154" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 20" line=" 121" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 6" line=" 194" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 126" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 237" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_acc_gyro.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_acc_gyro.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 402" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_acc_gyro.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_mag.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 354" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_mag.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_keys.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 211" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_keys.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_pressure.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 354" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_mag.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 239" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/syscalls.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 239" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/syscalls.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 85" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 239" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/syscalls.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 172" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 173" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 174" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 172" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 173" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 174" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 85" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/@_project_name_@.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/stm32f_leds.gpt</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/@_project_name_@.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai_ada.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/arm_ada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 85" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 154" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 202" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 402" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_acc_gyro.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 354" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_mag.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 211" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_keys.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 289" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_pressure.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 239" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/syscalls.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 174" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai_ada.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/arm_ada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 28" line=" 10" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/arm_ada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/arm_ada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/led_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 85" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 154" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 202" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 402" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_acc_gyro.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 354" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_mag.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 211" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_keys.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 289" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_pressure.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 239" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/syscalls.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 174" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_timebase_tim.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai_ada.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/essai.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 41" line=" 43" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 4" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/last_chance_handler.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/last_chance_handler.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 6" line=" 37" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/last_chance_handler.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 4" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 44" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 4" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 118" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/startup_stm32f746xx.s</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 4" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/arm_ada_flash.ld</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 99" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/arm_ada_flash.ld</vfs_file>
+    </file_marker>
+    <file_marker column=" 3" line=" 2" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/truc.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 15" line=" 39" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 48" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 48" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 31" line=" 28" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 169" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_lcd_dma2d.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 48" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 125" line=" 29" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 48" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/system.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 48" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 169" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_lcd_dma2d.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 169" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_lcd_dma2d.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 169" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/BSP/STM32746G-Discovery/src/stm32746g_discovery_lcd_dma2d.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 337" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 337" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 337" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 337" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 341" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 345" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/src/Legacy/wrapper.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 50" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 116" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-sfp-armada/ld/common-ROM.ld</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/arm_ada_bsp.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 53" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/bsp/arm_ada_bsp.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/stm32f7_crt0.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 10" line=" 34" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/stm32f7_crt0.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 48" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 123" line=" 29" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/armada_demo.gpr</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 125" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/crt0/src/init_crt0.c</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

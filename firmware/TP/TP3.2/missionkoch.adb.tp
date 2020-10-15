@@ -1,0 +1,9 @@
+with Tortue, nombre;
+use Tortue, nombre;
+
+procedure missionkoch is
+   
+  
+begin
+   null ;
+end missionkoch;

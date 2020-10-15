@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ressources>
+  	<file language="ada">ressources</file> 
+
+  	<image id="simonBg" color="8bpp" packed="true">./ressources/simon.png</image>
+	<image id="Touche_Rouge" color="8bpp" packed="true">./ressources/Touche_rouge.png</image>
+	<image id="Touche_Verte" color="8bpp" packed="true">./ressources/Touche_verte.png</image>
+	<image id="Touche_Bleue" color="8bpp" packed="true">./ressources/Touche_bleue.png</image>
+	<image id="Touche_Jaune" color="8bpp" packed="true">./ressources/Touche_jaune.png</image>
+    <image id="GameOver" color="8bpp" packed="true">./ressources/gameover.png</image>
+
+    <image id="Fire1" color="8bpp" packed="true">./ressources/fireworks-0.png</image>
+    <image id="Fire2" color="8bpp" packed="true">./ressources/fireworks-1.png</image>
+    <image id="Fire3" color="8bpp" packed="true">./ressources/fireworks-2.png</image>
+    <image id="Fire4" color="8bpp" packed="true">./ressources/fireworks-3.png</image>
+
+  <!-- Permet de definir une table d'onde personnalisée
+		 attention: 57 elements: si moins => remplissage avec 0</value> si plus: tronquature -->
+	<wavetable id="Sqr">		
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>255</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+	</wavetable>
+
+	<instrument id="Guitar"> 
+		<wave>Sqr</wave> <!-- La table d'onde utilisée -->
+		<attack>10</attack>			<!-- La duree de l'attaque</value> en milliseconde (virgule flottante) -->
+		<hold>0</hold>					<!-- La duree du maintien de l'attaque</value> en milliseconde (virgule flottante) -->
+		<decay>5</decay>				<!-- La duree de la decroissance de l'attaque</value> en milliseconde (virgule flottante) -->
+		<sustain level="50">400</sustain>	<!-- La duree du maintien</value> en milliseconde (virgule flottante) 
+											 Le parametre level indique la valeur (de 0 à 100%) a atteindre aprés la decroissance -->
+		<release>100</release>				<!-- La duree du retrait</value> en milliseconde (virgule flottante) -->
+	</instrument>
+
+	<melody id="ymca">
+		<channel instrument="Guitar" volume="100">0</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<channel instrument="Guitar" volume="100">1</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<channel instrument="Guitar" volume="100">2</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<channel instrument="Guitar" volume="100">3</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<midi>./ressources/ymca-muse.mid</midi>		<!-- La melodie à proprement parler --> 
+	</melody>
+
+    <melody id="rip">
+		<channel instrument="Guitar" volume="100">0</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<channel instrument="Guitar" volume="100">1</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<channel instrument="Guitar" volume="100">2</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<channel instrument="Guitar" volume="100">3</channel>	<!-- parametres à appliquer au canal x: volume => volume (in %) et instrument=> l'instrument à utiliser --> 
+		<midi>./ressources/rip.mid</midi>		<!-- La melodie à proprement parler --> 
+	</melody>
+</ressources>
+

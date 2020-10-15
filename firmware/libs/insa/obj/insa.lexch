@@ -1,0 +1,29 @@
+[LIBRARY PATH]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/lib/libinsa.a
+[OBJECT FILES]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-graphics-advanced.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-graphics-images.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-graphics-ui.o
+20201015153255
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-graphics.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-keys.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-led.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-memory.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-random_number.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-sensors.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa-timer.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/insa.o
+20201015131013
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/last_chance_handler.o
+20201015131639
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/obj/support.o
+20201015131013

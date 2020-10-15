@@ -1,0 +1,29 @@
+project Sys is
+
+   for Languages use ("C", "asm");
+   for Library_Name use "sys";
+   for Library_Dir use "lib";
+   for Object_Dir use "obj";
+   for Library_Kind use "static";
+   for Target use "arm-eabi";
+   for Source_Dirs use ("src", "src/STM32F7xx_HAL_Driver/Src", "src/STM32F7xx_HAL_Driver/Inc", "src/CMSIS/Include", "src/CMSIS/Device/ST/STM32F7xx/Include", "conf", "src/BSP/STM32746G-Discovery/src", 
+      "src/BSP/STM32746G-Discovery/inc", "src/BSP/Components/Common", "src/BSP/Components/ft5336", "src/BSP/Components/lis2mdl", "src/BSP/Components/lsm6ds3", "src/BSP/Components/rk043fn48h", "src/BSP/Components/wm8994", 
+      "src/BSP/Components/n25q128a", "src/BSP/Components/bmp280", "src/BSP/Components/ov9655", "src/Utilities/Fonts", "src/Middlewares/Third_Party/fatfs", 
+      "src/Middlewares/Third_Party/FreeRTOS/Source/include", "src/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS", 
+      "src/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7_MPU/r0p1", "src/Middlewares/Third_Party/FreeRTOS/Source/portable/Common", "src/Legacy", "res", "src/Legacy/GUI");
+   for Runtime ("ada") use "zfp-armada";
+
+   package Compiler is
+      for Switches ("c") use ("-mlittle-endian", "-mhard-float", "-mcpu=cortex-m7", "-mfpu=fpv5-sp-d16", "-mthumb", "-ffunction-sections", "-fdata-sections", "-DSTM32F746xx", "-DUSE_HAL_DRIVER", "-g", "-O0");
+      for Switches ("asm") use ("-g");
+   end Compiler;
+
+   package Builder is
+      for Switches ("c") use ("-g", "-s", "-j4");
+      for Switches ("asm") use ("-g", "-s");
+   end Builder;
+
+   for Library_Version use "1.0";
+
+end Sys;
+

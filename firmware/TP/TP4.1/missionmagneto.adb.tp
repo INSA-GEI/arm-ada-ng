@@ -1,0 +1,24 @@
+with Magneto ;
+use Magneto  ;
+
+procedure missionmagneto is
+   
+   type Element ;
+   type P_Element is access Element;
+
+   Type Element is 
+      record
+	 Norme : Integer;
+	 Num : Natural;
+	 Suiv : P_Element;
+      end record;
+   
+begin
+   EffacerEcran;
+   EcrireEcran(2,1,"Enregistreur de champ magnetique");  
+   AttendreToucheA;
+   loop     
+      null;
+   end loop;
+   
+end missionmagneto;
