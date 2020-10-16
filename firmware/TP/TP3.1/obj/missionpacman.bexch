@@ -1,0 +1,28 @@
+[GENERATED OBJECT FILE]
+b__missionpacman.o
+[PROJECT FILES]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/pacman.gpr
+20201015134458 63c81de9339a23afa8682f06fc38987b
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/insa.gpr
+20201015123810 7bccf02b67d14e719ccd0df8f91558a4
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/sys.gpr
+20201015123823 fd6988f6f61bfbf393568364d2cc35f2
+[BOUND OBJECT FILES]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/obj/ecran.o
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/obj/carte.o
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/obj/sprites.o
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/obj/lab.o
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/obj/missionpacman.o
+[GENERATED SOURCE FILES]
+b__missionpacman.ads
+b__missionpacman.adb
+b__missionpacman.ali
+[RESULTING OPTIONS]
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/obj/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/obj/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/lib/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/lib/
+-L/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/
+-static
+-static-libgcc
+/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/libgnat.a

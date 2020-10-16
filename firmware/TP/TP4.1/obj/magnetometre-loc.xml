@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<Locations>
+  <Project>
+    <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_file>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/missionmagneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 169" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/missionmagneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/src/missionpacman.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 56" line=" 19" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 14" line=" 19" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/missionmagneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 76" line=" 92" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/missionmagneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 6" line=" 4" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 18" line=" 14" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 30" line=" 19" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 6" line=" 4" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 6" line=" 4" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/magnetometre.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.1/src/magneto.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

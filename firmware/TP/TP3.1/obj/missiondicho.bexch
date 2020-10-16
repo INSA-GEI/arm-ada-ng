@@ -1,0 +1,25 @@
+[GENERATED OBJECT FILE]
+b__missiondicho.o
+[PROJECT FILES]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr
+20201016134847 7af38af96d0a98a9e16443cd00091893
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/insa.gpr
+20201015123810 7bccf02b67d14e719ccd0df8f91558a4
+/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/sys.gpr
+20201015123823 fd6988f6f61bfbf393568364d2cc35f2
+[BOUND OBJECT FILES]
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/obj/nombre.o
+/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/obj/missiondicho.o
+[GENERATED SOURCE FILES]
+b__missiondicho.ads
+b__missiondicho.adb
+b__missiondicho.ali
+[RESULTING OPTIONS]
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/obj/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/obj/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/lib/
+-L/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/lib/
+-L/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/
+-static
+-static-libgcc
+/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/zfp-armada/adalib/libgnat.a

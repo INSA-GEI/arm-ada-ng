@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<Locations>
+  <Project>
+    <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_file>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/plateau.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/plateau.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/missionsnake.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/carte.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/carte.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/src/missionpacman.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 89" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/carte.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 12" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/carte.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 2" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/carte.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 42" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/carte.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 62" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/plateau.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 97" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/snake.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP4.2/src/plateau.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

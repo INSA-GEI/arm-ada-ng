@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project >
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP1/src/missionpacman.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 6" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/nombre.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 15" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/nombre.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 48" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/nombre.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 12" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 14" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 12" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 17" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 14" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 58" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/dichotomie.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/TP/TP3.1/src/missiondicho.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

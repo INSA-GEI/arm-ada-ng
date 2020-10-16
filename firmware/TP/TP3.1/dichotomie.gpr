@@ -1,0 +1,33 @@
+with "../../libs/sys/sys.gpr";
+with "../../libs/insa/insa.gpr";
+
+project Dichotomie is
+
+   for Languages use ("ada");
+   for Main use ("missiondicho.adb");
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Runtime ("ada") use "zfp-armada";
+   for Target use "arm-eabi";
+
+   package Compiler is
+      for Switches ("ada") use ("-g", "-gnatwa", "-gnatQ");
+   end Compiler;
+
+   package Builder is
+      for Switches ("C") use ("-s");
+   end Builder;
+
+   package Ide is
+      for Connection_Tool use "openocd";
+      for Connection_Config_File use "/usr/share/openocd/scripts/board/stm32f7discovery.cfg";
+      for Program_Host use "localhost:4242";
+      for Communication_Protocol use "remote";
+   end Ide;
+
+   package Linker is
+      for Switches ("ada") use ("-Wl,--gc-sections", "-g");
+   end Linker;
+
+end Dichotomie;
+
