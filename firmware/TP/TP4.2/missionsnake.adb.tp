@@ -1,9 +1,0 @@
-with Plateau , Carte ;
-use  Plateau , Carte ;
-
-procedure missionsnake is
-   
-begin   
-  null;
-end missionsnake;
- 

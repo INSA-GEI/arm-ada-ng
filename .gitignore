@@ -81,6 +81,14 @@ firmware/lib
 firmware/sys/obj
 firmware/sys/lib/
 
+# Trash
+trash/
+firmware/trash
+firmware/exemples/exceptions/obj
+firmware/TP/TP2/obj
+firmware/TP/TP1/obj
+firmware/TP/TP3/obj
+
 # Misc
 *.db
 *.cswi

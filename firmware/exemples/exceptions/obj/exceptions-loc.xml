@@ -1,30 +1,193 @@
 <?xml version="1.0"?>
 <Locations >
-  <Project>
-    <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_file>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
-      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/last_chance_handler.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/insa.gpr</vfs_project>
-      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/src/last_chance_handler.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 74" line=" 32" >
-      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/insa.gpr</vfs_project>
-      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/src/last_chance_handler.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/insa.gpr</vfs_project>
-      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/src/last_chance_handler.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 74" line=" 32" >
-      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/insa.gpr</vfs_project>
-      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/insa/src/last_chance_handler.ads</vfs_file>
-    </file_marker>
-    <file_marker current="true" column=" 1" line=" 1" >
+  <Project >
+    <file_marker column=" 1" line=" 32" >
       <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
       <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 943" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 611" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 172" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exextr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 32" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 20" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 30" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1236" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 897" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1160" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1162" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1168" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 942" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 943" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-except.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 628" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 590" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 619" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 619" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 626" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 33" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 626" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 611" >
+      <vfs_project />
+      <vfs_file>/home/dimercur/opt/GNAT/2020-arm-elf/arm-eabi/lib/gnat/ravenscar-full-stm32f746disco/gnat/a-exexpr.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 32" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/exceptions.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/exemples/exceptions/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/sys.gpr</vfs_project>
+      <vfs_file>/home/dimercur/Travail/git/arm-ada-ng/firmware/libs/sys/src/stm32f7xx_it.c</vfs_file>
     </file_marker>
   </Project>
   <Project >
